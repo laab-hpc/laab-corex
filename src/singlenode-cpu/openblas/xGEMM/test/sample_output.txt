@@ -1,0 +1,32 @@
+make: Entering directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM'
+gcc -O3 -c dgemm.c -o /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/dgemm.o
+gcc /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/dgemm.o -o /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/dgemm.exe -lopenblas
+gcc -O3 -c sgemm.c -o /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/sgemm.o
+gcc /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/sgemm.o -o /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/sgemm.exe -lopenblas
+gcc -O3 -c correctness.c -o /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/correctness.o
+gcc /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/correctness.o -o /proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM/test/build/correctness.exe -lopenblas
+make: Leaving directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/singlenode-cpu/openblas/xGEMM'
+DGEMM correctness: PASS
+SGEMM correctness: PASS
+[LAAB-INFO] openblas/dgemm | op_sizes=(m=1000, n=1000) | nthreads=1 | flops=2000000000
+[LAAB] openblas/dgemm | rep=0 | dt=2026-05-29 23:46:33 | dur=0.03692 s | perf=54.16743 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=1 | dt=2026-05-29 23:46:33 | dur=0.03693 s | perf=54.15225 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=2 | dt=2026-05-29 23:46:33 | dur=0.03661 s | perf=54.63048 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=3 | dt=2026-05-29 23:46:33 | dur=0.03693 s | perf=54.16177 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=4 | dt=2026-05-29 23:46:33 | dur=0.03658 s | perf=54.67567 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=5 | dt=2026-05-29 23:46:33 | dur=0.03672 s | perf=54.47053 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=6 | dt=2026-05-29 23:46:34 | dur=0.03675 s | perf=54.42732 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=7 | dt=2026-05-29 23:46:34 | dur=0.03672 s | perf=54.46830 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=8 | dt=2026-05-29 23:46:34 | dur=0.03672 s | perf=54.45967 GFLOP/s | lcpu=25 
+[LAAB] openblas/dgemm | rep=9 | dt=2026-05-29 23:46:34 | dur=0.03672 s | perf=54.46434 GFLOP/s | lcpu=25 
+[LAAB-INFO] openblas/sgemm | op_sizes=(m=1000, n=1000) | nthreads=1 | flops=2000000000
+[LAAB] openblas/sgemm | rep=0 | dt=2026-05-29 23:46:34 | dur=0.01907 s | perf=104.86430 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=1 | dt=2026-05-29 23:46:34 | dur=0.01840 s | perf=108.68880 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=2 | dt=2026-05-29 23:46:34 | dur=0.01832 s | perf=109.17224 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=3 | dt=2026-05-29 23:46:34 | dur=0.01863 s | perf=107.36717 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=4 | dt=2026-05-29 23:46:34 | dur=0.01835 s | perf=108.96741 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=5 | dt=2026-05-29 23:46:34 | dur=0.01854 s | perf=107.86133 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=6 | dt=2026-05-29 23:46:34 | dur=0.01837 s | perf=108.85801 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=7 | dt=2026-05-29 23:46:34 | dur=0.01845 s | perf=108.40607 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=8 | dt=2026-05-29 23:46:34 | dur=0.01835 s | perf=108.97937 GFLOP/s | lcpu=12 
+[LAAB] openblas/sgemm | rep=9 | dt=2026-05-29 23:46:34 | dur=0.01843 s | perf=108.50040 GFLOP/s | lcpu=12 
