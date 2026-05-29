@@ -1,0 +1,70 @@
+# Compiled objects and libraries
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.lib
+
+# Executables and debug symbols
+*.out
+*.exe
+*.app
+*.pdb
+*.dSYM/
+
+# Dependency and coverage files
+*.d
+*.gcno
+*.gcda
+*.gcov
+*.prof
+*.profraw
+*.profdata
+
+# Build directories
+build/
+Build/
+bin/
+lib/
+Debug/
+Release/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+
+# Autotools
+autom4te.cache/
+aclocal.m4
+config.log
+config.status
+configure
+libtool
+m4/
+Makefile.in
+
+# Make artifacts
+*.make
+
+# Logs and runtime outputs
+*.log
+core
+core.*
+
+# Editors/OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
