@@ -1,3 +1,4 @@
+module load GCC FlexiBLAS
 export LAAB_BUILD_DIR=$(pwd)/build
 make -C ../
 ./build/correctness.exe
