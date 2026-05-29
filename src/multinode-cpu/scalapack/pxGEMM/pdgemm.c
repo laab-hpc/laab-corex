@@ -99,8 +99,9 @@ int main(int argc, char **argv)
 
     MPI_Init(&argc, &argv);
 
-    int world_rank;
+    int world_rank, world_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
     int mypnum, nprocs;
     blacs_pinfo_(&mypnum, &nprocs);
@@ -181,6 +182,13 @@ int main(int argc, char **argv)
     const int one = 1;
     const double alpha = 1.0;
     const double beta = 0.0;
+    const double flops = 2.0 * (double)m * (double)n * (double)k;
+
+    if (world_rank == 0) {
+        printf("[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=%d, n=%d) | nranks=%d | flops=%.0f\n",
+               m, n, world_size, flops);
+        fflush(stdout);
+    }
 
     /* Warmup */
     pdgemm_("N", "N", &m, &n, &k, &alpha,
@@ -210,7 +218,6 @@ int main(int argc, char **argv)
         MPI_Reduce(&local_elapsed, &elapsed, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
 
         if (world_rank == 0) {
-            double flops = 2.0 * (double)m * (double)n * (double)k;
             double gflops = flops / elapsed / 1e9;
 
             time_t now = time(NULL);
@@ -219,7 +226,7 @@ int main(int argc, char **argv)
             strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
             int cpu = sched_getcpu();
-            printf("[LAAB] scalapack/pdgemm | rep=%d | dt=%s | dur=%.3f s | perf=%.2f GFLOP/s | cpu=%d \n",
+            printf("[LAAB] scalapack/pdgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | cpu=%d \n",
                    r, datetime, elapsed, gflops, cpu);
             fflush(stdout);
         }

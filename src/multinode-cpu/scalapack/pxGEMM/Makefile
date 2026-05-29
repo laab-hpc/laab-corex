@@ -16,13 +16,17 @@ endif
 # Ensure build dir exists
 $(shell mkdir -p $(LAAB_BUILD_DIR))
 
-all: pdgemm
+all: pdgemm correctness
 
 pdgemm:
 	$(CC) $(CFLAGS) -c pdgemm.c -o $(LAAB_BUILD_DIR)/pdgemm.o
 	$(CC) $(LAAB_BUILD_DIR)/pdgemm.o -o $(LAAB_BUILD_DIR)/pdgemm.exe $(LDLIBS)
 
-.PHONY: all pdgemm clean
+correctness:
+	$(CC) $(CFLAGS) -c correctness.c -o $(LAAB_BUILD_DIR)/correctness.o
+	$(CC) $(LAAB_BUILD_DIR)/correctness.o -o $(LAAB_BUILD_DIR)/correctness.exe $(LDLIBS)
+
+.PHONY: all pdgemm correctness clean
 
 clean:
-	rm -f $(LAAB_BUILD_DIR)/pdgemm.o $(LAAB_BUILD_DIR)/pdgemm.exe
+	rm -f $(LAAB_BUILD_DIR)/*.o $(LAAB_BUILD_DIR)/*.exe 

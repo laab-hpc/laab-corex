@@ -9,7 +9,7 @@ endif
 # Ensure build dir exists
 $(shell mkdir -p $(LAAB_BUILD_DIR))
 
-all: dgemm sgemm
+all: dgemm sgemm correctness
 
 dgemm:
 	gcc -O3 -c dgemm.c -o $(LAAB_BUILD_DIR)/dgemm.o

@@ -69,6 +69,10 @@ int main(int argc, char **argv)
     const int k = n;
     const double alpha = 1.0;
     const double beta = 0.0;
+    const double flops = 2.0 * (double)m * (double)n * (double)k;
+    const char *omp_env = getenv("OMP_NUM_THREADS");
+    int nthreads = omp_env ? atoi(omp_env) : 1;
+    if (nthreads <= 0) nthreads = 1;
 
     size_t szA = (size_t)m * (size_t)k;
     size_t szB = (size_t)k * (size_t)n;
@@ -90,6 +94,10 @@ int main(int argc, char **argv)
     for (size_t i = 0; i < szA; ++i) A[i] = drand48();
     for (size_t i = 0; i < szB; ++i) B[i] = drand48();
 
+    printf("[LAAB-INFO] openblas/dgemm | op_sizes=(m=%d, n=%d) | nthreads=%d | flops=%.0f\n",
+           m, n, nthreads, flops);
+    fflush(stdout);
+
     for (size_t i = 0; i < szC; ++i) C[i] = 0.0;
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
                 m, n, k, alpha, A, k, B, n, beta, C, n);
@@ -109,7 +117,6 @@ int main(int argc, char **argv)
 
         double elapsed = (double)(end.tv_sec - start.tv_sec) +
                          (double)(end.tv_nsec - start.tv_nsec) / (double)BILLION;
-        double flops = 2.0 * (double)m * (double)n * (double)k;
         double gflops = flops / elapsed / 1e9;
 
         time_t now = time(NULL);
@@ -118,7 +125,7 @@ int main(int argc, char **argv)
         strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
         int cpu = sched_getcpu();
-        printf("[LAAB] openblas/dgemm | rep=%d | dt=%s | dur=%.3f s | perf=%.2f GFLOP/s | lcpu=%d \n",
+        printf("[LAAB] openblas/dgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | lcpu=%d \n",
                r, datetime, elapsed, gflops, cpu);
         fflush(stdout);
     }

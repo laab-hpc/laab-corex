@@ -1,0 +1,5 @@
+export LAAB_BUILD_DIR=$(pwd)/build
+make -C ../
+./build/correctness.exe
+./build/dgemm.exe -n 1000 -m 1000 --reps 10
+./build/sgemm.exe -n 1000 -m 1000 --reps 10

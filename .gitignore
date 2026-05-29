@@ -57,6 +57,7 @@ Makefile.in
 
 # Logs and runtime outputs
 *.log
+*.err
 core
 core.*
 

@@ -9,10 +9,7 @@
 
 set -euo pipefail
 
-ROOT_DIR=/proj/nobackup/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM
-cd "$ROOT_DIR"
-
-export LAAB_BUILD_DIR="${LAAB_BUILD_DIR:-$ROOT_DIR/build}"
+export LAAB_BUILD_DIR=$(pwd)/build
 
 module load GCC OpenMPI ScaLAPACK
 
@@ -24,7 +21,9 @@ B="${B:-256}"
 REPS="${REPS:-5}"
 NP="${NP:-40}"
 
-make clean
-make
+make -C ../ clean
+make -C ../
+
+srun -n 4 $LAAB_BUILD_DIR/correctness.exe
 
 srun -n "$NP" "$LAAB_BUILD_DIR/pdgemm.exe" -m "$M" -n "$N" -b "$B" --reps "$REPS"
