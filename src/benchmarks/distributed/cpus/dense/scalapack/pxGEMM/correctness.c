@@ -190,9 +190,9 @@ static int check_pdgemm(void)
 
     if (mypnum == 0) {
         if (global_ok) {
-            printf("PDGEMM correctness: PASS\n");
+            printf("[LAAB-INFO] scalapack/pdgemm | correctness=PASS\n");
         } else {
-            printf("PDGEMM correctness: FAIL\n");
+            printf("[LAAB-INFO] scalapack/pdgemm | correctness=FAIL\n");
             printf("Expected relation: C = 2*A for explicit 16x16 test matrices.\n");
         }
     }

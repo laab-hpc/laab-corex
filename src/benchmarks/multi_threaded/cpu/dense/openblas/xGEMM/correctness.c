@@ -44,11 +44,11 @@ static int check_dgemm(void)
     }
 
     if (ok) {
-        printf("DGEMM correctness: PASS\n");
+        printf("[LAAB-INFO] openblas/dgemm | correctness=PASS\n");
         return 1;
     }
 
-    printf("DGEMM correctness: FAIL\n");
+    printf("[LAAB-INFO] openblas/dgemm | correctness=FAIL\n");
     printf("Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
     printf("[%.1f %.1f]\n", expected[2], expected[3]);
@@ -99,11 +99,11 @@ static int check_sgemm(void)
     }
 
     if (ok) {
-        printf("SGEMM correctness: PASS\n");
+        printf("[LAAB-INFO] openblas/sgemm | correctness=PASS\n");
         return 1;
     }
 
-    printf("SGEMM correctness: FAIL\n");
+    printf("[LAAB-INFO] openblas/sgemm | correctness=FAIL\n");
     printf("Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
     printf("[%.1f %.1f]\n", expected[2], expected[3]);

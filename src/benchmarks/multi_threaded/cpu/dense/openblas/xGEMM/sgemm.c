@@ -94,7 +94,7 @@ int main(int argc, char **argv)
     for (size_t i = 0; i < szA; ++i) A[i] = (float)drand48();
     for (size_t i = 0; i < szB; ++i) B[i] = (float)drand48();
 
-    printf("[LAAB-INFO] openblas/sgemm | op_sizes=(m=%d, n=%d) | nthreads=%d | flops=%.0f\n",
+    printf("[LAAB-INFO] openblas/sgemm | op_sizes=(m=%d, n=%d) | nt=%d | flops=%.0f\n",
            m, n, nthreads, flops);
     fflush(stdout);
 
@@ -125,8 +125,8 @@ int main(int argc, char **argv)
         strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
         int cpu = sched_getcpu();
-        printf("[LAAB] openblas/sgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | lcpu=%d \n",
-               r, datetime, elapsed, gflops, cpu);
+        printf("[LAAB] openblas/sgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nt=%d | cid=%d \n",
+               r, datetime, elapsed, gflops, nthreads, cpu);
         fflush(stdout);
     }
 

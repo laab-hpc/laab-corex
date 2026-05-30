@@ -12,7 +12,7 @@ Thread(s) per core:                      1
 Core(s) per socket:                      14
 Socket(s):                               2
 Stepping:                                4
-CPU(s) scaling MHz:                      52%
+CPU(s) scaling MHz:                      62%
 CPU max MHz:                             3700.0000
 CPU min MHz:                             1000.0000
 BogoMIPS:                                5200.00
@@ -42,19 +42,19 @@ Vulnerability Srbds:                     Not affected
 Vulnerability Tsa:                       Not affected
 Vulnerability Tsx async abort:           Mitigation; Clear CPU buffers; SMT disabled
 Vulnerability Vmscape:                   Mitigation; IBPB before exit to userspace
-make: Entering directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM'
-rm -f /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/*.o /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/*.exe 
-make: Leaving directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM'
-make: Entering directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM'
-mpicc -O3 -c pdgemm.c -o /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/pdgemm.o
-mpicc /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/pdgemm.o -o /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/pdgemm.exe -lscalapack  -lopenblas  -lm
-mpicc -O3 -c correctness.c -o /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/correctness.o
-mpicc /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/correctness.o -o /pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM/test/build/correctness.exe -lscalapack  -lopenblas  -lm
-make: Leaving directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-dense/src/multinode-cpu/scalapack/pxGEMM'
-PDGEMM correctness: PASS
-[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=10000, n=10000) | nranks=40 | flops=2000000000000
-[LAAB] scalapack/pdgemm | rep=0 | dt=2026-05-29 23:35:33 | dur=3.41827 s | perf=585.09162 GFLOP/s | cpu=0 
-[LAAB] scalapack/pdgemm | rep=1 | dt=2026-05-29 23:35:37 | dur=3.39477 s | perf=589.14083 GFLOP/s | cpu=0 
-[LAAB] scalapack/pdgemm | rep=2 | dt=2026-05-29 23:35:40 | dur=3.38787 s | perf=590.34106 GFLOP/s | cpu=0 
-[LAAB] scalapack/pdgemm | rep=3 | dt=2026-05-29 23:35:44 | dur=3.35762 s | perf=595.65984 GFLOP/s | cpu=0 
-[LAAB] scalapack/pdgemm | rep=4 | dt=2026-05-29 23:35:47 | dur=3.33063 s | perf=600.48723 GFLOP/s | cpu=0 
+make: Entering directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM'
+rm -f /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/*.o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/*.exe 
+make: Leaving directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM'
+make: Entering directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM'
+mpicc -O3 -c pdgemm.c -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.o
+mpicc /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.o -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.exe -lscalapack  -lopenblas  -lm
+mpicc -O3 -c correctness.c -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.o
+mpicc /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.o -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.exe -lscalapack  -lopenblas  -lm
+make: Leaving directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/distributed/cpus/dense/scalapack/pxGEMM'
+[LAAB-INFO] scalapack/pdgemm | correctness=PASS
+[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=10000, n=10000) | np=40 | flops=2000000000000
+[LAAB] scalapack/pdgemm | rep=0 | dt=2026-05-30 18:59:05 | dur=3.65887 s | perf=546.61634 GFLOP/s | np=40 | cid=0 
+[LAAB] scalapack/pdgemm | rep=1 | dt=2026-05-30 18:59:08 | dur=3.63475 s | perf=550.24449 GFLOP/s | np=40 | cid=0 
+[LAAB] scalapack/pdgemm | rep=2 | dt=2026-05-30 18:59:12 | dur=3.62775 s | perf=551.30564 GFLOP/s | np=40 | cid=0 
+[LAAB] scalapack/pdgemm | rep=3 | dt=2026-05-30 18:59:15 | dur=3.57877 s | perf=558.85057 GFLOP/s | np=40 | cid=0 
+[LAAB] scalapack/pdgemm | rep=4 | dt=2026-05-30 18:59:19 | dur=3.60821 s | perf=554.29125 GFLOP/s | np=40 | cid=0 

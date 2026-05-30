@@ -1,0 +1,32 @@
+make: Entering directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM'
+gcc -O3 -c dgemm.c -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/dgemm.o
+gcc /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/dgemm.o -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/dgemm.exe -lopenblas
+gcc -O3 -c sgemm.c -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/sgemm.o
+gcc /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/sgemm.o -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/sgemm.exe -lopenblas
+gcc -O3 -c correctness.c -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/correctness.o
+gcc /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/correctness.o -o /proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM/test/build/correctness.exe -lopenblas
+make: Leaving directory '/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/linx-benchmarks/src/benchmarks/multi_threaded/cpu/dense/openblas/xGEMM'
+[LAAB-INFO] openblas/dgemm | correctness=PASS
+[LAAB-INFO] openblas/sgemm | correctness=PASS
+[LAAB-INFO] openblas/dgemm | op_sizes=(m=1000, n=1000) | nt=1 | flops=2000000000
+[LAAB] openblas/dgemm | rep=0 | dt=2026-05-30 19:01:38 | dur=0.03644 s | perf=54.87986 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=1 | dt=2026-05-30 19:01:38 | dur=0.03642 s | perf=54.91657 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=2 | dt=2026-05-30 19:01:38 | dur=0.03642 s | perf=54.92024 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=3 | dt=2026-05-30 19:01:39 | dur=0.03640 s | perf=54.93842 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=4 | dt=2026-05-30 19:01:39 | dur=0.03649 s | perf=54.81446 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=5 | dt=2026-05-30 19:01:39 | dur=0.03649 s | perf=54.81588 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=6 | dt=2026-05-30 19:01:39 | dur=0.03644 s | perf=54.88665 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=7 | dt=2026-05-30 19:01:39 | dur=0.03641 s | perf=54.92637 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=8 | dt=2026-05-30 19:01:39 | dur=0.03638 s | perf=54.97222 GFLOP/s | nt=1 | cid=4
+[LAAB] openblas/dgemm | rep=9 | dt=2026-05-30 19:01:39 | dur=0.03637 s | perf=54.98985 GFLOP/s | nt=1 | cid=4
+[LAAB-INFO] openblas/sgemm | op_sizes=(m=1000, n=1000) | nt=1 | flops=2000000000
+[LAAB] openblas/sgemm | rep=0 | dt=2026-05-30 19:01:39 | dur=0.01796 s | perf=111.35537 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=1 | dt=2026-05-30 19:01:39 | dur=0.01795 s | perf=111.41864 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=2 | dt=2026-05-30 19:01:39 | dur=0.01794 s | perf=111.49511 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=3 | dt=2026-05-30 19:01:39 | dur=0.01795 s | perf=111.39911 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=4 | dt=2026-05-30 19:01:39 | dur=0.01797 s | perf=111.31003 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=5 | dt=2026-05-30 19:01:39 | dur=0.01794 s | perf=111.48018 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=6 | dt=2026-05-30 19:01:39 | dur=0.01795 s | perf=111.44768 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=7 | dt=2026-05-30 19:01:39 | dur=0.01794 s | perf=111.51050 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=8 | dt=2026-05-30 19:01:39 | dur=0.01794 s | perf=111.49929 GFLOP/s | nt=1 | cid=15 
+[LAAB] openblas/sgemm | rep=9 | dt=2026-05-30 19:01:39 | dur=0.01799 s | perf=111.19249 GFLOP/s | nt=1 | cid=15 

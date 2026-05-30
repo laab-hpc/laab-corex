@@ -1,0 +1,3 @@
+FFTW
+oneMKL DFT (Intel)
+NVPL FFT (NVIDIA Grace)

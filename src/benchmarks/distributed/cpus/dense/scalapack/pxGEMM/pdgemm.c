@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     const double flops = 2.0 * (double)m * (double)n * (double)k;
 
     if (world_rank == 0) {
-        printf("[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=%d, n=%d) | nranks=%d | flops=%.0f\n",
+        printf("[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=%d, n=%d) | np=%d | flops=%.0f\n",
                m, n, world_size, flops);
         fflush(stdout);
     }
@@ -226,8 +226,8 @@ int main(int argc, char **argv)
             strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
             int cpu = sched_getcpu();
-            printf("[LAAB] scalapack/pdgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | cpu=%d \n",
-                   r, datetime, elapsed, gflops, cpu);
+            printf("[LAAB] scalapack/pdgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | np=%d | cid=%d \n",
+                   r, datetime, elapsed, gflops, world_size, cpu);
             fflush(stdout);
         }
     }
