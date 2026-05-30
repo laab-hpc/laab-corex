@@ -22,6 +22,9 @@
 #SBATCH --cpus-per-task=24
 #SBATCH -A hpc2n2026-184
       </sub>
+      <sub source="#MODULES#">
+module load GCC FlexiBLAS
+      </sub>
       <sub source="#LINX_ROOT#" dest="$linx_root" />
       <sub source="#DATA_DIR#" dest="$data_dir" />
       <sub source="#NTHREADS#" dest="$nthreads" />
