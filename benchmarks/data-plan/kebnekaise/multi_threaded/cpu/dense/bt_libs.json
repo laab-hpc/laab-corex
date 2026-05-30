@@ -1,0 +1,14 @@
+{
+    "dgemm/23": {
+        "ranking_data": {
+            "openblas": [1,2,3],
+            "nvpl": [1,2,3],
+            "blis": [1,2,3]
+        },
+        "ranks": {
+            "openblas": 1,
+            "nvpl": 2,
+            "blis": 3
+        }
+    }
+}

@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH --job-name=linx-openblas
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=00:20:00
+#SBATCH --output=slurm.out
+#SBATCH --error=slurm.err
+#ACCOUNT_CONFIG#
+
+set -euo pipefail
+
+BM_KEY=multi_threaded/cpu/dense/openblas
+
+SRC_DIR=#LINX_ROOT#/src/benchmark_codes/$BM_KEY
+DATA_DIR=#DATA_DIR#
+
+
+export LAAB_BUILD_DIR=$(pwd)/build
+
+module load GCC OpenMPI ScaLAPACK
+
+REPS="${REPS:-5}"
+
+NT=#NTHREADS#
+export OMP_NUM_THREADS=$NT
+
+make -C $SRC_DIR/xGEMM clean
+make -C $SRC_DIR/xGEMM
+srun $LAAB_BUILD_DIR/correctness.exe > traces.txt
+srun "$LAAB_BUILD_DIR/dgemm.exe" -m 1000 -n 1000 --reps "$REPS" >> traces.txt
+srun "$LAAB_BUILD_DIR/sgemm.exe" -m 1000 -n 1000 --reps "$REPS" >> traces.txt
+

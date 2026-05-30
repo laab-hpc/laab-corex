@@ -1,0 +1,13 @@
+{
+    "dgemm/23": {
+        "ranking_data": {
+            "kebnakaise": [1,2,3],
+            "jupiter": [1,2,3]
+        },
+        "ranks": {
+            "kebnekaise": 1,
+            "jupiter": 2
+        }
+    }
+    
+}
