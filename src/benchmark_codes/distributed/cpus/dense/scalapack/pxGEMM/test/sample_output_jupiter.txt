@@ -1,0 +1,97 @@
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  288
+On-line CPU(s) list:                     0-287
+Vendor ID:                               ARM
+Model name:                              Neoverse-V2
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      72
+Socket(s):                               4
+Stepping:                                r0p0
+Frequency boost:                         disabled
+CPU(s) scaling MHz:                      100%
+CPU max MHz:                             3429.0000
+CPU min MHz:                             81.0000
+BogoMIPS:                                2000.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh
+L1d cache:                               18 MiB (288 instances)
+L1i cache:                               18 MiB (288 instances)
+L2 cache:                                288 MiB (288 instances)
+L3 cache:                                456 MiB (4 instances)
+NUMA node(s):                            36
+NUMA node0 CPU(s):                       0-71
+NUMA node1 CPU(s):                       72-143
+NUMA node2 CPU(s):                       144-215
+NUMA node3 CPU(s):                       216-287
+NUMA node4 CPU(s):                       
+NUMA node5 CPU(s):                       
+NUMA node6 CPU(s):                       
+NUMA node7 CPU(s):                       
+NUMA node8 CPU(s):                       
+NUMA node9 CPU(s):                       
+NUMA node10 CPU(s):                      
+NUMA node11 CPU(s):                      
+NUMA node12 CPU(s):                      
+NUMA node13 CPU(s):                      
+NUMA node14 CPU(s):                      
+NUMA node15 CPU(s):                      
+NUMA node16 CPU(s):                      
+NUMA node17 CPU(s):                      
+NUMA node18 CPU(s):                      
+NUMA node19 CPU(s):                      
+NUMA node20 CPU(s):                      
+NUMA node21 CPU(s):                      
+NUMA node22 CPU(s):                      
+NUMA node23 CPU(s):                      
+NUMA node24 CPU(s):                      
+NUMA node25 CPU(s):                      
+NUMA node26 CPU(s):                      
+NUMA node27 CPU(s):                      
+NUMA node28 CPU(s):                      
+NUMA node29 CPU(s):                      
+NUMA node30 CPU(s):                      
+NUMA node31 CPU(s):                      
+NUMA node32 CPU(s):                      
+NUMA node33 CPU(s):                      
+NUMA node34 CPU(s):                      
+NUMA node35 CPU(s):                      
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+make: Entering directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
+rm -f /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/*.o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/*.exe 
+make: Leaving directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
+make: Entering directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
+mpicc -O3 -c pdgemm.c -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.o
+mpicc /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.o -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.exe -lscalapack  -lopenblas  -lm
+mpicc -O3 -c correctness.c -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.o
+mpicc /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.o -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.exe -lscalapack  -lopenblas  -lm
+make: Leaving directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
+[LAAB-INFO] scalapack/pdgemm | correctness=PASS
+[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=10000, n=10000) | np=576 | flops=2000000000000
+[LAAB] scalapack/pdgemm | rep=0 | dt=2026-06-01 13:29:32 | dur=0.29401 s | perf=6802.55306 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=1 | dt=2026-06-01 13:29:33 | dur=0.29056 s | perf=6883.32023 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=2 | dt=2026-06-01 13:29:33 | dur=0.28864 s | perf=6929.11320 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=3 | dt=2026-06-01 13:29:33 | dur=0.30350 s | perf=6589.70031 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=4 | dt=2026-06-01 13:29:33 | dur=0.29275 s | perf=6831.66079 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=5 | dt=2026-06-01 13:29:34 | dur=0.29621 s | perf=6752.02555 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=6 | dt=2026-06-01 13:29:34 | dur=0.29358 s | perf=6812.54213 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=7 | dt=2026-06-01 13:29:34 | dur=0.28712 s | perf=6965.79601 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=8 | dt=2026-06-01 13:29:35 | dur=0.29318 s | perf=6821.70794 GFLOP/s | np=576 | cid=0 
+[LAAB] scalapack/pdgemm | rep=9 | dt=2026-06-01 13:29:35 | dur=0.28691 s | perf=6970.75415 GFLOP/s | np=576 | cid=0 
