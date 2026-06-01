@@ -21,11 +21,11 @@ M="${M:-10000}"
 N="${N:-10000}"
 B="${B:-256}"
 REPS="${REPS:-10}"
-NP="${NP:-576}"
+NP="${NP:-20}"
 
 make -C ../ clean
 make -C ../
 
 srun -n 4 $LAAB_BUILD_DIR/correctness.exe
-# export OMP_NUM_THREADS=5
+export OMP_NUM_THREADS=1
 srun -n "$NP" "$LAAB_BUILD_DIR/pdgemm.exe" -m "$M" -n "$N" -b "$B" --reps "$REPS"
