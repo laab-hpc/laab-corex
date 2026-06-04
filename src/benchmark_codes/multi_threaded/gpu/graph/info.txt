@@ -1,3 +1,0 @@
-cuGRAPH
-rocGRAPH
-SYCL GraphBLAS

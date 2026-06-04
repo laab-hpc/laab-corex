@@ -1,3 +1,0 @@
-oneDNN (Intel)
-XNNPACK (Google)
-NVPL Tensor

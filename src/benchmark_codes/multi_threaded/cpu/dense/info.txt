@@ -1,6 +1,0 @@
-OpenBLAS
-BLIS
-Netlib
-oneMKL (Intel)
-NVPL (NVIDIA Grace)
-Torch (Aten)

@@ -1,0 +1,35 @@
+operations:
+    GEMM
+    GEMV
+    GER
+    GETRD
+    GETRS
+    POTRF
+    POTRS
+    SCAL
+    TRSM
+
+mt_cpu:
+    libraries (cblas):
+        OpenBLAS -lopenblas
+        iMKL (Intel) -lmkl_rt
+        AOCL-BLAS (AMD) -lblis-mt
+        NVPL (NVIDIA Grace)
+
+    libraries (python)
+        pytorch (aten)
+
+distributed_cpu:
+    scalapack
+    nvpl_scalapack
+    slate
+
+mt_gpu:
+    cuBLAS
+    cuSOLVER
+    rocBLAS
+    rocSOLVER
+    hipBLAS
+    hipSOLVER
+    SYCL BLAS
+

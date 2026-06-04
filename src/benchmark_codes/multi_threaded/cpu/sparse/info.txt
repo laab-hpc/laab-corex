@@ -1,4 +1,0 @@
-SuiteSparce
-SuperLU
-oneMKL Sparse (Intel)
-NVPL Sparse (NVIDIA Grace)

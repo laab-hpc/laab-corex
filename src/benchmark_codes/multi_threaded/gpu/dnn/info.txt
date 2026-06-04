@@ -1,5 +1,0 @@
-cuDNN
-TensorRT
-MIOpen
-MIGraphx
-oneDNN

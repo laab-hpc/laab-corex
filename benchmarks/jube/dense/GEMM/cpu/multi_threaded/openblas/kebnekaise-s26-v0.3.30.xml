@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+  <benchmark name="linx-openblas" outpath="artifacts">
+    <comment>linx-openblas</comment>
+
+    <!-- Configuration -->
+    <parameterset name="system_params" init_with="../kebnekaise_params.xml" />     
+
+    <!-- Files -->
+    <fileset name="files">
+      <copy>../cblas.submit.in</copy>
+    </fileset>
+
+    <!-- Substitute -->
+    <substituteset name="slurm_substitute">
+      <iofile in="cblas.submit.in" out="submit.sh" />
+      <sub source="#ACCOUNT_CONFIG#" dest="$account_config" /> 
+      <sub source="#MODULES#">
+module load GCC OpenBLAS FlexiBLAS
+      </sub>
+      <sub source="#BLAS_LINKER#">-lopenblas</sub>
+      <sub source="#SRC_ROOT#" dest="$src_root" />
+      <sub source="#DATA_DIR#" dest="$data_dir" />
+      <sub source="#NTHREADS#" dest="$nthreads" />
+    </substituteset>
+
+    <!-- Operation -->
+    <step name="step">
+      <use>system_params</use> <!-- use existing parameterset -->
+      <use>files</use>        <!-- use existing fileset -->
+      <use>slurm_substitute</use>   <!-- use existing substituteset -->
+      <do>sbatch submit.sh</do>   <!-- shell command -->
+    </step>
+  </benchmark>
+</jube>

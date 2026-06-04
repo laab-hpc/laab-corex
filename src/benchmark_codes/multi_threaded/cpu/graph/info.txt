@@ -1,2 +1,0 @@
-GraphBLAS
-SuiteSparse:GraphBLAS

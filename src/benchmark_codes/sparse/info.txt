@@ -1,0 +1,6 @@
+petsc
+cuSPARSE
+cuDSS
+rocSPARSE
+hipSPARSE
+SYCL Sparse

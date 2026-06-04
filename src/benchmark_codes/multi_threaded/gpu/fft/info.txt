@@ -1,4 +1,0 @@
-cuFFT
-rocFFT
-hipFFT
-oneMKL DFT
