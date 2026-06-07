@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+  <benchmark name="aocl_cpu_zen4" outpath="artifacts_cpu_zen4">
+    <comment>aocl_cpu_zen4</comment>
+
+    <!-- Configuration -->
+    <parameterset name="system_params">
+      <parameter name="nthreads" type="int">1,4,128</parameter>
+      <parameter name="src_root">/proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks</parameter>
+      <parameter name="data_dir">${src_root}/benchmarks/data</parameter>
+      <parameter name="account_config">
+#SBATCH --cpus-per-task=${nthreads}
+#SBATCH -A hpc2n2026-184
+#SBATCH --threads-per-core=1
+#SBATCH -C zen4
+      </parameter>
+    </parameterset>
+
+    <parameterset name="lib_params">
+      <parameter name="modules">
+module load GCC AOCL-BLAS FlexiBLAS
+      </parameter>
+      <parameter name="blas_linker">-lblis-mt</parameter>
+    </parameterset>
+
+    <!-- Files -->
+    <fileset name="files">
+      <copy>../../cblas.submit.in</copy>
+    </fileset>
+
+    <!-- Substitute -->
+    <substituteset name="slurm_substitute">
+      <iofile in="cblas.submit.in" out="submit.sh" />
+      <sub source="#ACCOUNT_CONFIG#" dest="$account_config" /> 
+      <sub source="#MODULES#"  dest="$modules" />
+      <sub source="#BLAS_LINKER#" dest="$blas_linker" />
+      <sub source="#SRC_ROOT#" dest="$src_root" />
+      <sub source="#DATA_DIR#" dest="$data_dir" />
+      <sub source="#NTHREADS#" dest="$nthreads" />
+    </substituteset>
+
+    <!-- Operation -->
+    <step name="exec_step">
+      <use>system_params</use> 
+      <use>lib_params</use> 
+      <use>files</use>       
+      <use>slurm_substitute</use>   <!-- use existing substituteset -->
+      <do>sbatch submit.sh</do>   <!-- shell command -->
+    </step>
+  </benchmark>
+</jube>

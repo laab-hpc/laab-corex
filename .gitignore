@@ -33,7 +33,7 @@ bin/
 lib/
 Debug/
 Release/
-artifacts/
+artifacts_*/
 
 # CMake
 CMakeFiles/
