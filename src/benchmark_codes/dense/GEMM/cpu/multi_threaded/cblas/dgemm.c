@@ -2,22 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
 #include <getopt.h>
 #include <sched.h>
 #include <cblas.h>
+#include "utils.h"
 
-#define BILLION 1000000000L
-#define SCRUB_SIZE (50 * 1024 * 1024)
-
-static void cache_scrub(void)
-{
-    double *scrub = (double *)malloc((size_t)SCRUB_SIZE * sizeof(double));
-    if (!scrub) return;
-
-    for (size_t i = 0; i < (size_t)SCRUB_SIZE; ++i) scrub[i] = 0.0;
-    free(scrub);
-}
 
 static void usage(const char *prog)
 {
@@ -66,6 +55,9 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
+    FILE *log_file = laab_open_log_file();
+    if (!log_file) return EXIT_FAILURE;
+
     const int k = n;
     const double alpha = 1.0;
     const double beta = 0.0;
@@ -94,9 +86,9 @@ int main(int argc, char **argv)
     for (size_t i = 0; i < szA; ++i) A[i] = drand48();
     for (size_t i = 0; i < szB; ++i) B[i] = drand48();
 
-    printf("[LAAB-INFO] cblas/dgemm | op_sizes=(m=%d, n=%d) | nt=%d | flops=%.0f\n",
+    fprintf(log_file, "[LAAB-INFO] cblas/dgemm | op_sizes=(m=%d, n=%d) | nt=%d | flops=%.0f\n",
            m, n, nthreads, flops);
-    fflush(stdout);
+    fflush(log_file);
 
     for (size_t i = 0; i < szC; ++i) C[i] = 0.0;
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
@@ -125,9 +117,9 @@ int main(int argc, char **argv)
         strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
         int cpu = sched_getcpu();
-        printf("[LAAB] cblas/dgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nt=%d | cid=%d\n",
+        fprintf(log_file, "[LAAB] cblas/dgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nt=%d | cid=%d\n",
                r, datetime, elapsed, gflops, nthreads, cpu);
-        fflush(stdout);
+        fflush(log_file);
     }
 
     free(A);

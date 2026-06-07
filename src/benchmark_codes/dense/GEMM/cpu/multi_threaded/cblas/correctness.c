@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <cblas.h>
+#include "utils.h"
 
 static int check_dgemm(void)
 {
@@ -43,13 +44,16 @@ static int check_dgemm(void)
         }
     }
 
+    FILE *log_file = laab_open_log_file();
+    if (!log_file) return EXIT_FAILURE;
+
     if (ok) {
-        printf("[LAAB-INFO] cblas/dgemm | correctness=PASS\n");
+        fprintf(log_file, "[LAAB-INFO] cblas/dgemm | correctness=PASS\n");
         return 1;
     }
 
-    printf("[LAAB-INFO] cblas/dgemm | correctness=FAIL\n");
-    printf("Expected:\n");
+    fprintf(log_file, "[LAAB-INFO] cblas/dgemm | correctness=FAIL\n");
+    printf("Correctness check failed. Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
     printf("[%.1f %.1f]\n", expected[2], expected[3]);
     printf("Got:\n");
@@ -98,13 +102,16 @@ static int check_sgemm(void)
         }
     }
 
+    FILE *log_file = laab_open_log_file();
+    if (!log_file) return EXIT_FAILURE;
+
     if (ok) {
-        printf("[LAAB-INFO] cblas/sgemm | correctness=PASS\n");
+        fprintf(log_file, "[LAAB-INFO] cblas/sgemm | correctness=PASS\n");
         return 1;
     }
 
-    printf("[LAAB-INFO] cblas/sgemm | correctness=FAIL\n");
-    printf("Expected:\n");
+    fprintf(log_file, "[LAAB-INFO] cblas/sgemm | correctness=FAIL\n");
+    printf("Correctness check failed. Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
     printf("[%.1f %.1f]\n", expected[2], expected[3]);
     printf("Got:\n");
