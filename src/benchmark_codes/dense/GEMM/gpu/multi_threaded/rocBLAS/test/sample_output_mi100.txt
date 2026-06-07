@@ -1,0 +1,56 @@
+[LAAB-INFO] rocblas/dgemm | correctness=PASS
+[LAAB-INFO] rocblas/sgemm | correctness=PASS
+[LAAB-INFO] rocblas/dgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/dgemm | rep=0 | dt=2026-06-07 23:16:40 | dur=0.897 s | perf=6021.92 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=1 | dt=2026-06-07 23:16:41 | dur=0.822 s | perf=6567.82 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=2 | dt=2026-06-07 23:16:41 | dur=0.856 s | perf=6305.68 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=3 | dt=2026-06-07 23:16:42 | dur=0.803 s | perf=6728.41 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=4 | dt=2026-06-07 23:16:43 | dur=0.821 s | perf=6576.24 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/sgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/sgemm | rep=0 | dt=2026-06-07 23:16:46 | dur=0.432 s | perf=12487.29 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=1 | dt=2026-06-07 23:16:46 | dur=0.149 s | perf=36219.47 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=2 | dt=2026-06-07 23:16:46 | dur=0.150 s | perf=35989.21 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=3 | dt=2026-06-07 23:16:46 | dur=0.150 s | perf=36059.23 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=4 | dt=2026-06-07 23:16:46 | dur=0.150 s | perf=36062.05 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/dgemm | correctness=PASS
+[LAAB-INFO] rocblas/sgemm | correctness=PASS
+[LAAB-INFO] rocblas/dgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/dgemm | rep=0 | dt=2026-06-07 23:20:22 | dur=0.899 s | perf=6005.13 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=1 | dt=2026-06-07 23:20:23 | dur=0.819 s | perf=6593.29 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=2 | dt=2026-06-07 23:20:24 | dur=0.856 s | perf=6311.70 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=3 | dt=2026-06-07 23:20:25 | dur=0.807 s | perf=6692.84 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=4 | dt=2026-06-07 23:20:26 | dur=0.833 s | perf=6485.66 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/sgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/sgemm | rep=0 | dt=2026-06-07 23:20:28 | dur=0.323 s | perf=16738.73 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=1 | dt=2026-06-07 23:20:28 | dur=0.150 s | perf=36021.76 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=2 | dt=2026-06-07 23:20:28 | dur=0.149 s | perf=36125.40 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=3 | dt=2026-06-07 23:20:28 | dur=0.151 s | perf=35784.58 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=4 | dt=2026-06-07 23:20:29 | dur=0.150 s | perf=35953.18 GFLOP/s | GPU=0 | GPU_NAME= | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/dgemm | correctness=PASS
+[LAAB-INFO] rocblas/sgemm | correctness=PASS
+[LAAB-INFO] rocblas/dgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/dgemm | rep=0 | dt=2026-06-07 23:29:22 | dur=0.896 s | perf=6024.55 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=1 | dt=2026-06-07 23:29:23 | dur=0.830 s | perf=6507.63 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=2 | dt=2026-06-07 23:29:23 | dur=0.860 s | perf=6276.52 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=3 | dt=2026-06-07 23:29:24 | dur=0.805 s | perf=6711.39 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=4 | dt=2026-06-07 23:29:25 | dur=0.824 s | perf=6555.25 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/sgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/sgemm | rep=0 | dt=2026-06-07 23:29:28 | dur=0.320 s | perf=16894.65 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=1 | dt=2026-06-07 23:29:28 | dur=0.150 s | perf=36010.99 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=2 | dt=2026-06-07 23:29:28 | dur=0.150 s | perf=36094.15 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=3 | dt=2026-06-07 23:29:28 | dur=0.149 s | perf=36225.21 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=4 | dt=2026-06-07 23:29:28 | dur=0.150 s | perf=36007.04 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/dgemm | correctness=PASS
+[LAAB-INFO] rocblas/sgemm | correctness=PASS
+[LAAB-INFO] rocblas/dgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/dgemm | rep=0 | dt=2026-06-07 23:32:47 | dur=0.895 s | perf=6035.37 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=1 | dt=2026-06-07 23:32:48 | dur=0.820 s | perf=6586.36 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=2 | dt=2026-06-07 23:32:48 | dur=0.861 s | perf=6269.54 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=3 | dt=2026-06-07 23:32:49 | dur=0.807 s | perf=6693.28 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/dgemm | rep=4 | dt=2026-06-07 23:32:50 | dur=0.830 s | perf=6507.65 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB-INFO] rocblas/sgemm | op_sizes=(m=30000, n=30000, k=3000) | flops=5400000000000
+[LAAB] rocblas/sgemm | rep=0 | dt=2026-06-07 23:32:53 | dur=0.318 s | perf=16962.12 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=1 | dt=2026-06-07 23:32:53 | dur=0.150 s | perf=36039.13 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=2 | dt=2026-06-07 23:32:53 | dur=0.150 s | perf=36009.15 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=3 | dt=2026-06-07 23:32:53 | dur=0.149 s | perf=36150.00 GFLOP/s | GPU=0 | BUS=0000:27:00.0
+[LAAB] rocblas/sgemm | rep=4 | dt=2026-06-07 23:32:53 | dur=0.150 s | perf=35941.92 GFLOP/s | GPU=0 | BUS=0000:27:00.0
