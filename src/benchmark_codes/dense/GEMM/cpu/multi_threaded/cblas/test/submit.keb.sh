@@ -16,7 +16,7 @@ set -euo pipefail
 
 
 export LAAB_BUILD_DIR=$(pwd)/build
-export LAAB_LOG_DIR=$(pwd)/traces
+export LAAB_TRACE_DIR=$(pwd)/traces
 
 module load GCC OpenBLAS FlexiBLAS
 

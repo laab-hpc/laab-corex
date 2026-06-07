@@ -54,8 +54,8 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    FILE *log_file = laab_open_log_file();
-    if (!log_file) return EXIT_FAILURE;
+    FILE *trace_file = laab_open_trace_file();
+    if (!trace_file) return EXIT_FAILURE;
 
     const int k = n;
     const float alpha = 1.0f;
@@ -85,9 +85,9 @@ int main(int argc, char **argv)
     for (size_t i = 0; i < szA; ++i) A[i] = (float)drand48();
     for (size_t i = 0; i < szB; ++i) B[i] = (float)drand48();
 
-    fprintf(log_file, "[LAAB-INFO] cblas/sgemm | op_sizes=(m=%d, n=%d) | nt=%d | flops=%.0f\n",
+    fprintf(trace_file, "[LAAB-INFO] cblas/sgemm | op_sizes=(m=%d, n=%d) | nt=%d | flops=%.0f\n",
            m, n, nthreads, flops);
-    fflush(log_file);
+    fflush(trace_file);
 
     for (size_t i = 0; i < szC; ++i) C[i] = 0.0f;
     cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
@@ -116,9 +116,9 @@ int main(int argc, char **argv)
         strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
         int cpu = sched_getcpu();
-        fprintf(log_file, "[LAAB] cblas/sgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nt=%d | cid=%d \n",
+        fprintf(trace_file, "[LAAB] cblas/sgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nt=%d | cid=%d \n",
                r, datetime, elapsed, gflops, nthreads, cpu);
-        fflush(log_file);
+        fflush(trace_file);
     }
 
     free(A);

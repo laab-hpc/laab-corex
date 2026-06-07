@@ -7,25 +7,25 @@
 #include <limits.h>    // HOST_NAME_MAX, PATH_MAX
 #include <sys/stat.h>  // struct stat, stat, mkdir
 
-static inline FILE *laab_open_log_file(void)
+static inline FILE *laab_open_trace_file(void)
 {
-    // Get environment variable for log directory
-    char *log_dir = getenv("LAAB_LOG_DIR");
-    if (!log_dir) {
-        fprintf(stderr, "Environment variable LAAB_LOG_DIR not set.\n");
+    // Get environment variable for trace directory
+    char *trace_dir = getenv("LAAB_TRACE_DIR");
+    if (!trace_dir) {
+        fprintf(stderr, "Environment variable LAAB_TRACE_DIR not set.\n");
         return NULL;
     }
 
-    // Ensure LAAB_LOG_DIR exists
+    // Ensure LAAB_TRACE_DIR exists
     struct stat st = {0};
-    if (stat(log_dir, &st) == -1) {
-        if (mkdir(log_dir, 0755) != 0) {
-            perror("Error creating LAAB_LOG_DIR");
+    if (stat(trace_dir, &st) == -1) {
+        if (mkdir(trace_dir, 0755) != 0) {
+            perror("Error creating LAAB_TRACE_DIR");
             return NULL;
         }
     }
 
-    // Create log file in append mode
+    // Create trace file in append mode
     char hostname[HOST_NAME_MAX];
 
     if (gethostname(hostname, sizeof(hostname)) != 0) {
@@ -35,23 +35,23 @@ static inline FILE *laab_open_log_file(void)
 
     hostname[sizeof(hostname) - 1] = '\0';
 
-    char log_path[PATH_MAX];
+    char trace_path[PATH_MAX];
 
     snprintf(
-        log_path,
-        sizeof(log_path),
+        trace_path,
+        sizeof(trace_path),
         "%s/traces.%s.log",
-        log_dir,
+        trace_dir,
         hostname
     );
 
-    FILE *log_file = fopen(log_path, "a");
-    if (!log_file) {
-        perror("Failed to open log file");
+    FILE *trace_file = fopen(trace_path, "a");
+    if (!trace_file) {
+        perror("Failed to open trace file");
         return NULL;
     }
 
-    return log_file;
+    return trace_file;
 }
 
 #define BILLION 1000000000L

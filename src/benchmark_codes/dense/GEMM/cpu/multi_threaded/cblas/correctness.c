@@ -44,15 +44,15 @@ static int check_dgemm(void)
         }
     }
 
-    FILE *log_file = laab_open_log_file();
-    if (!log_file) return EXIT_FAILURE;
+    FILE *trace_file = laab_open_trace_file();
+    if (!trace_file) return EXIT_FAILURE;
 
     if (ok) {
-        fprintf(log_file, "[LAAB-INFO] cblas/dgemm | correctness=PASS\n");
+        fprintf(trace_file, "[LAAB-INFO] cblas/dgemm | correctness=PASS\n");
         return 1;
     }
 
-    fprintf(log_file, "[LAAB-INFO] cblas/dgemm | correctness=FAIL\n");
+    fprintf(trace_file, "[LAAB-INFO] cblas/dgemm | correctness=FAIL\n");
     printf("Correctness check failed. Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
     printf("[%.1f %.1f]\n", expected[2], expected[3]);
@@ -102,15 +102,15 @@ static int check_sgemm(void)
         }
     }
 
-    FILE *log_file = laab_open_log_file();
-    if (!log_file) return EXIT_FAILURE;
+    FILE *trace_file = laab_open_trace_file();
+    if (!trace_file) return EXIT_FAILURE;
 
     if (ok) {
-        fprintf(log_file, "[LAAB-INFO] cblas/sgemm | correctness=PASS\n");
+        fprintf(trace_file, "[LAAB-INFO] cblas/sgemm | correctness=PASS\n");
         return 1;
     }
 
-    fprintf(log_file, "[LAAB-INFO] cblas/sgemm | correctness=FAIL\n");
+    fprintf(trace_file, "[LAAB-INFO] cblas/sgemm | correctness=FAIL\n");
     printf("Correctness check failed. Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
     printf("[%.1f %.1f]\n", expected[2], expected[3]);
