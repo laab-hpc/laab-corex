@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=linx-openblas
+#SBATCH --job-name=cublas-dgemm
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -11,6 +11,7 @@
 #SBATCH --gpus=1
 #SBATCH --threads-per-core=1
 #SBATCH -C skylake&nvidia_gpu
+##SBATCH -C zen4&nvidia_gpu
 
 set -euo pipefail
 
@@ -18,20 +19,18 @@ set -euo pipefail
 export LAAB_BUILD_DIR=$(pwd)/build
 export LAAB_TRACE_DIR=$(pwd)/traces
 
-module load GCC OpenBLAS FlexiBLAS
+module load GCC FlexiBLAS CUDA
 
 REPS="${REPS:-5}"
 
-NT=1
-export OMP_NUM_THREADS=$NT
 
 lscpu
 
 make -C ../ clean
-make -C ../ LD_BLAS=-lopenblas
-srun $LAAB_BUILD_DIR/correctness.exe
+make -C ../ 
 
-srun -c $NT "$LAAB_BUILD_DIR/dgemm.exe" -m 3000 -n 3000 -k 3000 --reps "$REPS"
-srun -c $NT "$LAAB_BUILD_DIR/sgemm.exe" -m 3000 -n 3000 -k 3000 --reps "$REPS"
+srun $LAAB_BUILD_DIR/correctness_cu.exe
+srun "$LAAB_BUILD_DIR/dgemm_cu.exe" -m 30000 -n 30000 -k 3000 --reps "$REPS"
+srun "$LAAB_BUILD_DIR/sgemm_cu.exe" -m 30000 -n 30000 -k 3000 --reps "$REPS"
 
 

@@ -11,12 +11,13 @@
 static void usage(const char *prog)
 {
     fprintf(stderr,
-            "Usage: %s -m <rows_of_C> -n <cols_of_C> [--reps <count>]\n"
+            "Usage: %s -m <rows_of_C> -n <cols_of_C> -k <inner_dim> [--reps <count>]\n"
             "\n"
-            "Performs DGEMM: C(m x n) = A(m x n) * B(n x n)\n"
+            "Performs DGEMM: C(m x n) = A(m x k) * B(k x n)\n"
             "Options:\n"
-            "  -m <int>        Number of rows (m)\n"
-            "  -n <int>        Number of cols (n); also used as inner dim k\n"
+            "  -m <int>        Number of rows of C and A\n"
+            "  -n <int>        Number of cols of C and B\n"
+            "  -k <int>        Inner dimension; cols of A and rows of B\n"
             "  --reps <int>    Number of repetitions (default: 1)\n",
             prog);
 }
@@ -25,6 +26,7 @@ int main(int argc, char **argv)
 {
     int m = -1;
     int n = -1;
+    int k = -1;
     int reps = 1;
 
     static struct option long_opts[] = {
@@ -33,13 +35,16 @@ int main(int argc, char **argv)
     };
 
     int opt, long_idx;
-    while ((opt = getopt_long(argc, argv, "m:n:", long_opts, &long_idx)) != -1) {
+    while ((opt = getopt_long(argc, argv, "m:n:k:", long_opts, &long_idx)) != -1) {
         switch (opt) {
             case 'm':
                 m = atoi(optarg);
                 break;
             case 'n':
                 n = atoi(optarg);
+                break;
+            case 'k':
+                k = atoi(optarg);
                 break;
             case 1:
                 reps = atoi(optarg);
@@ -50,7 +55,7 @@ int main(int argc, char **argv)
         }
     }
 
-    if (m <= 0 || n <= 0 || reps <= 0) {
+    if (m <= 0 || n <= 0 || k <= 0 || reps <= 0) {
         usage(argv[0]);
         return EXIT_FAILURE;
     }
@@ -58,7 +63,6 @@ int main(int argc, char **argv)
     FILE *trace_file = laab_open_trace_file();
     if (!trace_file) return EXIT_FAILURE;
 
-    const int k = n;
     const double alpha = 1.0;
     const double beta = 0.0;
     const double flops = 2.0 * (double)m * (double)n * (double)k;
@@ -79,6 +83,7 @@ int main(int argc, char **argv)
         free(A);
         free(B);
         free(C);
+        fclose(trace_file);
         return EXIT_FAILURE;
     }
 
@@ -86,8 +91,8 @@ int main(int argc, char **argv)
     for (size_t i = 0; i < szA; ++i) A[i] = drand48();
     for (size_t i = 0; i < szB; ++i) B[i] = drand48();
 
-    fprintf(trace_file, "[LAAB-INFO] cblas/dgemm | op_sizes=(m=%d, n=%d) | nt=%d | flops=%.0f\n",
-           m, n, nthreads, flops);
+    fprintf(trace_file, "[LAAB-INFO] cblas/dgemm | op_sizes=(m=%d, n=%d, k=%d) | nt=%d | flops=%.0f\n",
+           m, n, k, nthreads, flops);
     fflush(trace_file);
 
     for (size_t i = 0; i < szC; ++i) C[i] = 0.0;
@@ -108,7 +113,7 @@ int main(int argc, char **argv)
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         double elapsed = (double)(end.tv_sec - start.tv_sec) +
-                         (double)(end.tv_nsec - start.tv_nsec) / (double)BILLION;
+                         (double)(end.tv_nsec - start.tv_nsec) / 1000000000.0;
         double gflops = flops / elapsed / 1e9;
 
         time_t now = time(NULL);
@@ -125,5 +130,8 @@ int main(int argc, char **argv)
     free(A);
     free(B);
     free(C);
+
+    fclose(trace_file);
+
     return EXIT_SUCCESS;
 }

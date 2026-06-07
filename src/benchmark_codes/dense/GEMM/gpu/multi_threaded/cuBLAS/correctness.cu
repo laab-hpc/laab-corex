@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
-#include <cblas.h>
+#include <cuda_runtime.h>
+#include <cublas_v2.h>
 #include "utils.h"
 
 static int check_dgemm(void)
@@ -13,28 +15,49 @@ static int check_dgemm(void)
     const double beta = 0.0;
     const double tol = 1e-12;
 
-    /* Row-major A(2x3), B(3x2) */
     double A[6] = {
         1.0, 2.0, 3.0,
         4.0, 5.0, 6.0
     };
 
     double B[6] = {
-        7.0,  8.0,
+        7.0, 8.0,
         9.0, 10.0,
         11.0, 12.0
     };
 
     double C[4] = {0.0, 0.0, 0.0, 0.0};
-
-    /* Expected C = A * B = [[58, 64], [139, 154]] */
     double expected[4] = {
         58.0, 64.0,
         139.0, 154.0
     };
 
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-                m, n, k, alpha, A, k, B, n, beta, C, n);
+    double *d_A = NULL, *d_B = NULL, *d_C = NULL;
+    cublasHandle_t handle;
+
+    cudaMalloc((void **)&d_A, sizeof(A));
+    cudaMalloc((void **)&d_B, sizeof(B));
+    cudaMalloc((void **)&d_C, sizeof(C));
+
+    cudaMemcpy(d_A, A, sizeof(A), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_B, B, sizeof(B), cudaMemcpyHostToDevice);
+    cudaMemset(d_C, 0, sizeof(C));
+
+    cublasCreate(&handle);
+    cublasDgemm(handle,
+                CUBLAS_OP_N, CUBLAS_OP_N,
+                n, m, k,
+                &alpha,
+                d_B, n,
+                d_A, k,
+                &beta,
+                d_C, n);
+    cudaMemcpy(C, d_C, sizeof(C), cudaMemcpyDeviceToHost);
+
+    cublasDestroy(handle);
+    cudaFree(d_A);
+    cudaFree(d_B);
+    cudaFree(d_C);
 
     int ok = 1;
     for (int i = 0; i < m * n; ++i) {
@@ -48,12 +71,12 @@ static int check_dgemm(void)
     if (!trace_file) return EXIT_FAILURE;
 
     if (ok) {
-        fprintf(trace_file, "[LAAB-INFO] cblas/dgemm | correctness=PASS\n");
+        fprintf(trace_file, "[LAAB-INFO] cublas/dgemm | correctness=PASS\n");
         fclose(trace_file);
         return 1;
     }
 
-    fprintf(trace_file, "[LAAB-INFO] cblas/dgemm | correctness=FAIL\n");
+    fprintf(trace_file, "[LAAB-INFO] cublas/dgemm | correctness=FAIL\n");
     fclose(trace_file);
     printf("Correctness check failed. Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
@@ -74,27 +97,49 @@ static int check_sgemm(void)
     const float beta = 0.0f;
     const float tol = 1e-5f;
 
-    /* Same matrices as DGEMM, casted to float */
     float A[6] = {
         1.0f, 2.0f, 3.0f,
         4.0f, 5.0f, 6.0f
     };
 
     float B[6] = {
-        7.0f,  8.0f,
+        7.0f, 8.0f,
         9.0f, 10.0f,
         11.0f, 12.0f
     };
 
     float C[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-
     float expected[4] = {
         58.0f, 64.0f,
         139.0f, 154.0f
     };
 
-    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
-                m, n, k, alpha, A, k, B, n, beta, C, n);
+    float *d_A = NULL, *d_B = NULL, *d_C = NULL;
+    cublasHandle_t handle;
+
+    cudaMalloc((void **)&d_A, sizeof(A));
+    cudaMalloc((void **)&d_B, sizeof(B));
+    cudaMalloc((void **)&d_C, sizeof(C));
+
+    cudaMemcpy(d_A, A, sizeof(A), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_B, B, sizeof(B), cudaMemcpyHostToDevice);
+    cudaMemset(d_C, 0, sizeof(C));
+
+    cublasCreate(&handle);
+    cublasSgemm(handle,
+                CUBLAS_OP_N, CUBLAS_OP_N,
+                n, m, k,
+                &alpha,
+                d_B, n,
+                d_A, k,
+                &beta,
+                d_C, n);
+    cudaMemcpy(C, d_C, sizeof(C), cudaMemcpyDeviceToHost);
+
+    cublasDestroy(handle);
+    cudaFree(d_A);
+    cudaFree(d_B);
+    cudaFree(d_C);
 
     int ok = 1;
     for (int i = 0; i < m * n; ++i) {
@@ -108,12 +153,12 @@ static int check_sgemm(void)
     if (!trace_file) return EXIT_FAILURE;
 
     if (ok) {
-        fprintf(trace_file, "[LAAB-INFO] cblas/sgemm | correctness=PASS\n");
+        fprintf(trace_file, "[LAAB-INFO] cublas/sgemm | correctness=PASS\n");
         fclose(trace_file);
         return 1;
     }
 
-    fprintf(trace_file, "[LAAB-INFO] cblas/sgemm | correctness=FAIL\n");
+    fprintf(trace_file, "[LAAB-INFO] cublas/sgemm | correctness=FAIL\n");
     fclose(trace_file);
     printf("Correctness check failed. Expected:\n");
     printf("[%.1f %.1f]\n", expected[0], expected[1]);
