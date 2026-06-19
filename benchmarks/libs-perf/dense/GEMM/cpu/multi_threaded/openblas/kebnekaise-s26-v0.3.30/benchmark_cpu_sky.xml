@@ -6,7 +6,7 @@
     <!-- Configuration -->
     <parameterset name="system_params">
       <parameter name="nthreads" type="int">1,4,14</parameter>
-      <parameter name="src_root">/proj/nobackup/aravind/LAAB/benchmarks/linx-benchmarks</parameter>
+      <parameter name="src_root">/proj/nobackup/aravind/LAAB/benchmarks/laab-mathx</parameter>
       <parameter name="data_dir">${src_root}/benchmarks/data</parameter>
       <parameter name="account_config">
 #SBATCH --cpus-per-task=${nthreads}
