@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workpackages>
+  <workpackage id="0">
+    <step iteration="0" cycle="0">exec_step</step>
+    <parameterset>
+      <parameter name="modules" type="string" separator="," duplicate="none" mode="text">
+        <value>module purge
+module load Stages/2026
+module load GCC OpenMPI ScaLAPACK</value>
+      </parameter>
+      <parameter name="scalapack_linker" type="string" separator="," duplicate="none" mode="text">
+        <value>-lscalapack</value>
+      </parameter>
+      <parameter name="blas_linker" type="string" separator="," duplicate="none" mode="text">
+        <value>-lopenblas</value>
+      </parameter>
+      <parameter name="nodes" type="int" separator="," duplicate="none" mode="text">
+        <value>1,2,4</value>
+        <selection idx="0">1</selection>
+      </parameter>
+      <parameter name="ntasks_per_node" type="int" separator="," duplicate="none" mode="text">
+        <value>4</value>
+      </parameter>
+      <parameter name="cpus_per_task" type="int" separator="," duplicate="none" mode="text">
+        <value>72</value>
+      </parameter>
+      <parameter name="src_root" type="string" separator="," duplicate="none" mode="text">
+        <value>/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core</value>
+      </parameter>
+      <parameter name="data_dir" type="string" separator="," duplicate="none" mode="text">
+        <value>${src_root}/benchmarks/data</value>
+        <selection>/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/data</selection>
+      </parameter>
+      <parameter name="account_config" type="string" separator="," duplicate="none" mode="text">
+        <value>#SBATCH -A zam
+#SBATCH --partition booster</value>
+      </parameter>
+    </parameterset>
+    <iteration_siblings>0</iteration_siblings>
+    <environment>
+      <env name="SHLVL">'3'</env>
+      <env name="BASH_FUNC_module%%">'() {  if [ -z "${LMOD_SH_DBG_ON+x}" ]; then\n case "$-" in\n *v*x*)\n __lmod_sh_dbg=\'vx\'\n ;;\n *v*)\n __lmod_sh_dbg=\'v\'\n ;;\n *x*)\n __lmod_sh_dbg=\'x\'\n ;;\n esac;\n fi;\n if [ -n "${__lmod_sh_dbg:-}" ]; then\n set +$__lmod_sh_dbg;\n echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod\'s output" 1&gt;&amp;2;\n fi;\n eval "$($LMOD_CMD shell "$@")" &amp;&amp; eval "$(${LMOD_SETTARG_CMD:-:} -s sh)";\n __lmod_my_status=$?;\n if [ -n "${__lmod_sh_dbg:-}" ]; then\n echo "Shell debugging restarted" 1&gt;&amp;2;\n set -$__lmod_sh_dbg;\n fi;\n unset __lmod_sh_dbg;\n return $__lmod_my_status\n}'</env>
+      <nonenv name="PS1"/>
+    </environment>
+  </workpackage>
+  <workpackage id="1">
+    <step iteration="0" cycle="0">exec_step</step>
+    <parameterset>
+      <parameter name="modules" type="string" separator="," duplicate="none" mode="text">
+        <value>module purge
+module load Stages/2026
+module load GCC OpenMPI ScaLAPACK</value>
+      </parameter>
+      <parameter name="scalapack_linker" type="string" separator="," duplicate="none" mode="text">
+        <value>-lscalapack</value>
+      </parameter>
+      <parameter name="blas_linker" type="string" separator="," duplicate="none" mode="text">
+        <value>-lopenblas</value>
+      </parameter>
+      <parameter name="nodes" type="int" separator="," duplicate="none" mode="text">
+        <value>1,2,4</value>
+        <selection idx="1">2</selection>
+      </parameter>
+      <parameter name="ntasks_per_node" type="int" separator="," duplicate="none" mode="text">
+        <value>4</value>
+      </parameter>
+      <parameter name="cpus_per_task" type="int" separator="," duplicate="none" mode="text">
+        <value>72</value>
+      </parameter>
+      <parameter name="src_root" type="string" separator="," duplicate="none" mode="text">
+        <value>/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core</value>
+      </parameter>
+      <parameter name="data_dir" type="string" separator="," duplicate="none" mode="text">
+        <value>${src_root}/benchmarks/data</value>
+        <selection>/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/data</selection>
+      </parameter>
+      <parameter name="account_config" type="string" separator="," duplicate="none" mode="text">
+        <value>#SBATCH -A zam
+#SBATCH --partition booster</value>
+      </parameter>
+    </parameterset>
+    <iteration_siblings>1</iteration_siblings>
+    <environment>
+      <env name="SHLVL">'3'</env>
+      <env name="BASH_FUNC_module%%">'() {  if [ -z "${LMOD_SH_DBG_ON+x}" ]; then\n case "$-" in\n *v*x*)\n __lmod_sh_dbg=\'vx\'\n ;;\n *v*)\n __lmod_sh_dbg=\'v\'\n ;;\n *x*)\n __lmod_sh_dbg=\'x\'\n ;;\n esac;\n fi;\n if [ -n "${__lmod_sh_dbg:-}" ]; then\n set +$__lmod_sh_dbg;\n echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod\'s output" 1&gt;&amp;2;\n fi;\n eval "$($LMOD_CMD shell "$@")" &amp;&amp; eval "$(${LMOD_SETTARG_CMD:-:} -s sh)";\n __lmod_my_status=$?;\n if [ -n "${__lmod_sh_dbg:-}" ]; then\n echo "Shell debugging restarted" 1&gt;&amp;2;\n set -$__lmod_sh_dbg;\n fi;\n unset __lmod_sh_dbg;\n return $__lmod_my_status\n}'</env>
+      <nonenv name="PS1"/>
+    </environment>
+  </workpackage>
+  <workpackage id="2">
+    <step iteration="0" cycle="0">exec_step</step>
+    <parameterset>
+      <parameter name="modules" type="string" separator="," duplicate="none" mode="text">
+        <value>module purge
+module load Stages/2026
+module load GCC OpenMPI ScaLAPACK</value>
+      </parameter>
+      <parameter name="scalapack_linker" type="string" separator="," duplicate="none" mode="text">
+        <value>-lscalapack</value>
+      </parameter>
+      <parameter name="blas_linker" type="string" separator="," duplicate="none" mode="text">
+        <value>-lopenblas</value>
+      </parameter>
+      <parameter name="nodes" type="int" separator="," duplicate="none" mode="text">
+        <value>1,2,4</value>
+        <selection idx="2">4</selection>
+      </parameter>
+      <parameter name="ntasks_per_node" type="int" separator="," duplicate="none" mode="text">
+        <value>4</value>
+      </parameter>
+      <parameter name="cpus_per_task" type="int" separator="," duplicate="none" mode="text">
+        <value>72</value>
+      </parameter>
+      <parameter name="src_root" type="string" separator="," duplicate="none" mode="text">
+        <value>/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core</value>
+      </parameter>
+      <parameter name="data_dir" type="string" separator="," duplicate="none" mode="text">
+        <value>${src_root}/benchmarks/data</value>
+        <selection>/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/data</selection>
+      </parameter>
+      <parameter name="account_config" type="string" separator="," duplicate="none" mode="text">
+        <value>#SBATCH -A zam
+#SBATCH --partition booster</value>
+      </parameter>
+    </parameterset>
+    <iteration_siblings>2</iteration_siblings>
+    <environment>
+      <env name="SHLVL">'3'</env>
+      <env name="BASH_FUNC_module%%">'() {  if [ -z "${LMOD_SH_DBG_ON+x}" ]; then\n case "$-" in\n *v*x*)\n __lmod_sh_dbg=\'vx\'\n ;;\n *v*)\n __lmod_sh_dbg=\'v\'\n ;;\n *x*)\n __lmod_sh_dbg=\'x\'\n ;;\n esac;\n fi;\n if [ -n "${__lmod_sh_dbg:-}" ]; then\n set +$__lmod_sh_dbg;\n echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod\'s output" 1&gt;&amp;2;\n fi;\n eval "$($LMOD_CMD shell "$@")" &amp;&amp; eval "$(${LMOD_SETTARG_CMD:-:} -s sh)";\n __lmod_my_status=$?;\n if [ -n "${__lmod_sh_dbg:-}" ]; then\n echo "Shell debugging restarted" 1&gt;&amp;2;\n set -$__lmod_sh_dbg;\n fi;\n unset __lmod_sh_dbg;\n return $__lmod_my_status\n}'</env>
+      <nonenv name="PS1"/>
+    </environment>
+  </workpackage>
+</workpackages>
