@@ -26,9 +26,8 @@ static inline FILE *laab_open_trace_file(void)
     // Ensure LAAB_TRACE_DIR exists
     struct stat st = {0};
     if (stat(trace_dir, &st) == -1) {
-        if (mkdir(trace_dir, 0755) != 0) {
-            fprintf(stderr,"LAAB_TRACE_DIR exists or could not be created");
-        }
+        fprintf(stderr,"LAAB_TRACE_DIR does not exist.\n");
+        return NULL;
     }
 
     // Create trace file in append mode

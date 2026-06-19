@@ -23,4 +23,6 @@ make -C ../
 
 MATRIX_DIR=../practise/matrices/dense
 export LAAB_TRACE_DIR=$(pwd)/traces
+mkdir -p $LAAB_TRACE_DIR
+
 srun -N 2 -n 16 ./build/pdgemm.exe -A $MATRIX_DIR/M15000x15000-float64-gen.dense -B $MATRIX_DIR/M15000x15000-float64-gen.dense -b 256 --reps 5

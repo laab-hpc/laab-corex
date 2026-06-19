@@ -183,7 +183,7 @@ int main(int argc, char **argv)
     }
 
     size_t szC = (size_t)lld_c * (size_t)nloc_c;
-    double io_start, io_end, io_elapsed, io_max_elapsed;
+    double io_start, io_end, io_elapsed;
     double ab_mb;
 
     MPI_Barrier(MPI_COMM_WORLD);
@@ -208,14 +208,14 @@ int main(int argc, char **argv)
     }
 
     io_elapsed = io_end - io_start;
-    io_max_elapsed = 0.0;
-    MPI_Allreduce(&io_elapsed, &io_max_elapsed, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD);
+    // io_max_elapsed = 0.0;
+    // MPI_Allreduce(&io_elapsed, &io_max_elapsed, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD);
     ab_mb = (double)(((size_t)mloc_a * (size_t)nloc_a +
                       (size_t)mloc_b * (size_t)nloc_b) * sizeof(double)) /
             (1024.0 * 1024.0);
     fprintf(trace_file,
             "[LAAB-INFO] scalapack/pdgemm | rank=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | io_time=%.5f s | ab_size=%.2f MB\n",
-            world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, io_max_elapsed, ab_mb);
+            world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, io_elapsed, ab_mb);
     fflush(trace_file);
 
     const int one = 1;
