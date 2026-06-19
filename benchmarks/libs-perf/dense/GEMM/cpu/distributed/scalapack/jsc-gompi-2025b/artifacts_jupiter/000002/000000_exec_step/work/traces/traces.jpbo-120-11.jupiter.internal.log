@@ -1,0 +1,11 @@
+[LAAB-INFO] scalapack/pdgemm | nranks=4 | grid_dim=(2,2) | A=(15000,15000,float64) | B=(15000,15000,float64) | block_size=256x256 | flops=6750000000000
+[LAAB-INFO] scalapack/pdgemm | rank=1 | grid_id=(0,1) | A_local=(7576,7424) | B_local=(7576,7424) | io_time=37.68146 s | ab_size=858.22 MB
+[LAAB-INFO] scalapack/pdgemm | rank=0 | grid_id=(0,0) | A_local=(7576,7576) | B_local=(7576,7576) | io_time=37.68143 s | ab_size=875.79 MB
+[LAAB-INFO] scalapack/pdgemm | rank=3 | grid_id=(1,1) | A_local=(7424,7424) | B_local=(7424,7424) | io_time=37.68145 s | ab_size=841.00 MB
+[LAAB-INFO] scalapack/pdgemm | rank=2 | grid_id=(1,0) | A_local=(7424,7576) | B_local=(7424,7576) | io_time=37.68142 s | ab_size=858.22 MB
+[LAAB-INFO] scalapack/pdgemm | C_l2=1.837174977032e+06
+[LAAB] scalapack/pdgemm | rep=0 | dt=2026-06-19 10:29:00 | dur=2.22464 s | perf=3034.20212 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] scalapack/pdgemm | rep=1 | dt=2026-06-19 10:29:02 | dur=2.24178 s | perf=3011.00501 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] scalapack/pdgemm | rep=2 | dt=2026-06-19 10:29:04 | dur=2.20801 s | perf=3057.05368 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] scalapack/pdgemm | rep=3 | dt=2026-06-19 10:29:07 | dur=2.23180 s | perf=3024.46555 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] scalapack/pdgemm | rep=4 | dt=2026-06-19 10:29:09 | dur=2.23954 s | perf=3014.00900 GFLOP/s | nranks=4 | grid_dim=(2,2)

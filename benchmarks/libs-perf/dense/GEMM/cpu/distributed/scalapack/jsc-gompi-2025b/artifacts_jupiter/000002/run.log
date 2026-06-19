@@ -1,0 +1,249 @@
+[2026-06-19 10:27:13,860]:DEBUG: Create initial workpackages
+[2026-06-19 10:27:13,860]:DEBUG: Expand parameter templates:
+[2026-06-19 10:27:13,860]:DEBUG:     "nodes": 1,2,4
+[2026-06-19 10:27:13,872]:DEBUG: Store initial workpackage information
+[2026-06-19 10:27:13,874]:DEBUG: Start benchmark run
+[2026-06-19 10:27:13,874]:INFO: ######################################################################
+[2026-06-19 10:27:13,874]:INFO: # benchmark: scalapack-pdgemm-jupiter
+[2026-06-19 10:27:13,874]:INFO: # id: 2
+[2026-06-19 10:27:13,874]:INFO: #
+[2026-06-19 10:27:13,874]:INFO: # ScaLAPACK-pdegmm-JUPITER
+[2026-06-19 10:27:13,874]:INFO: ######################################################################
+[2026-06-19 10:27:13,874]:DEBUG: ----- exec_step ( iter:0 | id:0 | parents: | cycle:0 | procs:1 ) -----
+[2026-06-19 10:27:13,876]:DEBUG:   available parameter:
+[2026-06-19 10:27:13,876]:DEBUG:          | parameter             | value                                    |
+[2026-06-19 10:27:13,876]:DEBUG:          |-----------------------|------------------------------------------|
+[2026-06-19 10:27:13,876]:DEBUG:          | account_config        | #SBATCH -A zam                           |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | #SBATCH --partition booster              |
+[2026-06-19 10:27:13,876]:DEBUG:          | blas_linker           | -lopenblas                               |
+[2026-06-19 10:27:13,876]:DEBUG:          | cpus_per_task         | 72                                       |
+[2026-06-19 10:27:13,876]:DEBUG:          | data_dir              | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | core/benchmarks/data                     |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_benchmark_home   | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | /distributed/scalapack/jsc-gompi-2025b   |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_benchmark_id     | 2                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_benchmark_name   | scalapack-pdgemm-jupiter                 |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_benchmark_padid  | 000002                                   |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_benchmark_rundir | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | /distributed/scalapack/jsc-              |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | gompi-2025b/artifacts_jupiter/000002     |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_benchmark_start  | 2026-06-19T10:27:13                      |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_step_cycles      | 1                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_step_iterations  | 1                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_step_name        | exec_step                                |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_abspath       | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | /distributed/scalapack/jsc-gompi-        |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | 2025b/artifacts_jupiter/000002/000000_ex |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | ec_step/work                             |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_cycle         | 0                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_envlist       |                                          |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_envstr        |                                          |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_id            | 0                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_iteration     | 0                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_padid         | 000000                                   |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_relpath       | artifacts_jupiter/000002/000000_exec_ste |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | p/work                                   |
+[2026-06-19 10:27:13,876]:DEBUG:          | jube_wp_status        | RUNNING                                  |
+[2026-06-19 10:27:13,876]:DEBUG:          | modules               | module purge                             |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | module load Stages/2026                  |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | module load GCC OpenMPI ScaLAPACK        |
+[2026-06-19 10:27:13,876]:DEBUG:          | nodes                 | 1                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | ntasks_per_node       | 4                                        |
+[2026-06-19 10:27:13,876]:DEBUG:          | scalapack_linker      | -lscalapack                              |
+[2026-06-19 10:27:13,876]:DEBUG:          | src_root              | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,876]:DEBUG:          |                       | apps/benchmarks/laab-core                |
+[2026-06-19 10:27:13,877]:DEBUG:   copy "../../scalapack.submit.in" -> "scalapack.submit.in"
+[2026-06-19 10:27:13,878]:DEBUG:   substitute scalapack.submit.in -> submit.sh
+[2026-06-19 10:27:13,878]:DEBUG:   substitute:
+[2026-06-19 10:27:13,878]:DEBUG:          | source             | dest                                     |
+[2026-06-19 10:27:13,878]:DEBUG:          |--------------------|------------------------------------------|
+[2026-06-19 10:27:13,878]:DEBUG:          | #ACCOUNT_CONFIG#   | #SBATCH -A zam                           |
+[2026-06-19 10:27:13,878]:DEBUG:          |                    | #SBATCH --partition booster              |
+[2026-06-19 10:27:13,878]:DEBUG:          | #MODULES#          | module purge                             |
+[2026-06-19 10:27:13,878]:DEBUG:          |                    | module load Stages/2026                  |
+[2026-06-19 10:27:13,878]:DEBUG:          |                    | module load GCC OpenMPI ScaLAPACK        |
+[2026-06-19 10:27:13,878]:DEBUG:          | #SCALAPACK_LINKER# | -lscalapack                              |
+[2026-06-19 10:27:13,878]:DEBUG:          | #BLAS_LINKER#      | -lopenblas                               |
+[2026-06-19 10:27:13,878]:DEBUG:          | #SRC_ROOT#         | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,878]:DEBUG:          |                    | apps/benchmarks/laab-core                |
+[2026-06-19 10:27:13,878]:DEBUG:          | #DATA_DIR#         | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,878]:DEBUG:          |                    | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,878]:DEBUG:          |                    | core/benchmarks/data                     |
+[2026-06-19 10:27:13,878]:DEBUG:          | #NODES#            | 1                                        |
+[2026-06-19 10:27:13,878]:DEBUG:          | #NTASKS_PER_NODE#  | 4                                        |
+[2026-06-19 10:27:13,878]:DEBUG:          | #CPUS_PER_TASK#    | 72                                       |
+[2026-06-19 10:27:13,880]:DEBUG: >>> sbatch submit.sh
+[2026-06-19 10:27:13,880]:DEBUG:     stdout: /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/libs-perf/dense/GEMM/cpu/distributed/scalapack/jsc-gompi-2025b/artifacts_jupiter/000002/000000_exec_step/work/stdout
+[2026-06-19 10:27:13,880]:DEBUG:     stderr: /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/libs-perf/dense/GEMM/cpu/distributed/scalapack/jsc-gompi-2025b/artifacts_jupiter/000002/000000_exec_step/work/stderr
+[2026-06-19 10:27:13,904]:DEBUG: Create new workpackages for workpackage exec_step(0)
+[2026-06-19 10:27:13,904]:DEBUG:   0 new workpackages created
+[2026-06-19 10:27:13,906]:DEBUG: ----- exec_step ( iter:0 | id:1 | parents: | cycle:0 | procs:1 ) -----
+[2026-06-19 10:27:13,907]:DEBUG:   available parameter:
+[2026-06-19 10:27:13,907]:DEBUG:          | parameter             | value                                    |
+[2026-06-19 10:27:13,907]:DEBUG:          |-----------------------|------------------------------------------|
+[2026-06-19 10:27:13,907]:DEBUG:          | account_config        | #SBATCH -A zam                           |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | #SBATCH --partition booster              |
+[2026-06-19 10:27:13,907]:DEBUG:          | blas_linker           | -lopenblas                               |
+[2026-06-19 10:27:13,907]:DEBUG:          | cpus_per_task         | 72                                       |
+[2026-06-19 10:27:13,907]:DEBUG:          | data_dir              | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | core/benchmarks/data                     |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_benchmark_home   | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | /distributed/scalapack/jsc-gompi-2025b   |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_benchmark_id     | 2                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_benchmark_name   | scalapack-pdgemm-jupiter                 |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_benchmark_padid  | 000002                                   |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_benchmark_rundir | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | /distributed/scalapack/jsc-              |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | gompi-2025b/artifacts_jupiter/000002     |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_benchmark_start  | 2026-06-19T10:27:13                      |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_step_cycles      | 1                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_step_iterations  | 1                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_step_name        | exec_step                                |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_abspath       | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | /distributed/scalapack/jsc-gompi-        |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | 2025b/artifacts_jupiter/000002/000001_ex |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | ec_step/work                             |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_cycle         | 0                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_envlist       |                                          |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_envstr        |                                          |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_id            | 1                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_iteration     | 0                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_padid         | 000001                                   |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_relpath       | artifacts_jupiter/000002/000001_exec_ste |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | p/work                                   |
+[2026-06-19 10:27:13,907]:DEBUG:          | jube_wp_status        | RUNNING                                  |
+[2026-06-19 10:27:13,907]:DEBUG:          | modules               | module purge                             |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | module load Stages/2026                  |
+[2026-06-19 10:27:13,907]:DEBUG:          |                       | module load GCC OpenMPI ScaLAPACK        |
+[2026-06-19 10:27:13,907]:DEBUG:          | nodes                 | 2                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | ntasks_per_node       | 4                                        |
+[2026-06-19 10:27:13,907]:DEBUG:          | scalapack_linker      | -lscalapack                              |
+[2026-06-19 10:27:13,907]:DEBUG:          | src_root              | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,908]:DEBUG:          |                       | apps/benchmarks/laab-core                |
+[2026-06-19 10:27:13,908]:DEBUG:   copy "../../scalapack.submit.in" -> "scalapack.submit.in"
+[2026-06-19 10:27:13,909]:DEBUG:   substitute scalapack.submit.in -> submit.sh
+[2026-06-19 10:27:13,909]:DEBUG:   substitute:
+[2026-06-19 10:27:13,909]:DEBUG:          | source             | dest                                     |
+[2026-06-19 10:27:13,909]:DEBUG:          |--------------------|------------------------------------------|
+[2026-06-19 10:27:13,909]:DEBUG:          | #ACCOUNT_CONFIG#   | #SBATCH -A zam                           |
+[2026-06-19 10:27:13,909]:DEBUG:          |                    | #SBATCH --partition booster              |
+[2026-06-19 10:27:13,909]:DEBUG:          | #MODULES#          | module purge                             |
+[2026-06-19 10:27:13,909]:DEBUG:          |                    | module load Stages/2026                  |
+[2026-06-19 10:27:13,909]:DEBUG:          |                    | module load GCC OpenMPI ScaLAPACK        |
+[2026-06-19 10:27:13,909]:DEBUG:          | #SCALAPACK_LINKER# | -lscalapack                              |
+[2026-06-19 10:27:13,909]:DEBUG:          | #BLAS_LINKER#      | -lopenblas                               |
+[2026-06-19 10:27:13,909]:DEBUG:          | #SRC_ROOT#         | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,909]:DEBUG:          |                    | apps/benchmarks/laab-core                |
+[2026-06-19 10:27:13,909]:DEBUG:          | #DATA_DIR#         | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,909]:DEBUG:          |                    | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,909]:DEBUG:          |                    | core/benchmarks/data                     |
+[2026-06-19 10:27:13,909]:DEBUG:          | #NODES#            | 2                                        |
+[2026-06-19 10:27:13,909]:DEBUG:          | #NTASKS_PER_NODE#  | 4                                        |
+[2026-06-19 10:27:13,909]:DEBUG:          | #CPUS_PER_TASK#    | 72                                       |
+[2026-06-19 10:27:13,910]:DEBUG: >>> sbatch submit.sh
+[2026-06-19 10:27:13,910]:DEBUG:     stdout: /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/libs-perf/dense/GEMM/cpu/distributed/scalapack/jsc-gompi-2025b/artifacts_jupiter/000002/000001_exec_step/work/stdout
+[2026-06-19 10:27:13,911]:DEBUG:     stderr: /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/libs-perf/dense/GEMM/cpu/distributed/scalapack/jsc-gompi-2025b/artifacts_jupiter/000002/000001_exec_step/work/stderr
+[2026-06-19 10:27:13,934]:DEBUG: Create new workpackages for workpackage exec_step(1)
+[2026-06-19 10:27:13,934]:DEBUG:   0 new workpackages created
+[2026-06-19 10:27:13,936]:DEBUG: ----- exec_step ( iter:0 | id:2 | parents: | cycle:0 | procs:1 ) -----
+[2026-06-19 10:27:13,937]:DEBUG:   available parameter:
+[2026-06-19 10:27:13,937]:DEBUG:          | parameter             | value                                    |
+[2026-06-19 10:27:13,937]:DEBUG:          |-----------------------|------------------------------------------|
+[2026-06-19 10:27:13,937]:DEBUG:          | account_config        | #SBATCH -A zam                           |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | #SBATCH --partition booster              |
+[2026-06-19 10:27:13,937]:DEBUG:          | blas_linker           | -lopenblas                               |
+[2026-06-19 10:27:13,937]:DEBUG:          | cpus_per_task         | 72                                       |
+[2026-06-19 10:27:13,937]:DEBUG:          | data_dir              | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | core/benchmarks/data                     |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_benchmark_home   | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | /distributed/scalapack/jsc-gompi-2025b   |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_benchmark_id     | 2                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_benchmark_name   | scalapack-pdgemm-jupiter                 |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_benchmark_padid  | 000002                                   |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_benchmark_rundir | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | /distributed/scalapack/jsc-              |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | gompi-2025b/artifacts_jupiter/000002     |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_benchmark_start  | 2026-06-19T10:27:13                      |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_step_cycles      | 1                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_step_iterations  | 1                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_step_name        | exec_step                                |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_abspath       | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | core/benchmarks/libs-perf/dense/GEMM/cpu |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | /distributed/scalapack/jsc-gompi-        |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | 2025b/artifacts_jupiter/000002/000002_ex |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | ec_step/work                             |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_cycle         | 0                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_envlist       |                                          |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_envstr        |                                          |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_id            | 2                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_iteration     | 0                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_padid         | 000002                                   |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_relpath       | artifacts_jupiter/000002/000002_exec_ste |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | p/work                                   |
+[2026-06-19 10:27:13,937]:DEBUG:          | jube_wp_status        | RUNNING                                  |
+[2026-06-19 10:27:13,937]:DEBUG:          | modules               | module purge                             |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | module load Stages/2026                  |
+[2026-06-19 10:27:13,937]:DEBUG:          |                       | module load GCC OpenMPI ScaLAPACK        |
+[2026-06-19 10:27:13,937]:DEBUG:          | nodes                 | 4                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | ntasks_per_node       | 4                                        |
+[2026-06-19 10:27:13,937]:DEBUG:          | scalapack_linker      | -lscalapack                              |
+[2026-06-19 10:27:13,938]:DEBUG:          | src_root              | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,938]:DEBUG:          |                       | apps/benchmarks/laab-core                |
+[2026-06-19 10:27:13,938]:DEBUG:   copy "../../scalapack.submit.in" -> "scalapack.submit.in"
+[2026-06-19 10:27:13,939]:DEBUG:   substitute scalapack.submit.in -> submit.sh
+[2026-06-19 10:27:13,939]:DEBUG:   substitute:
+[2026-06-19 10:27:13,939]:DEBUG:          | source             | dest                                     |
+[2026-06-19 10:27:13,939]:DEBUG:          |--------------------|------------------------------------------|
+[2026-06-19 10:27:13,939]:DEBUG:          | #ACCOUNT_CONFIG#   | #SBATCH -A zam                           |
+[2026-06-19 10:27:13,939]:DEBUG:          |                    | #SBATCH --partition booster              |
+[2026-06-19 10:27:13,939]:DEBUG:          | #MODULES#          | module purge                             |
+[2026-06-19 10:27:13,939]:DEBUG:          |                    | module load Stages/2026                  |
+[2026-06-19 10:27:13,939]:DEBUG:          |                    | module load GCC OpenMPI ScaLAPACK        |
+[2026-06-19 10:27:13,939]:DEBUG:          | #SCALAPACK_LINKER# | -lscalapack                              |
+[2026-06-19 10:27:13,939]:DEBUG:          | #BLAS_LINKER#      | -lopenblas                               |
+[2026-06-19 10:27:13,939]:DEBUG:          | #SRC_ROOT#         | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,939]:DEBUG:          |                    | apps/benchmarks/laab-core                |
+[2026-06-19 10:27:13,939]:DEBUG:          | #DATA_DIR#         | /e/project1/cjsc/sankaran2/llview-       |
+[2026-06-19 10:27:13,939]:DEBUG:          |                    | apps/benchmarks/laab-                    |
+[2026-06-19 10:27:13,939]:DEBUG:          |                    | core/benchmarks/data                     |
+[2026-06-19 10:27:13,939]:DEBUG:          | #NODES#            | 4                                        |
+[2026-06-19 10:27:13,939]:DEBUG:          | #NTASKS_PER_NODE#  | 4                                        |
+[2026-06-19 10:27:13,939]:DEBUG:          | #CPUS_PER_TASK#    | 72                                       |
+[2026-06-19 10:27:13,940]:DEBUG: >>> sbatch submit.sh
+[2026-06-19 10:27:13,940]:DEBUG:     stdout: /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/libs-perf/dense/GEMM/cpu/distributed/scalapack/jsc-gompi-2025b/artifacts_jupiter/000002/000002_exec_step/work/stdout
+[2026-06-19 10:27:13,941]:DEBUG:     stderr: /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core/benchmarks/libs-perf/dense/GEMM/cpu/distributed/scalapack/jsc-gompi-2025b/artifacts_jupiter/000002/000002_exec_step/work/stderr
+[2026-06-19 10:27:13,970]:DEBUG: Create new workpackages for workpackage exec_step(2)
+[2026-06-19 10:27:13,970]:DEBUG:   0 new workpackages created
+[2026-06-19 10:27:13,973]:INFO:   |  stepname | all | open | wait | error | done |
+[2026-06-19 10:27:13,973]:INFO:   |-----------|-----|------|------|-------|------|
+[2026-06-19 10:27:13,973]:INFO:   | exec_step |   3 |    0 |    0 |     0 |    3 |
+[2026-06-19 10:27:13,973]:INFO: 
+[2026-06-19 10:27:13,973]:INFO: >>>> Benchmark information and further useful commands:
+[2026-06-19 10:27:13,973]:INFO: >>>>       id: 2
+[2026-06-19 10:27:13,973]:INFO: >>>>   handle: artifacts_jupiter
+[2026-06-19 10:27:13,973]:INFO: >>>>      dir: artifacts_jupiter/000002
+[2026-06-19 10:27:13,973]:INFO: >>>>  analyse: jube analyse artifacts_jupiter --id 2
+[2026-06-19 10:27:13,973]:INFO: >>>>   result: jube result artifacts_jupiter --id 2
+[2026-06-19 10:27:13,973]:INFO: >>>>     info: jube info artifacts_jupiter --id 2
+[2026-06-19 10:27:13,973]:INFO: >>>>      log: jube log artifacts_jupiter --id 2
+[2026-06-19 10:27:13,973]:INFO: ######################################################################

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube version="2.7.1">
+  <benchmark name="scalapack-pdgemm-jupiter" file_path_ref="../.." outpath="..">
+    <comment>ScaLAPACK-pdegmm-JUPITER</comment>
+    <parameterset name="system_params" duplicate="replace">
+      <parameter name="nodes" type="int" separator="," duplicate="none" mode="text">1,2,4</parameter>
+      <parameter name="ntasks_per_node" type="int" separator="," duplicate="none" mode="text">4</parameter>
+      <parameter name="cpus_per_task" type="int" separator="," duplicate="none" mode="text">72</parameter>
+      <parameter name="src_root" type="string" separator="," duplicate="none" mode="text">/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-core</parameter>
+      <parameter name="data_dir" type="string" separator="," duplicate="none" mode="text">${src_root}/benchmarks/data</parameter>
+      <parameter name="account_config" type="string" separator="," duplicate="none" mode="text">#SBATCH -A zam
+#SBATCH --partition booster</parameter>
+    </parameterset>
+    <parameterset name="lib_params" duplicate="replace">
+      <parameter name="modules" type="string" separator="," duplicate="none" mode="text">module purge
+module load Stages/2026
+module load GCC OpenMPI ScaLAPACK</parameter>
+      <parameter name="scalapack_linker" type="string" separator="," duplicate="none" mode="text">-lscalapack</parameter>
+      <parameter name="blas_linker" type="string" separator="," duplicate="none" mode="text">-lopenblas</parameter>
+    </parameterset>
+    <substituteset name="slurm_substitute">
+      <iofile in="scalapack.submit.in" out="submit.sh" out_mode="w"/>
+      <sub source="#ACCOUNT_CONFIG#" mode="text">$account_config</sub>
+      <sub source="#MODULES#" mode="text">$modules</sub>
+      <sub source="#SCALAPACK_LINKER#" mode="text">$scalapack_linker</sub>
+      <sub source="#BLAS_LINKER#" mode="text">$blas_linker</sub>
+      <sub source="#SRC_ROOT#" mode="text">$src_root</sub>
+      <sub source="#DATA_DIR#" mode="text">$data_dir</sub>
+      <sub source="#NODES#" mode="text">$nodes</sub>
+      <sub source="#NTASKS_PER_NODE#" mode="text">$ntasks_per_node</sub>
+      <sub source="#CPUS_PER_TASK#" mode="text">$cpus_per_task</sub>
+    </substituteset>
+    <fileset name="files">
+      <copy>../../scalapack.submit.in</copy>
+    </fileset>
+    <step name="exec_step">
+      <use>system_params</use>
+      <use>lib_params</use>
+      <use>files</use>
+      <use>slurm_substitute</use>
+      <do>sbatch submit.sh</do>
+    </step>
+  </benchmark>
+</jube>

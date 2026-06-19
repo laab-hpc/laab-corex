@@ -12,7 +12,7 @@ Socket(s):                               4
 Stepping:                                r0p0
 Frequency boost:                         disabled
 CPU(s) scaling MHz:                      100%
-CPU max MHz:                             3429.0000
+CPU max MHz:                             3438.0000
 CPU min MHz:                             81.0000
 BogoMIPS:                                2000.00
 Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm sb dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh
@@ -69,29 +69,8 @@ Vulnerability Retbleed:                  Not affected
 Vulnerability Spec rstack overflow:      Not affected
 Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
 Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
-Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Spectre v2:                Mitigation; CSV2, BHB
 Vulnerability Srbds:                     Not affected
 Vulnerability Tsa:                       Not affected
 Vulnerability Tsx async abort:           Not affected
 Vulnerability Vmscape:                   Not affected
-make: Entering directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
-rm -f /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/*.o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/*.exe 
-make: Leaving directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
-make: Entering directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
-mpicc -O3 -c pdgemm.c -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.o
-mpicc /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.o -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/pdgemm.exe -lscalapack  -lopenblas  -lm
-mpicc -O3 -c correctness.c -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.o
-mpicc /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.o -o /e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM/test/build/correctness.exe -lscalapack  -lopenblas  -lm
-make: Leaving directory '/e/project1/cjsc/sankaran2/llview-apps/benchmarks/laab-bb/src/benchmark_codes/distributed/cpus/dense/scalapack/pxGEMM'
-[LAAB-INFO] scalapack/pdgemm | correctness=PASS
-[LAAB-INFO] scalapack/pdgemm | op_sizes=(m=10000, n=10000) | np=20 | flops=2000000000000
-[LAAB] scalapack/pdgemm | rep=0 | dt=2026-06-01 13:34:28 | dur=3.22095 s | perf=620.93433 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=1 | dt=2026-06-01 13:34:32 | dur=3.21656 s | perf=621.78290 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=2 | dt=2026-06-01 13:34:35 | dur=3.21467 s | perf=622.14860 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=3 | dt=2026-06-01 13:34:38 | dur=3.21385 s | perf=622.30633 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=4 | dt=2026-06-01 13:34:41 | dur=3.20841 s | perf=623.36115 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=5 | dt=2026-06-01 13:34:45 | dur=3.21304 s | perf=622.46341 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=6 | dt=2026-06-01 13:34:48 | dur=3.21749 s | perf=621.60276 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=7 | dt=2026-06-01 13:34:51 | dur=3.20881 s | perf=623.28337 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=8 | dt=2026-06-01 13:34:54 | dur=3.20733 s | perf=623.57149 GFLOP/s | np=20 | cid=0 
-[LAAB] scalapack/pdgemm | rep=9 | dt=2026-06-01 13:34:57 | dur=3.21336 s | perf=622.40231 GFLOP/s | np=20 | cid=0 
