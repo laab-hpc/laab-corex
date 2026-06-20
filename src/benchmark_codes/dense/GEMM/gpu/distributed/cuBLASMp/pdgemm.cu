@@ -232,7 +232,7 @@ int main(int argc, char **argv)
 
     if (world_rank == 0) {
         fprintf(trace_file,
-                "[LAAB-INFO] cublasmp/gemm | nranks=%d | grid_dim=(%d,%d) | A=(%d,%d,%s) | B=(%d,%d,%s) | block_size=%dx%d | flops=%.0f\n",
+                "[LAAB-INFO] cublasmp/pdgemm | nranks=%d | grid_dim=(%d,%d) | A=(%d,%d,%s) | B=(%d,%d,%s) | block_size=%dx%d | flops=%.0f\n",
                 world_size, nprow, npcol, m, k_a, dtype_a, k_b, n, dtype_b, nb, nb, flops);
         fflush(trace_file);
     }
@@ -297,7 +297,7 @@ int main(int argc, char **argv)
     double ab_mb = (double)(bytes_a + bytes_b) / (1024.0 * 1024.0);
 
     fprintf(trace_file,
-            "[LAAB-INFO] cublasmp/gemm | rank=%d | gpus=%s | bus=%s | grid_id=(%d,%d) | A_local=(%ld,%ld) | B_local=(%ld,%ld) | C_local=(%ld,%ld) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
+            "[LAAB-INFO] cublasmp/pdgemm | rank=%d | gpus=%s | bus=%s | grid_id=(%d,%d) | A_local=(%ld,%ld) | B_local=(%ld,%ld) | C_local=(%ld,%ld) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
             world_rank, visible_dev, pci_bus_id, myrow, mycol,
             (long)mloc_a, (long)nloc_a,
             (long)mloc_b, (long)nloc_b,
@@ -381,7 +381,7 @@ int main(int argc, char **argv)
 
         if (world_rank == 0) {
             fprintf(trace_file,
-                    "[LAAB-INFO] cublasmp/gemm | C_l2=%.12e\n",
+                    "[LAAB-INFO] cublasmp/pdgemm | C_l2=%.12e\n",
                     sqrt(global_sumsq));
             fflush(trace_file);
         }
@@ -413,7 +413,7 @@ int main(int argc, char **argv)
             strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
 
             fprintf(trace_file,
-                    "[LAAB] cublasmp/gemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nranks=%d | grid_dim=(%d,%d)\n",
+                    "[LAAB] cublasmp/pdgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nranks=%d | grid_dim=(%d,%d)\n",
                     r, datetime, max_elapsed, flops / max_elapsed / 1e9,
                     world_size, nprow, npcol);
             fflush(trace_file);

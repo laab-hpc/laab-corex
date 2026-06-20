@@ -1,0 +1,30 @@
+[LAAB-INFO] cublasmp/pdgemm | nranks=8 | grid_dim=(2,4) | A=(15000,15000,float64) | B=(15000,15000,float64) | block_size=1000x1000 | flops=6750000000000
+[LAAB-INFO] cublasmp/pdgemm | rank=0 | gpus=0 | bus=0009:01:00.0 | grid_id=(0,0) | A_local=(8000,4000) | B_local=(8000,4000) | C_local=(8000,4000) | block_size=1000x1000 | io_time=3.65357 s | ab_size=488.28 MB
+[LAAB-INFO] cublasmp/pdgemm | rank=3 | gpus=3 | bus=0039:01:00.0 | grid_id=(0,3) | A_local=(8000,3000) | B_local=(8000,3000) | C_local=(8000,3000) | block_size=1000x1000 | io_time=3.65355 s | ab_size=366.21 MB
+[LAAB-INFO] cublasmp/pdgemm | rank=2 | gpus=2 | bus=0029:01:00.0 | grid_id=(0,2) | A_local=(8000,4000) | B_local=(8000,4000) | C_local=(8000,4000) | block_size=1000x1000 | io_time=3.65356 s | ab_size=488.28 MB
+[LAAB-INFO] cublasmp/pdgemm | rank=1 | gpus=1 | bus=0019:01:00.0 | grid_id=(0,1) | A_local=(8000,4000) | B_local=(8000,4000) | C_local=(8000,4000) | block_size=1000x1000 | io_time=3.65356 s | ab_size=488.28 MB
+[LAAB-INFO] cublasmp/pdgemm | C_l2=1.837174977032e+06
+[LAAB] cublasmp/pdgemm | rep=0 | dt=2026-06-20 13:40:58 | dur=0.05241 s | perf=128787.51685 GFLOP/s | nranks=8 | grid_dim=(2,4)
+[LAAB] cublasmp/pdgemm | rep=1 | dt=2026-06-20 13:40:58 | dur=0.05262 s | perf=128280.39578 GFLOP/s | nranks=8 | grid_dim=(2,4)
+[LAAB] cublasmp/pdgemm | rep=2 | dt=2026-06-20 13:40:58 | dur=0.05299 s | perf=127378.10679 GFLOP/s | nranks=8 | grid_dim=(2,4)
+[LAAB] cublasmp/pdgemm | rep=3 | dt=2026-06-20 13:40:58 | dur=0.05280 s | perf=127829.05585 GFLOP/s | nranks=8 | grid_dim=(2,4)
+[LAAB] cublasmp/pdgemm | rep=4 | dt=2026-06-20 13:40:58 | dur=0.05263 s | perf=128260.81752 GFLOP/s | nranks=8 | grid_dim=(2,4)
+[LAAB-INFO] cublasmp/pdgemm | nranks=4 | grid_dim=(2,2) | A=(15000,15000,float64) | B=(15000,15000,float64) | block_size=1000x1000 | flops=6750000000000
+[LAAB-INFO] cublasmp/pdgemm | rank=0 | gpus=0 | bus=0009:01:00.0 | grid_id=(0,0) | A_local=(8000,8000) | B_local=(8000,8000) | C_local=(8000,8000) | block_size=1000x1000 | io_time=7.67631 s | ab_size=976.56 MB
+[LAAB-INFO] cublasmp/pdgemm | rank=3 | gpus=3 | bus=0039:01:00.0 | grid_id=(1,1) | A_local=(7000,7000) | B_local=(7000,7000) | C_local=(7000,7000) | block_size=1000x1000 | io_time=7.67630 s | ab_size=747.68 MB
+[LAAB-INFO] cublasmp/pdgemm | rank=2 | gpus=2 | bus=0029:01:00.0 | grid_id=(1,0) | A_local=(7000,8000) | B_local=(7000,8000) | C_local=(7000,8000) | block_size=1000x1000 | io_time=7.67631 s | ab_size=854.49 MB
+[LAAB-INFO] cublasmp/pdgemm | rank=1 | gpus=1 | bus=0019:01:00.0 | grid_id=(0,1) | A_local=(8000,7000) | B_local=(8000,7000) | C_local=(8000,7000) | block_size=1000x1000 | io_time=7.67630 s | ab_size=854.49 MB
+[LAAB-INFO] cublasmp/pdgemm | C_l2=1.837174977032e+06
+[LAAB] cublasmp/pdgemm | rep=0 | dt=2026-06-20 13:42:00 | dur=0.06270 s | perf=107652.34322 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] cublasmp/pdgemm | rep=1 | dt=2026-06-20 13:42:00 | dur=0.06328 s | perf=106676.42211 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] cublasmp/pdgemm | rep=2 | dt=2026-06-20 13:42:00 | dur=0.06344 s | perf=106403.07037 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] cublasmp/pdgemm | rep=3 | dt=2026-06-20 13:42:00 | dur=0.06361 s | perf=106112.05266 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB] cublasmp/pdgemm | rep=4 | dt=2026-06-20 13:42:00 | dur=0.06368 s | perf=105995.81585 GFLOP/s | nranks=4 | grid_dim=(2,2)
+[LAAB-INFO] cublasmp/pdgemm | nranks=1 | grid_dim=(1,1) | A=(15000,15000,float64) | B=(15000,15000,float64) | block_size=1000x1000 | flops=6750000000000
+[LAAB-INFO] cublasmp/pdgemm | rank=0 | gpus=0 | bus=0009:01:00.0 | grid_id=(0,0) | A_local=(15000,15000) | B_local=(15000,15000) | C_local=(15000,15000) | block_size=1000x1000 | io_time=12.47074 s | ab_size=3433.23 MB
+[LAAB-INFO] cublasmp/pdgemm | C_l2=1.837174977032e+06
+[LAAB] cublasmp/pdgemm | rep=0 | dt=2026-06-20 13:43:59 | dur=0.16298 s | perf=41416.63343 GFLOP/s | nranks=1 | grid_dim=(1,1)
+[LAAB] cublasmp/pdgemm | rep=1 | dt=2026-06-20 13:43:59 | dur=0.16550 s | perf=40785.04850 GFLOP/s | nranks=1 | grid_dim=(1,1)
+[LAAB] cublasmp/pdgemm | rep=2 | dt=2026-06-20 13:43:59 | dur=0.15868 s | perf=42539.25846 GFLOP/s | nranks=1 | grid_dim=(1,1)
+[LAAB] cublasmp/pdgemm | rep=3 | dt=2026-06-20 13:43:59 | dur=0.15991 s | perf=42210.52901 GFLOP/s | nranks=1 | grid_dim=(1,1)
+[LAAB] cublasmp/pdgemm | rep=4 | dt=2026-06-20 13:43:59 | dur=0.15984 s | perf=42228.68828 GFLOP/s | nranks=1 | grid_dim=(1,1)
