@@ -214,8 +214,8 @@ int main(int argc, char **argv)
                       (size_t)mloc_b * (size_t)nloc_b) * sizeof(double)) /
             (1024.0 * 1024.0);
     fprintf(trace_file,
-            "[LAAB-INFO] scalapack/pdgemm | rank=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | io_time=%.5f s | ab_size=%.2f MB\n",
-            world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, io_elapsed, ab_mb);
+            "[LAAB-INFO] scalapack/pdgemm | rank=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
+            world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, nb, nb, io_elapsed, ab_mb);
     fflush(trace_file);
 
     const int one = 1;

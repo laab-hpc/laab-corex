@@ -186,6 +186,15 @@ int main(int argc, char **argv)
     if (device_count <= 0) DIE("rank %d: no CUDA device visible", world_rank);
 
     device_id = local_rank % device_count;
+    cudaDeviceProp prop;
+    CUDA_CHECK(cudaGetDeviceProperties(&prop, device_id));
+    // Format PCI Bus ID string (e.g., "0000:81:00.0")
+    char pci_bus_id[16];
+    snprintf(pci_bus_id, sizeof(pci_bus_id), "%04x:%02x:%02x.0",
+            prop.pciDomainID, prop.pciBusID, prop.pciDeviceID);
+
+
+    char* visible_dev = getenv("CUDA_VISIBLE_DEVICES");
 
     CUDA_CHECK(cudaSetDevice(device_id));
     CUDA_CHECK(cudaFree(NULL));
@@ -288,11 +297,12 @@ int main(int argc, char **argv)
     double ab_mb = (double)(bytes_a + bytes_b) / (1024.0 * 1024.0);
 
     fprintf(trace_file,
-            "[LAAB-INFO] cublasmp/gemm | rank=%d | gpu=%d | grid_id=(%d,%d) | A_local=(%ld,%ld) | B_local=(%ld,%ld) | C_local=(%ld,%ld) | io_time=%.5f s | ab_size=%.2f MB\n",
-            world_rank, device_id, myrow, mycol,
+            "[LAAB-INFO] cublasmp/gemm | rank=%d | gpus=%s | bus=%s | grid_id=(%d,%d) | A_local=(%ld,%ld) | B_local=(%ld,%ld) | C_local=(%ld,%ld) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
+            world_rank, visible_dev, pci_bus_id, myrow, mycol,
             (long)mloc_a, (long)nloc_a,
             (long)mloc_b, (long)nloc_b,
             (long)mloc_c, (long)nloc_c,
+            nb,nb,
             io_elapsed, ab_mb);
     fflush(trace_file);
 
