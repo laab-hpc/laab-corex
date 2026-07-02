@@ -1,0 +1,60 @@
+
+
+{
+    head: {
+        "step_prefix": "dense/gemm/cpu/multi_threaded",
+        "system":"system:partition",
+        "lib":openblas,
+        "version": 1.2,
+        "toolchain":gompi2025a,
+        "common_specs": {
+            "flops":..,
+            "input_size":..,
+            "output_size":..,
+        },
+    },
+    metrics_latest:[
+        {"system":...., "lib":..., "version":..., "toolchain":..., "problem_size":...,  "prec":..., "cb_id":... |
+          "np+slurm":...,  "ts":...,
+          grid_dim:..., block_size:..., l2_norm:...,
+          mean_dur:..., mean_flops:..., scalability:... }
+    ]
+
+    metrics_history:[
+        #metrics (just append)
+        {"system":...., "lib":..., "version":..., "toolchain":..., "problem_size":...,  "prec":..., "np+slurm":..., "cb_id":..., "ts":...,
+          grid_dim:..., block_size:..., l2_norm:...,
+          mean_dur:..., mean_flops:..., scalability:... }
+    ]
+
+
+    benchmarks:{
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/cb_id": [...]
+        
+    }
+
+    ranking_data:{
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/cb_id": [...]
+        
+    }
+
+    cb_ranks:{
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/cb_id":0,
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/cb_id":0,
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/cb_id":1
+
+    }
+
+    np_slurm_ranks:{ #computed for latest cb
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/":0,
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/":2,
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/":3,
+
+    }
+
+    host_specs:{
+        "system/lib/version/toolchain/problem_size/prec/np+slurm/cb_id": [
+            {"hostname":..., "io_time":..., "io_size":..., "prob_size":...,},
+        ]
+    }
+}
