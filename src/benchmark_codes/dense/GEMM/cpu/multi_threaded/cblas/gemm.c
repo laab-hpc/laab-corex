@@ -6,7 +6,11 @@
 #include <sched.h>
 #include <string.h>
 #include <complex.h>
-#include <cblas.h>
+#ifdef USE_MKL
+    #include <mkl.h>
+#else
+    #include <cblas.h>
+#endif
 #include "utils.h"
 
 static void usage(const char *prog)

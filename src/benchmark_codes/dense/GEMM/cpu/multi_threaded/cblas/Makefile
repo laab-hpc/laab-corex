@@ -15,6 +15,10 @@ gemm:
 	gcc -O3 -c gemm.c -o $(LAAB_BUILD_DIR)/gemm.o
 	gcc $(LAAB_BUILD_DIR)/gemm.o -o $(LAAB_BUILD_DIR)/gemm.exe $(LD_BLAS)
 
+gemm_intel:
+	icx -DUSE_MKL -c gemm.c -o $(LAAB_BUILD_DIR)/gemm.o
+	icx $(LAAB_BUILD_DIR)/gemm.o -o $(LAAB_BUILD_DIR)/gemm.exe -qmkl
+
 
 .PHONY: all gemm clean
 
