@@ -13,8 +13,9 @@
 #include <limits.h>    // HOST_NAME_MAX, PATH_MAX
 #include <sys/types.h> // off_t
 #include <sys/stat.h>  // struct stat, stat, mkdir
+#include <math.h>      // sqrt
 
-static inline FILE *laab_open_trace_file(void)
+static inline FILE *laab_open_trace_file_with_tag(const char *tag)
 {
     // Get environment variable for trace directory
     char *trace_dir = getenv("LAAB_TRACE_DIR");
@@ -39,14 +40,16 @@ static inline FILE *laab_open_trace_file(void)
     }
 
     hostname[sizeof(hostname) - 1] = '\0';
+    if (!tag || !tag[0]) tag = "0";
 
     char trace_path[PATH_MAX];
 
     snprintf(
         trace_path,
         sizeof(trace_path),
-        "%s/traces.%s.log",
+        "%s/traces.%s.%s.log",
         trace_dir,
+        tag,
         hostname
     );
 
@@ -57,6 +60,11 @@ static inline FILE *laab_open_trace_file(void)
     }
 
     return trace_file;
+}
+
+static inline FILE *laab_open_trace_file(void)
+{
+    return laab_open_trace_file_with_tag("0");
 }
 
 static inline FILE *laab_open_matrix_file(int m, int n, const char* prec, const char* prop, const char* type){
@@ -135,94 +143,122 @@ static int parse_matrix_filename(const char *filename, int *M, int *N, char *dty
     return sscanf(name, "M%dx%d-%31[^-]", M, N, dtype) == 3;
 }
 
-static void *load_local_matrix(const char *filename, int myrow, int mycol, int nprow, int npcol,
-                               int *M, int *N, char *dtype, int *local_rows, int *local_cols)
+static void *load_dense_matrix(const char *filename, int rows, int cols, const char *dtype)
 {
-    FILE *fp;
+    FILE *fp = fopen(filename, "rb");
+    size_t elem_size = dtype_size(dtype);
+    size_t count = (size_t)rows * (size_t)cols;
     void *buf;
-    size_t elem_size;
-    int row0, col0, i;
 
-    if (!parse_matrix_filename(filename, M, N, dtype)) return NULL;
-    elem_size = dtype_size(dtype);
-    if (!elem_size) return NULL;
-    if (myrow < 0 || myrow >= nprow || mycol < 0 || mycol >= npcol) return NULL;
-
-    split_dim(*M, nprow, myrow, &row0, local_rows);
-    split_dim(*N, npcol, mycol, &col0, local_cols);
-
-    buf = malloc((size_t)(*local_rows) * (size_t)(*local_cols) * elem_size);
-    if (!buf) return NULL;
-
-    fp = fopen(filename, "rb");
-    if (!fp) {
-        free(buf);
+    if (!fp || !elem_size) {
+        if (fp) fclose(fp);
         return NULL;
     }
 
-    for (i = 0; i < *local_rows; ++i) {
-        off_t off = (off_t)(((size_t)(row0 + i) * (size_t)(*N) + (size_t)col0) * elem_size);
-        if (fseeko(fp, off, SEEK_SET) != 0 ||
-            fread((char *)buf + (size_t)i * (size_t)(*local_cols) * elem_size,
-                  elem_size, (size_t)(*local_cols), fp) != (size_t)(*local_cols)) {
-            fclose(fp);
-            free(buf);
-            return NULL;
-        }
-    }
-
-    fclose(fp);
-    return buf;
-}
-
-static void *load_local_matrix_block(const char *filename, int block_row, int block_col,
-                                     int Mb, int Nb, int *M, int *N, char *dtype,
-                                     int *local_rows, int *local_cols)
-{
-    FILE *fp;
-    void *buf;
-    size_t elem_size;
-    int row_start, col_start, i;
-
-    if (!parse_matrix_filename(filename, M, N, dtype)) return NULL;
-    elem_size = dtype_size(dtype);
-    if (!elem_size) return NULL;
-    if (block_row < 0 || block_col < 0) return NULL;
-    if (Mb <= 0 || Nb <= 0) return NULL;
-
-    row_start = block_row * Mb;
-    col_start = block_col * Nb;
-    if (row_start >= *M || col_start >= *N) return NULL;
-
-    *local_rows = (*M - row_start < Mb) ? (*M - row_start) : Mb;
-    *local_cols = (*N - col_start < Nb) ? (*N - col_start) : Nb;
-
-    buf = malloc((size_t)(*local_rows) * (size_t)(*local_cols) * elem_size);
+    buf = malloc(count * elem_size);
     if (!buf) {
-        free(buf);
+        fclose(fp);
         return NULL;
     }
 
-    fp = fopen(filename, "rb");
-    if (!fp) {
+    if (fread(buf, elem_size, count, fp) != count) {
+        fclose(fp);
         free(buf);
         return NULL;
-    }
-
-    for (i = 0; i < *local_rows; ++i) {
-        off_t off = (off_t)(((size_t)(row_start + i) * (size_t)(*N) + (size_t)col_start) * elem_size);
-        if (fseeko(fp, off, SEEK_SET) != 0 ||
-            fread((char *)buf + (size_t)i * (size_t)(*local_cols) * elem_size,
-                  elem_size, (size_t)(*local_cols), fp) != (size_t)(*local_cols)) {
-            fclose(fp);
-            free(buf);
-            return NULL;
-        }
     }
 
     fclose(fp);
     return buf;
 }
+
+// static void *load_local_matrix(const char *filename, int myrow, int mycol, int nprow, int npcol,
+//                                int *M, int *N, char *dtype, int *local_rows, int *local_cols)
+// {
+//     FILE *fp;
+//     void *buf;
+//     size_t elem_size;
+//     int row0, col0, i;
+
+//     if (!parse_matrix_filename(filename, M, N, dtype)) return NULL;
+//     elem_size = dtype_size(dtype);
+//     if (!elem_size) return NULL;
+//     if (myrow < 0 || myrow >= nprow || mycol < 0 || mycol >= npcol) return NULL;
+
+//     split_dim(*M, nprow, myrow, &row0, local_rows);
+//     split_dim(*N, npcol, mycol, &col0, local_cols);
+
+//     buf = malloc((size_t)(*local_rows) * (size_t)(*local_cols) * elem_size);
+//     if (!buf) return NULL;
+
+//     fp = fopen(filename, "rb");
+//     if (!fp) {
+//         free(buf);
+//         return NULL;
+//     }
+
+//     for (i = 0; i < *local_rows; ++i) {
+//         off_t off = (off_t)(((size_t)(row0 + i) * (size_t)(*N) + (size_t)col0) * elem_size);
+//         if (fseeko(fp, off, SEEK_SET) != 0 ||
+//             fread((char *)buf + (size_t)i * (size_t)(*local_cols) * elem_size,
+//                   elem_size, (size_t)(*local_cols), fp) != (size_t)(*local_cols)) {
+//             fclose(fp);
+//             free(buf);
+//             return NULL;
+//         }
+//     }
+
+//     fclose(fp);
+//     return buf;
+// }
+
+// static void *load_local_matrix_block(const char *filename, int block_row, int block_col,
+//                                      int Mb, int Nb, int *M, int *N, char *dtype,
+//                                      int *local_rows, int *local_cols)
+// {
+//     FILE *fp;
+//     void *buf;
+//     size_t elem_size;
+//     int row_start, col_start, i;
+
+//     if (!parse_matrix_filename(filename, M, N, dtype)) return NULL;
+//     elem_size = dtype_size(dtype);
+//     if (!elem_size) return NULL;
+//     if (block_row < 0 || block_col < 0) return NULL;
+//     if (Mb <= 0 || Nb <= 0) return NULL;
+
+//     row_start = block_row * Mb;
+//     col_start = block_col * Nb;
+//     if (row_start >= *M || col_start >= *N) return NULL;
+
+//     *local_rows = (*M - row_start < Mb) ? (*M - row_start) : Mb;
+//     *local_cols = (*N - col_start < Nb) ? (*N - col_start) : Nb;
+
+//     buf = malloc((size_t)(*local_rows) * (size_t)(*local_cols) * elem_size);
+//     if (!buf) {
+//         free(buf);
+//         return NULL;
+//     }
+
+//     fp = fopen(filename, "rb");
+//     if (!fp) {
+//         free(buf);
+//         return NULL;
+//     }
+
+//     for (i = 0; i < *local_rows; ++i) {
+//         off_t off = (off_t)(((size_t)(row_start + i) * (size_t)(*N) + (size_t)col_start) * elem_size);
+//         if (fseeko(fp, off, SEEK_SET) != 0 ||
+//             fread((char *)buf + (size_t)i * (size_t)(*local_cols) * elem_size,
+//                   elem_size, (size_t)(*local_cols), fp) != (size_t)(*local_cols)) {
+//             fclose(fp);
+//             free(buf);
+//             return NULL;
+//         }
+//     }
+
+//     fclose(fp);
+//     return buf;
+// }
 
 static void *load_block_cyclic_matrix(const char *filename,
                                       int myrow, int mycol, int nprow, int npcol,

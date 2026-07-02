@@ -11,11 +11,11 @@ dense/GEMM/cpu/multi_threaded/system:partition/artifacts-lib-version-toolchain/c
 
 
 traces.0.hostname..
-[LAAB-COMMON] cblas/dgemm | dt=... | prob_size=(A=3000x3000, B=3000x3000) | prec="fp64" | specs=(flops=54000000000, interface=cblas, l2_norm=221)
-[LAAB-BM] cblas/dgemm | np=4
+[LAAB-COMMON] cblas/dgemm | dt=... | prob_size=(A=3000x3000, B=3000x3000) | prec="float64" | specs=(flops=54000000000, interface=cblas, l2_norm=..)
+[LAAB-BM] cblas/dgemm | np=4 | execution=OMP
 [LAAB-HOST] cblas/dgemm | op_size=...  
-[LAAB] cblas/dgemm | rep=0 | dt=2026-06-07 18:18:44 | dur=0.06155 s | perf=877.31329 GFLOP/s | cid=3 
-[LAAB] cblas/dgemm | rep=1 | dt=2026-06-07 18:18:44 | dur=0.06135 s | perf=880.24424 GFLOP/s | cid=3
+[LAAB] cblas/dgemm | rep=0 | dt=2026-06-07 18:18:44 | dur=0.06155 s | perf=877.31329 GFLOP/s  
+[LAAB] cblas/dgemm | rep=1 | dt=2026-06-07 18:18:44 | dur=0.06135 s | perf=880.24424 GFLOP/s
 
 or
 

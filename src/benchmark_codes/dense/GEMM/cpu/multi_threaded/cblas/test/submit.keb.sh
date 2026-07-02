@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=linx-openblas
+#SBATCH --job-name=laab-openblas
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -10,28 +10,25 @@
 #SBATCH -A hpc2n2026-184
 #SBATCH --gpus=1
 #SBATCH --threads-per-core=1
-#SBATCH -C skylake&nvidia_gpu
+##SBATCH -C skylake&nvidia_gpu
 
 set -euo pipefail
 
 
 export LAAB_BUILD_DIR=$(pwd)/build
 export LAAB_TRACE_DIR=$(pwd)/traces
+mkdir -p $LAAB_TRACE_DIR
 
-module load GCC OpenBLAS FlexiBLAS
-
-REPS="${REPS:-5}"
-
-NT=1
-export OMP_NUM_THREADS=$NT
+module load GCC FlexiBLAS
 
 lscpu
 
 make -C ../ clean
 make -C ../ LD_BLAS=-lopenblas
-srun $LAAB_BUILD_DIR/correctness.exe
 
-srun -c $NT "$LAAB_BUILD_DIR/dgemm.exe" -m 3000 -n 3000 -k 3000 --reps "$REPS"
-srun -c $NT "$LAAB_BUILD_DIR/sgemm.exe" -m 3000 -n 3000 -k 3000 --reps "$REPS"
+export OMP_NUM_THREADS=24
+srun -c 24 "$LAAB_BUILD_DIR/gemm.exe" -A ../inputs/M3000x3000-float64-gen.dense -B ../inputs/M3000x3000-float64-gen.dense --reps 5 --tag 0
+srun -c 24 "$LAAB_BUILD_DIR/gemm.exe" -A ../inputs/M3000x3000-float32-gen.dense -B ../inputs/M3000x3000-float32-gen.dense --reps 5 --tag 1
+srun -c 24 "$LAAB_BUILD_DIR/gemm.exe" -A ../inputs/M3000x3000-complex128-gen.dense -B ../inputs/M3000x3000-complex128-gen.dense --reps 5 --tag 2
 
 
