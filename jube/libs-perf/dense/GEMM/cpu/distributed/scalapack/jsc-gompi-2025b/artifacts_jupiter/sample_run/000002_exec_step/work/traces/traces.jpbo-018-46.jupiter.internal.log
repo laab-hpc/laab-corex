@@ -1,4 +1,0 @@
-[LAAB-INFO] scalapack/pdgemm | rank=11 | grid_id=(2,3) | A_local=(3736,3584) | B_local=(3736,3584) | io_time=8.81616 s | ab_size=204.31 MB
-[LAAB-INFO] scalapack/pdgemm | rank=8 | grid_id=(2,0) | A_local=(3736,3840) | B_local=(3736,3840) | io_time=8.81614 s | ab_size=218.91 MB
-[LAAB-INFO] scalapack/pdgemm | rank=10 | grid_id=(2,2) | A_local=(3736,3736) | B_local=(3736,3736) | io_time=8.81610 s | ab_size=212.98 MB
-[LAAB-INFO] scalapack/pdgemm | rank=9 | grid_id=(2,1) | A_local=(3736,3840) | B_local=(3736,3840) | io_time=8.81612 s | ab_size=218.91 MB

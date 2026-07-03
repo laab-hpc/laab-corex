@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jube>
-  <benchmark name="laab-core" outpath="artifacts/openblas-0.3.27-gcc13.3">
+  <benchmark name="laab-core" outpath="artifacts/imkl-2023.2.0-intel2023b">
     <comment>laab-core</comment>
 
     <!-- Configuration -->
     <parameterset name="param_set" init_with="_commons.xml">
       <parameter name="modules">
 module purge
-module load GCC/13.3.0 OpenBLAS/0.3.27 FlexiBLAS/3.4.4
+module load intel/2023b
       </parameter>
-      <parameter name="compile_opts">LD_BLAS=-lopenblas</parameter>
+      <parameter name="compile_opts">gemm_intel</parameter>
     </parameterset>
 
     <!-- Files -->

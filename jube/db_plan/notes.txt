@@ -7,7 +7,7 @@ dense/GEMM/cpu/multi_threaded/system:partition/<lib>-<version>-<toolchain>.xml -
 
 RESULTS folder
 dense/GEMM/cpu/multi_threaded/system:partition/artifacts-lib-version-toolchain/profiles/<problem_size>-<prec>-profile.laab
-dense/GEMM/cpu/multi_threaded/system:partition/artifacts-lib-version-toolchain/code/ prepare from latest cbid code.. during laab-process.. 
+dense/GEMM/cpu/multi_threaded/system:partition/artifacts-lib-version-toolchain/src/ prepare from latest cbid code.. during laab-process.. 
 
 
 traces.0.hostname..
