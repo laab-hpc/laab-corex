@@ -5,6 +5,9 @@
 
     <!-- Configuration -->
     <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">openblas</parameter>
+      <parameter name="version">0.3.27</parameter>
+      <parameter name="toolchain">gcc13.3</parameter>
       <parameter name="modules">
 module purge
 module load GCC/13.3.0 OpenBLAS/0.3.27 FlexiBLAS/3.4.4

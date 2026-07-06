@@ -241,11 +241,11 @@ int main(int argc, char **argv)
     cpu = sched_getcpu();
 
     fprintf(trace_file,
-            "[LAAB-COMMON] cblas/%s | dt=%s | prob_size=(A=%dx%d, B=%dx%d) | prec=\"%s\" | specs=(flops=%.0f, interface=cblas, l2_norm=%.12e)\n",
-            kernel, datetime, m, k, k, n, dtype_a, flops, c_l2);
+            "[LAAB-STEP] cblas/%s | prob_size=A=%dx%d+B=%dx%d | prec=\"%s\" | flops=%.0f | interface=cblas\n",
+            kernel, m, k, k, n, dtype_a, flops);
     fflush(trace_file);
 
-    fprintf(trace_file, "[LAAB-BM] cblas/%s | np=%d | execution=OMP\n", kernel, np);
+    fprintf(trace_file, "[LAAB-RUN] cblas/%s | ts=%s | nthreads=%d | execution=OMP | l2_norm=%.12e\n", kernel, datetime, np, c_l2);
     fflush(trace_file);
 
     fprintf(trace_file, "[LAAB-HOST] cblas/%s | hostname=%s | core_id=%d\n", kernel, hostname, cpu);
@@ -273,7 +273,7 @@ int main(int argc, char **argv)
             strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
         }
 
-        fprintf(trace_file, "[LAAB] cblas/%s | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s\n",
+        fprintf(trace_file, "[LAAB] cblas/%s | rep=%d | ts=%s | exec_time (s)= %.5f | perf (GFLOP/s)= %.5f\n",
                 kernel, r, datetime, elapsed, gflops);
         fflush(trace_file);
     }

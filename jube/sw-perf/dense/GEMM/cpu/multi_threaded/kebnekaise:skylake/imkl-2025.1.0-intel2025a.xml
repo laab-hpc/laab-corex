@@ -5,6 +5,9 @@
 
     <!-- Configuration -->
     <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">imkl</parameter>
+      <parameter name="version">2025.1.0</parameter>
+      <parameter name="toolchain">intel2025a</parameter>
       <parameter name="modules">
 module purge
 module load intel/2025a
