@@ -5,6 +5,9 @@
 
     <!-- Configuration -->
     <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">aocblas</parameter>
+      <parameter name="version">5.1</parameter>
+      <parameter name="toolchain">gcc14.3</parameter>
       <parameter name="modules">
 module purge
 module load GCC/14.3.0 AOCL-BLAS/5.1 FlexiBLAS/3.4.5

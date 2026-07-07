@@ -5,6 +5,9 @@
 
     <!-- Configuration -->
     <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">imkl</parameter>
+      <parameter name="version">2023.2.0</parameter>
+      <parameter name="toolchain">gcc12.3</parameter>
       <parameter name="modules">
 module purge
 module load GCC/12.3.0 imkl/2023.2.0 FlexiBLAS/3.3.1
