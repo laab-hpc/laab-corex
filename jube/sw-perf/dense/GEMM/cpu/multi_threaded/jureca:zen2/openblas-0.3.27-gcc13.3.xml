@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+  <benchmark name="laab-core" outpath="artifacts/openblas-0.3.27-gcc13.3">
+    <comment>laab-core</comment>
+
+    <!-- Configuration -->
+    <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">openblas</parameter>
+      <parameter name="version">0.3.27</parameter>
+      <parameter name="toolchain">gcc13.3</parameter>
+      <parameter name="modules">
+module purge
+module load Stages/2025
+module load GCC/13.3.0 OpenBLAS/0.3.27 FlexiBLAS/3.4.4
+      </parameter>
+      <parameter name="compile_opts">LD_BLAS=-lopenblas</parameter>
+    </parameterset>
+
+    <!-- Files -->
+    <include from="_commons.xml" path="files/" />
+    <!-- Substitute -->
+    <include from="_commons.xml" path="subs/" />
+
+    <!-- Operation -->
+    <step name="bm">
+      <include from="_commons.xml" path="steps/" />
+    </step>
+  </benchmark>
+</jube>

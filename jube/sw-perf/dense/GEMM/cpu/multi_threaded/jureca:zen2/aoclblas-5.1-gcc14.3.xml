@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+  <benchmark name="laab-core" outpath="artifacts/aoclblas-5.1-gcc14.3">
+    <comment>laab-core</comment>
+
+    <!-- Configuration -->
+    <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">aocblas</parameter>
+      <parameter name="version">5.1</parameter>
+      <parameter name="toolchain">gcc14.3</parameter>
+      <parameter name="modules">
+module purge
+module load Stages/2026
+module load GCC/14.3.0 AOCL-BLAS/5.1 FlexiBLAS/3.4.5
+      </parameter>
+      <parameter name="compile_opts">LD_BLAS=-lblis-mt</parameter>
+    </parameterset>
+
+    <!-- Files -->
+    <include from="_commons.xml" path="files/" />
+    <!-- Substitute -->
+    <include from="_commons.xml" path="subs/" />
+
+    <!-- Operation -->
+    <step name="bm">
+      <include from="_commons.xml" path="steps/" />
+    </step>
+  </benchmark>
+</jube>

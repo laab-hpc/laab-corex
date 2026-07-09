@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+    <parameterset name="param_set">
+        <parameter name="system">jureca:zen2</parameter>
+        <parameter name="src">/p/project1/ccstao/sankaran2/projects/p_laab/benchmarks/laab-core/src/benchmark_codes/dense/GEMM/cpu/multi_threaded/cblas/src</parameter>
+        <parameter name="inputs_dir">/p/project1/ccstao/sankaran2/projects/p_laab/benchmarks/laab-core/inputs</parameter>
+        <parameter name="nthreads" type="int">1,4,14,24,64</parameter>
+        <parameter name="reps">10</parameter>
+        <parameter name="account_config">
+#SBATCH -A cstao
+#SBATCH -p dc-cpu
+      </parameter>
+      <parameter name="laab_postprocess_deps">
+module purge
+module load Stages/2026
+module load GCC Python
+source /p/project1/ccstao/sankaran2/projects/p_laab/venv/venv/bin/activate
+       </parameter>
+    </parameterset>
+
+        <!-- Files -->
+    <files>
+        <fileset name="files">
+        <copy>../cblas.submit.in</copy>
+        <copy target_dir="../../">${src}</copy>
+        <copy target_dir="../../example">${src}/../test/*.sh</copy>
+        <copy target_dir="../../inputs">${src}/../inputs/generate_input_matrices.sh</copy>
+        </fileset>
+    </files>
+
+    <!-- Substitute -->
+    <subs>
+        <substituteset name="substitutes">
+        <iofile in="cblas.submit.in" out="submit.sh" />
+        <sub source="#ACCOUNT_CONFIG#" dest="$account_config" /> 
+        <sub source="#MODULES#"  dest="$modules" />
+        <sub source="#COMPILE_OPTS#" dest="$compile_opts" />
+        <sub source="#NTHREADS#" dest="$nthreads" />
+        <sub source="#SYSTEM#" dest="$system" />
+        <sub source="#LIB#" dest="$lib" />
+        <sub source="#VERSION#" dest="$version" />
+        <sub source="#TOOLCHAIN#" dest="$toolchain" />
+        <sub source="#CB_ID#" dest="$jube_benchmark_id" />
+        <sub source="#LAAB_POSTPROCESS_DEPS#" dest="$laab_postprocess_deps" />
+        </substituteset>
+    </subs>
+    
+    <steps>
+      <use>param_set</use> 
+      <use>files</use> 
+      <use>substitutes</use>
+      <do>INPUTS_DIR=${inputs_dir} REPS=${reps} sbatch submit.sh</do>           
+      <!-- <do>cat submit.sh</do>            -->
+    </steps>
+
+</jube>
