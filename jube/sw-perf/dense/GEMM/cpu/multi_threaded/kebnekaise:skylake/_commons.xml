@@ -10,7 +10,11 @@
 #SBATCH -A hpc2n2026-184
 #SBATCH -C skylake
       </parameter>
-      <parameter name="laab_postprocess_deps">source /proj/nobackup/aravind/LAAB/venvs/kebnekaise/activate.sh</parameter>
+      <parameter name="laab_postprocess_deps">
+module purge
+module load GCC/14.3.0 Python/3.13.5
+source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activate
+       </parameter>
     </parameterset>
 
         <!-- Files -->
