@@ -58,7 +58,22 @@ int main(int argc, char **argv)
     const char *bfile = NULL;
     int nb = -1;
     int reps = 1;
+    const char *tag = "0";
     FILE *trace_file = NULL;
+    char datetime[32];
+    char hostname[HOST_NAME_MAX];
+
+    {
+        time_t now = time(NULL);
+        struct tm *tm_info = localtime(&now);
+        strftime(datetime, sizeof(datetime), "%Y-%m-%d %H:%M:%S", tm_info);
+    }
+
+    if (gethostname(hostname, sizeof(hostname)) != 0) {
+        perror("gethostname failed");
+        return EXIT_FAILURE;
+    }
+    hostname[sizeof(hostname) - 1] = '\0';
 
     static struct option long_opts[] = {
         {"reps", required_argument, 0, 1},
@@ -72,6 +87,7 @@ int main(int argc, char **argv)
             case 'B': bfile = optarg; break;
             case 'b': nb = atoi(optarg); break;
             case 1: reps = atoi(optarg); break;
+            case 2: tag = optarg; break;
             default:
                 usage(argv[0]);
                 return EXIT_FAILURE;
@@ -105,7 +121,7 @@ int main(int argc, char **argv)
     int myrow, mycol;
     blacs_gridinfo_(&ictxt, &nprow, &npcol, &myrow, &mycol);
 
-    trace_file = laab_open_trace_file();
+    trace_file = laab_open_trace_file_with_tag(tag);
     if (!trace_file) {
         blacs_gridexit_(&ictxt);
         MPI_Finalize();
@@ -123,13 +139,9 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    if (world_rank == 0) {
-        fprintf(trace_file,
-                "[LAAB-INFO] scalapack/pdgemm | nranks=%d | grid_dim=(%d,%d) | A=(%d,%d,%s) | B=(%d,%d,%s) | block_size=%dx%d | flops=%.0f\n",
-                world_size, nprow, npcol, m, k_a, dtype_a, k_b, n, dtype_b,
-                nb, nb, 2.0 * (double)m * (double)n * (double)k_a);
-        fflush(trace_file);
-    }
+    fprintf(trace_file,
+        "[LAAB-STEP] scalapack/pdgemm | prob_size=A=%dx%d+B=%dx%d | prec=%s | flops=%.0f | interface=pxgemm\n",
+            m, k_a, k_b, n, dtype_a, 2.0 * (double)m * (double)n * (double)k_a);
 
     if (k_a != k_b || strcmp(dtype_a, "float64") != 0 || strcmp(dtype_b, "float64") != 0) {
         if (world_rank == 0) {
@@ -214,8 +226,8 @@ int main(int argc, char **argv)
                       (size_t)mloc_b * (size_t)nloc_b) * sizeof(double)) /
             (1024.0 * 1024.0);
     fprintf(trace_file,
-            "[LAAB-INFO] scalapack/pdgemm | rank=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
-            world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, nb, nb, io_elapsed, ab_mb);
+            "[LAAB-HOST] scalapack/pdgemm | hostname=%s | rank=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
+            hostname, world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, nb, nb, io_elapsed, ab_mb);
     fflush(trace_file);
 
     const int one = 1;
@@ -240,8 +252,8 @@ int main(int argc, char **argv)
         if (world_rank == 0) {
             c_l2 = sqrt(global_sumsq);
             fprintf(trace_file,
-                    "[LAAB-INFO] scalapack/pdgemm | C_l2=%.12e\n",
-                    c_l2);
+                "[LAAB-RUN] scalapack/pdgemm | ts=%s | nranks=%d | grid_ndim=(%d,%d) | block_size=%dx%d | l2_norm=%.0f\n",
+                    datetime, world_size, nprow, npcol, nb, nb, c_l2);
             fflush(trace_file);
         }
     }
@@ -274,8 +286,8 @@ int main(int argc, char **argv)
 
         if (world_rank == 0) {
             fprintf(trace_file,
-                    "[LAAB] scalapack/pdgemm | rep=%d | dt=%s | dur=%.5f s | perf=%.5f GFLOP/s | nranks=%d | grid_dim=(%d,%d)\n",
-                    r, datetime, max_elapsed, gflops, world_size, nprow, npcol);
+                    "[LAAB] scalapack/pdgemm | rep=%d | ts=%s | exec_time (s)=%.5f | perf (GFLOP/s)=%.5f\n",
+                    r, datetime, max_elapsed, gflops);
             fflush(trace_file);
         }
     }

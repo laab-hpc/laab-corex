@@ -7,7 +7,7 @@
 #SBATCH --time=00:20:00
 #SBATCH --output=slurm.out
 #SBATCH --error=slurm.err
-#SBATCH -C skylake
+#SBATCH -C zen4
 
 set -euo pipefail
 
