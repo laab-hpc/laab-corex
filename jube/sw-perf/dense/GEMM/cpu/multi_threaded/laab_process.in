@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#LAAB_POSTPROCESS_DEPS#
+
+laab-process traces/ \
+    --name "dense/GEMM/cpu/multi_threaded" \
+    --system #SYSTEM# \
+    --lib #LIB# \
+    --version #VERSION# \
+    --toolchain #TOOLCHAIN# \
+    --np #NTHREADS# \
+    --work_dist "-n 1 -c #NTHREADS#" \
+    --cb_id #CB_ID# \
+    --profile_dir "../../../profiles"

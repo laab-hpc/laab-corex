@@ -21,6 +21,7 @@ source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activ
     <files>
         <fileset name="files">
         <copy>../cblas.submit.in</copy>
+        <copy>../laab_process.in</copy>
         <copy target_dir="../../">${src}</copy>
         <copy target_dir="../../example">${src}/../test/*.sh</copy>
         <copy target_dir="../../inputs">${src}/../inputs/generate_input_matrices.sh</copy>
@@ -31,6 +32,7 @@ source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activ
     <subs>
         <substituteset name="substitutes">
         <iofile in="cblas.submit.in" out="submit.sh" />
+        <iofile in="laab_process.in" out="laab_process.sh" />
         <sub source="#ACCOUNT_CONFIG#" dest="$account_config" /> 
         <sub source="#MODULES#"  dest="$modules" />
         <sub source="#COMPILE_OPTS#" dest="$compile_opts" />
