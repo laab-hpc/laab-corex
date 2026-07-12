@@ -28,5 +28,5 @@ make -C ../src clean
 make -C ../src
 
 
-export OMP_NUM_THREADS=14
-srun -N 2 -n 4 -c 14 ./build/pdgemm.exe -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 256 --reps 5 --tag "fp64"
+export OMP_NUM_THREADS=1
+srun -N 2 -n 4 -c 1 --cpu-bind=threads --distribution=block:cyclic:cyclic --threads-per-core=1 ./build/pdgemm.exe -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 256 --reps 5 --tag "fp64"

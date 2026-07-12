@@ -10,6 +10,7 @@
 #SBATCH -A hpc2n2026-184
 #SBATCH -C zen4
       </parameter>
+      <parameter name="pinning">--cpu_bind=cores --distribution=block:block</parameter>
       <parameter name="laab_postprocess_deps">
 module purge
 module load GCC/14.3.0 Python/3.13.5
@@ -41,6 +42,7 @@ source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activ
         <sub source="#LIB#" dest="$lib" />
         <sub source="#VERSION#" dest="$version" />
         <sub source="#TOOLCHAIN#" dest="$toolchain" />
+        <sub source="#PINNING#" dest="$pinning" />
         <sub source="#CB_ID#" dest="$jube_benchmark_id" />
         <sub source="#LAAB_POSTPROCESS_DEPS#" dest="$laab_postprocess_deps" />
         </substituteset>

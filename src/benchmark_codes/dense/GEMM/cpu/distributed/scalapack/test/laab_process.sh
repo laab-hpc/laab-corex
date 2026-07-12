@@ -9,7 +9,7 @@ laab-process traces/ \
     --version 2.2.2 \
     --toolchain foss2024a \
     --np 4 \
-    --work_dist "-N 2 -tpN 2 -cpt 14" \
+    --work_dist "-N 2 -tpN 2 -cpt 14 -tpc 1" \
     --cb_id 0 \
     --profile_dir "profiles/"
 

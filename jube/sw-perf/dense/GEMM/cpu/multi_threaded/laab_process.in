@@ -10,5 +10,6 @@ laab-process traces/ \
     --toolchain #TOOLCHAIN# \
     --np #NTHREADS# \
     --work_dist "-n 1 -c #NTHREADS#" \
+    --pinning="#PINNING#" \
     --cb_id #CB_ID# \
     --profile_dir "../../../profiles"

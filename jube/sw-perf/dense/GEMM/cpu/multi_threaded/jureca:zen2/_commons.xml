@@ -10,6 +10,7 @@
 #SBATCH -A cstao
 #SBATCH -p dc-cpu
       </parameter>
+      <parameter name="pinning">--cpu_bind=cores --distribution=block:block</parameter>
       <parameter name="laab_postprocess_deps">
 module purge
 module load Stages/2026
@@ -42,6 +43,7 @@ source /p/project1/ccstao/sankaran2/projects/p_laab/venv/venv/bin/activate
         <sub source="#LIB#" dest="$lib" />
         <sub source="#VERSION#" dest="$version" />
         <sub source="#TOOLCHAIN#" dest="$toolchain" />
+        <sub source="#PINNING#" dest="$pinning" />
         <sub source="#CB_ID#" dest="$jube_benchmark_id" />
         <sub source="#LAAB_POSTPROCESS_DEPS#" dest="$laab_postprocess_deps" />
         </substituteset>
