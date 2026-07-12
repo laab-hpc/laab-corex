@@ -77,6 +77,7 @@ int main(int argc, char **argv)
 
     static struct option long_opts[] = {
         {"reps", required_argument, 0, 1},
+        {"tag", required_argument, 0, 2},
         {0, 0, 0, 0}
     };
 
@@ -220,14 +221,19 @@ int main(int argc, char **argv)
     }
 
     io_elapsed = io_end - io_start;
-    // io_max_elapsed = 0.0;
-    // MPI_Allreduce(&io_elapsed, &io_max_elapsed, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD);
+    
+    char *omp_env;
+    int nthreads;
+    omp_env = getenv("OMP_NUM_THREADS");
+    nthreads = omp_env ? atoi(omp_env) : 1;
+    if (nthreads <= 0) nthreads = 1;
+
     ab_mb = (double)(((size_t)mloc_a * (size_t)nloc_a +
                       (size_t)mloc_b * (size_t)nloc_b) * sizeof(double)) /
             (1024.0 * 1024.0);
     fprintf(trace_file,
-            "[LAAB-HOST] scalapack/pdgemm | hostname=%s | rank=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
-            hostname, world_rank, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, nb, nb, io_elapsed, ab_mb);
+            "[LAAB-HOST] scalapack/pdgemm | hostname=%s | rank=%d | nthreads=%d | grid_id=(%d,%d) | A_local=(%d,%d) | B_local=(%d,%d) | block_size=%dx%d | io_time=%.5f s | ab_size=%.2f MB\n",
+            hostname, world_rank, nthreads, myrow, mycol, mloc_a, nloc_a, mloc_b, nloc_b, nb, nb, io_elapsed, ab_mb);
     fflush(trace_file);
 
     const int one = 1;
@@ -252,7 +258,7 @@ int main(int argc, char **argv)
         if (world_rank == 0) {
             c_l2 = sqrt(global_sumsq);
             fprintf(trace_file,
-                "[LAAB-RUN] scalapack/pdgemm | ts=%s | nranks=%d | grid_ndim=(%d,%d) | block_size=%dx%d | l2_norm=%.0f\n",
+                "[LAAB-RUN] scalapack/pdgemm | ts=%s | nranks=%d | grid_ndim=(%d,%d) | block_size=%dx%d | l2_norm=%.12e\n",
                     datetime, world_size, nprow, npcol, nb, nb, c_l2);
             fflush(trace_file);
         }

@@ -24,9 +24,9 @@ module load GCC OpenMPI ScaLAPACK
 lscpu
 
 
-make -C ../ clean
-make -C ../
+make -C ../src clean
+make -C ../src
 
 
 export OMP_NUM_THREADS=14
-srun -N 2 -n 4 -c 14 ./build/pdgemm.exe -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 256 --reps 5
+srun -N 2 -n 4 -c 14 ./build/pdgemm.exe -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 256 --reps 5 --tag "fp64"
