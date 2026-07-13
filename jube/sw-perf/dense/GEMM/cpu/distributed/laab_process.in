@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#LAAB_POSTPROCESS_DEPS#
+
+laab-process traces/ \
+    --name "dense/GEMM/cpu/distributed" \
+    --system #SYSTEM# \
+    --lib #LIB# \
+    --version #VERSION# \
+    --toolchain #TOOLCHAIN# \
+    --np #NTASKS# \
+    --work_dist "-N #NNODES# -tpN #NTASKS_PER_NODE# -c #NTHREADS#" \
+    --pinning="#PINNING#" \
+    --cb_id #CB_ID# \
+    --profile_dir "../../../profiles"
