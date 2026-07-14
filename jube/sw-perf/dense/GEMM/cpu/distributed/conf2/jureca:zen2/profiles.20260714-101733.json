@@ -1,0 +1,32 @@
+[
+    {
+        "name": "dense/GEMM/cpu/distributed",
+        "system": "jureca:zen4",
+        "lib": "scalapack",
+        "version": "2.2.2",
+        "toolchain": "gompi-2025b-fb",
+        "pinning": "cpu-bind=threads+distribution=block:cyclic:cyclic+threads-per-core=1",
+        "options": "-",
+        "prob_size": "A=15000x15000+B=15000x15000+nb=256x256",
+        "prec": "float64",
+        "flops": "6750000000000",
+        "interface": "pxgemm",
+        "profile_path": "artifacts/scalapack-2.2.2-gompi-2025b-fb/profiles/pxgemm_A=15000x15000+B=15000x15000+nb=256x256_float64_cpu-bind=threads+distribution=block:cyclic:cyclic+threads-per-core=1.laab",
+        "artifact_path": "artifacts/scalapack-2.2.2-gompi-2025b-fb/artifact.tar.gz"
+    },
+    {
+        "name": "dense/GEMM/cpu/distributed",
+        "system": "jureca:zen4",
+        "lib": "scalapack",
+        "version": "2.2.2",
+        "toolchain": "gompi-2025b-fb",
+        "pinning": "cpu-bind=threads+distribution=block:cyclic:cyclic+threads-per-core=1",
+        "options": "-",
+        "prob_size": "A=15000x15000+B=15000x15000+nb=512x512",
+        "prec": "float64",
+        "flops": "6750000000000",
+        "interface": "pxgemm",
+        "profile_path": "artifacts/scalapack-2.2.2-gompi-2025b-fb/profiles/pxgemm_A=15000x15000+B=15000x15000+nb=512x512_float64_cpu-bind=threads+distribution=block:cyclic:cyclic+threads-per-core=1.laab",
+        "artifact_path": "artifacts/scalapack-2.2.2-gompi-2025b-fb/artifact.tar.gz"
+    }
+]

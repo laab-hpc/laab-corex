@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jube>
     <parameterset name="param_set">
-        <parameter name="system">jureca:zen2</parameter>
-        <parameter name="src">/p/project1/ccstao/sankaran2/projects/p_laab/benchmarks/laab-core/src/benchmark_codes/dense/GEMM/cpu/multi_threaded/cblas/src</parameter>
+        <parameter name="system">jureca:zen4</parameter>
+        <parameter name="src">/p/project1/ccstao/sankaran2/projects/p_laab/benchmarks/laab-core/src/benchmark_codes/dense/GEMM/cpu/distributed/scalapack/src</parameter>
         <parameter name="inputs_dir">/p/project1/ccstao/sankaran2/projects/p_laab/benchmarks/laab-core/inputs</parameter>
-        <parameter name="nthreads" type="int">1,4,14,24,64</parameter>
+        <parameter name="nnodes" type="int">1,2,4</parameter>
+        <parameter name="ntasks_per_node" type="int">28,2</parameter>
+        <parameter name="ntasks" mode="python" type="int">${ntasks_per_node}*${nnodes}</parameter>
+        <parameter name="nthreads" type="int">1,14</parameter>
         <parameter name="reps">10</parameter>
         <parameter name="account_config">
 #SBATCH -A cstao
 #SBATCH -p dc-cpu
       </parameter>
-      <parameter name="pinning">--cpu_bind=cores --distribution=block:block</parameter>
+      <parameter name="pinning">--cpu-bind=threads --distribution=block:cyclic:cyclic --threads-per-core=1</parameter>
       <parameter name="laab_postprocess_deps">
 source /p/project1/ccstao/sankaran2/projects/p_laab/venv/activate.sh
-       </parameter>
+    </parameter>
     </parameterset>
 
-        <!-- Files -->
+    <!-- Files -->
     <files>
         <fileset name="files">
-        <copy>../cblas.submit.in</copy>
+        <copy>../submit.in</copy>
         <copy>../laab_process.in</copy>
         <copy target_dir="../../">${src}</copy>
         <copy target_dir="../../example">${src}/../test/*.sh</copy>
@@ -30,12 +33,15 @@ source /p/project1/ccstao/sankaran2/projects/p_laab/venv/activate.sh
     <!-- Substitute -->
     <subs>
         <substituteset name="substitutes">
-        <iofile in="cblas.submit.in" out="submit.sh" />
+        <iofile in="submit.in" out="submit.sh" />
         <iofile in="laab_process.in" out="laab_process.sh" />
-        <sub source="#ACCOUNT_CONFIG#" dest="$account_config" /> 
-        <sub source="#MODULES#"  dest="$modules" />
+        <sub source="#ACCOUNT_CONFIG#" dest="$account_config" />
+        <sub source="#MODULES#" dest="$modules" />
         <sub source="#COMPILE_OPTS#" dest="$compile_opts" />
         <sub source="#NTHREADS#" dest="$nthreads" />
+        <sub source="#NNODES#" dest="$nnodes" />
+        <sub source="#NTASKS#" dest="$ntasks" />
+        <sub source="#NTASKS_PER_NODE#" dest="$ntasks_per_node" />
         <sub source="#SYSTEM#" dest="$system" />
         <sub source="#LIB#" dest="$lib" />
         <sub source="#VERSION#" dest="$version" />
@@ -45,13 +51,13 @@ source /p/project1/ccstao/sankaran2/projects/p_laab/venv/activate.sh
         <sub source="#LAAB_POSTPROCESS_DEPS#" dest="$laab_postprocess_deps" />
         </substituteset>
     </subs>
-    
+
     <steps>
-      <use>param_set</use> 
-      <use>files</use> 
+      <use>param_set</use>
+      <use>files</use>
       <use>substitutes</use>
-      <do>INPUTS_DIR=${inputs_dir} REPS=${reps} sbatch submit.sh</do>           
-      <!-- <do>cat submit.sh</do>            -->
+      <do>INPUTS_DIR=${inputs_dir} REPS=${reps} sbatch submit.sh</do>
+      <!-- <do>cat submit.sh</do> -->
     </steps>
 
 </jube>

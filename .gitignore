@@ -33,7 +33,7 @@ bin/
 lib/
 Debug/
 Release/
-artifacts_*/
+artifacts/
 
 # CMake
 CMakeFiles/
@@ -61,6 +61,7 @@ Makefile.in
 *.err
 core
 core.*
+profile.*
 
 # Editors/OS
 .vscode/
