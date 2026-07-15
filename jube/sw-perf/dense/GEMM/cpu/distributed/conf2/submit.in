@@ -3,7 +3,7 @@
 #SBATCH --nodes=#NNODES#
 #SBATCH --ntasks=#NTASKS#
 #SBATCH --ntasks-per-node=#NTASKS_PER_NODE#
-#SBATCH --cpus-per-task=#NTHREADS#
+#SBATCH --cpus-per-task=#NCPUS_PER_TASK#
 #SBATCH --time=01:00:00
 #SBATCH --output=slurm.out
 #SBATCH --error=slurm.err
@@ -27,11 +27,11 @@ make -C ../../src/ #COMPILE_OPTS#
 
 ldd $LAAB_BUILD_DIR/pdgemm.exe > ldd.txt
 
-export OMP_NUM_THREADS=#NTHREADS#
+export OMP_NUM_THREADS=#NCPUS_PER_TASK#
 mkdir -p $LAAB_TRACE_DIR
 
-srun -N #NNODES# -n #NTASKS# --ntasks-per-node #NTASKS_PER_NODE# -c #NTHREADS# #PINNING# "$LAAB_BUILD_DIR/pdgemm.exe" -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 256 --reps "$REPS" --tag "fp64-b256"
-srun -N #NNODES# -n #NTASKS# --ntasks-per-node #NTASKS_PER_NODE# -c #NTHREADS# #PINNING# "$LAAB_BUILD_DIR/pdgemm.exe" -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 512 --reps "$REPS" --tag "fp64-b512"
+srun -N #NNODES# -n #NTASKS# --ntasks-per-node #NTASKS_PER_NODE# -c #NCPUS_PER_TASK# #PINNING# "$LAAB_BUILD_DIR/pdgemm.exe" -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 256 --reps "$REPS" --tag "fp64-b256"
+srun -N #NNODES# -n #NTASKS# --ntasks-per-node #NTASKS_PER_NODE# -c #NCPUS_PER_TASK# #PINNING# "$LAAB_BUILD_DIR/pdgemm.exe" -A $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -B $INPUTS_DIR/dense/M15000x15000-float64-gen.dense -b 512 --reps "$REPS" --tag "fp64-b512"
 
 rm -rf $LAAB_BUILD_DIR
 

@@ -8,8 +8,8 @@ laab-process traces/ \
     --lib #LIB# \
     --version #VERSION# \
     --toolchain #TOOLCHAIN# \
-    --np #NTASKS# \
-    --work_dist "-N #NNODES# -tpN #NTASKS_PER_NODE# -c #NTHREADS#" \
+    --np #NPE# \
+    --work_dist "-N #NNODES# -tpN #NTASKS_PER_NODE# -c #NCPUS_PER_TASK#" \
     --pinning="#PINNING#" \
     --cb_id #CB_ID# \
     --options "single-threaded" \

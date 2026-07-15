@@ -7,7 +7,8 @@
         <parameter name="nnodes" type="int">1,2,4</parameter>
         <parameter name="ntasks_per_node" type="int">24</parameter>
         <parameter name="ntasks" mode="python" type="int">${ntasks_per_node}*${nnodes}</parameter>
-        <parameter name="nthreads" type="int">1</parameter>
+        <parameter name="ncpus_per_task" type="int">1</parameter>
+        <parameter name="npe" mode="python" type="int">${ntasks}*${ncpus_per_task}</parameter>
         <parameter name="reps">10</parameter>
         <parameter name="account_config">
 #SBATCH -A hpc2n2026-184
@@ -40,10 +41,11 @@ source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activ
         <sub source="#ACCOUNT_CONFIG#" dest="$account_config" />
         <sub source="#MODULES#" dest="$modules" />
         <sub source="#COMPILE_OPTS#" dest="$compile_opts" />
-        <sub source="#NTHREADS#" dest="$nthreads" />
+        <sub source="#NCPUS_PER_TASK#" dest="$ncpus_per_task" />
         <sub source="#NNODES#" dest="$nnodes" />
         <sub source="#NTASKS#" dest="$ntasks" />
         <sub source="#NTASKS_PER_NODE#" dest="$ntasks_per_node" />
+        <sub source="#NPE#" dest="$npe" />
         <sub source="#SYSTEM#" dest="$system" />
         <sub source="#LIB#" dest="$lib" />
         <sub source="#VERSION#" dest="$version" />
