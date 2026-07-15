@@ -12,4 +12,5 @@ laab-process traces/ \
     --work_dist "-N #NNODES# -tpN #NTASKS_PER_NODE# -c #NTHREADS#" \
     --pinning="#PINNING#" \
     --cb_id #CB_ID# \
+    --options "single-threaded" \
     --profile_dir "../../../profiles"
