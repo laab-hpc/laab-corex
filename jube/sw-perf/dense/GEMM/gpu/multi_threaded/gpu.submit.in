@@ -1,0 +1,46 @@
+#!/bin/bash
+#SBATCH --job-name=gpu_mt_gemm
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --gpus=1
+#SBATCH --time=00:20:00
+#SBATCH --output=slurm.out
+#SBATCH --error=slurm.err
+#ACCOUNT_CONFIG#
+
+set -euo pipefail
+
+INPUTS_DIR="${INPUTS_DIR:-../../inputs}"
+REPS="${REPS:-5}"
+
+lscpu > cpu_info.txt
+lspci > pci_info.txt
+
+export LAAB_BUILD_DIR=$(pwd)/build
+export LAAB_TRACE_DIR=$(pwd)/traces
+
+#MODULES#
+
+make -C ../../src/ clean
+make -C ../../src/ #COMPILE_OPTS#
+
+ldd "$LAAB_BUILD_DIR/#EXE#" > ldd.txt
+
+mkdir -p "$LAAB_TRACE_DIR"
+
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M3000x3000-float64-gen.dense" -B "$INPUTS_DIR/dense/M3000x3000-float64-gen.dense" --reps "$REPS" --tag "fp64"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M3000x3000-float32-gen.dense" -B "$INPUTS_DIR/dense/M3000x3000-float32-gen.dense" --reps "$REPS" --tag "fp32"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M3000x3000-complex128-gen.dense" -B "$INPUTS_DIR/dense/M3000x3000-complex128-gen.dense" --reps "$REPS" --tag "cmplx128"
+
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float64-gen.dense" -B "$INPUTS_DIR/dense/M100x100-float64-gen.dense" --reps "$REPS" --tag "fp64-thin"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float32-gen.dense" -B "$INPUTS_DIR/dense/M100x100-float32-gen.dense" --reps "$REPS" --tag "fp32-thin"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-complex128-gen.dense" -B "$INPUTS_DIR/dense/M100x100-complex128-gen.dense" --reps "$REPS" --tag "cmplx128-thin"
+
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float64-gen.dense" -B "$INPUTS_DIR/dense/M100x6000-float64-gen.dense" --reps "$REPS" --tag "fp64-cov"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float32-gen.dense" -B "$INPUTS_DIR/dense/M100x6000-float32-gen.dense" --reps "$REPS" --tag "fp32-cov"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-complex128-gen.dense" -B "$INPUTS_DIR/dense/M100x6000-complex128-gen.dense" --reps "$REPS" --tag "cmplx128-cov"
+
+rm -rf "$LAAB_BUILD_DIR"
+
+bash laab_process.sh

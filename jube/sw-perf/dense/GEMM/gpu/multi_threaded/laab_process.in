@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#LAAB_POSTPROCESS_DEPS#
+
+laab-process traces/ \
+    --name "dense/GEMM/gpu/multi_threaded" \
+    --system #SYSTEM# \
+    --lib #LIB# \
+    --version #VERSION# \
+    --toolchain #TOOLCHAIN# \
+    --np 1 \
+    --work_dist "-n 1 -c 1 --gpus=1" \
+    --pinning="NA" \
+    --cb_id #CB_ID# \
+    --profile_dir "../../../profiles"

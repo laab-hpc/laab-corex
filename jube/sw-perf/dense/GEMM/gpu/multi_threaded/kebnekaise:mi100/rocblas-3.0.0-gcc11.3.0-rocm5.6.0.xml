@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+  <benchmark name="laab-core" outpath="artifacts/rocblas-3.0.0-gcc11.3.0-rocm5.6.0">
+    <comment>laab-core</comment>
+
+    <parameterset name="param_set" init_with="_commons.xml">
+      <parameter name="lib">rocblas</parameter>
+      <parameter name="version">3.0.0</parameter>
+      <parameter name="toolchain">gcc11.3.0-rocm5.6.0</parameter>
+      <parameter name="modules">
+module purge
+module load GCC/11.3.0 rocBLAS
+      </parameter>
+      <parameter name="compile_opts"></parameter>
+    </parameterset>
+
+    <include from="_commons.xml" path="files/" />
+    <include from="_commons.xml" path="subs/" />
+
+    <step name="bm">
+      <include from="_commons.xml" path="steps/" />
+    </step>
+  </benchmark>
+</jube>
