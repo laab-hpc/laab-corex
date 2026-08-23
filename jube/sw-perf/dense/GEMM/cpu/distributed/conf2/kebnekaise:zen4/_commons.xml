@@ -2,8 +2,9 @@
 <jube>
     <parameterset name="param_set">
         <parameter name="system">kebnekaise:zen4</parameter>
-        <parameter name="src">/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-core/src/benchmark_codes/dense/GEMM/cpu/distributed/scalapack/src</parameter>
-        <parameter name="inputs_dir">/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-core/inputs</parameter>
+        <parameter name="root">/proj/nobackup/aravind/LAAB-HPC/benchmarks/laab-corex</parameter>
+        <parameter name="src">${root}/src/benchmark_codes/dense/GEMM/cpu/distributed/scalapack/src</parameter>
+        <parameter name="inputs_dir">${root}/inputs</parameter>
         <parameter name="nnodes" type="int">1,2,4</parameter>
         <parameter name="ntasks_per_node" type="int">24</parameter>
         <parameter name="ntasks" mode="python" type="int">${ntasks_per_node}*${nnodes}</parameter>
@@ -16,9 +17,7 @@
       </parameter>
       <parameter name="pinning">--cpu-bind=threads --distribution=block:cyclic:cyclic --threads-per-core=1</parameter>
       <parameter name="laab_postprocess_deps">
-module purge
-module load GCC/14.3.0 Python/3.13.5
-source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activate
+source ${root}/venvs/laab-kebnekaise/activate.sh
     </parameter>
     </parameterset>
 
