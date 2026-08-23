@@ -1,0 +1,18 @@
+{# 
+  Tvastar base template
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+
+{% macro include_dt_deps() %}
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="{{ url_for('tvastar.static', filename='js/makeDtFilter.js') }}"></script>
+{% endmacro %}
+
+{% macro include_bp_deps() %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+<script src="{{ url_for('tvastar.static', filename='js/tvst-pr-boxplot.js') }}"></script>
+{% endmacro %}

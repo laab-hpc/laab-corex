@@ -1,0 +1,90 @@
+{% extends 'tvst-bases/nav-top.html' %}
+{% import 'tvst-macros/dependencies.html' as deps %}
+
+
+{% block copyright %}
+<!--
+LAAB Inspector Dashboard
+Copyright (c) 2026 LAAB Developers. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause
+--> 
+{% endblock copyright %}
+    
+
+{% block title %}
+    LAAB Dashboard
+{% endblock title %}
+
+{% block body_font_family %}system-ui{% endblock body_font_family %}
+
+{% block navbar_txt_color %}white{% endblock navbar_txt_color %}
+
+<!-- rwth blue #00549f -->
+<!-- jsc-dark-blue #012f53 -->
+<!-- dark brown 30% #442029 colorspicker.net-->
+{% block navbar_bg_color %}#442029{% endblock navbar_bg_color %}
+
+{% block body_padding_top %}60px{% endblock body_padding_top %}
+
+{% block body_padding_bottom %}40px{% endblock body_padding_bottom %}
+
+{% block head %}
+<!-- DataTable styles and scripts -->
+{{ deps.include_dt_deps() }}
+<!-- Partial ranking box plot styles and scripts -->
+{{ deps.include_bp_deps() }}
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+
+<style>
+    .tvst-table {
+        font-size: 14px;
+    }
+</style>
+{% endblock head %}
+
+{% block brand_url %}
+{{ url_for('laab_report.index') }}
+{% endblock brand_url %}
+
+{% block brand_name %}
+    LAAB Dashboard
+{% endblock brand_name %}
+
+{% block navbar_left %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('laab_report.index') }}">Index</a>
+    </li>
+    <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Prescribe</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Predict</a>
+    </li> -->
+
+{% endblock navbar_left %}
+
+
+{% block navbar_right %}
+    <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+    </li> -->
+{% endblock navbar_right %}
+
+    
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}
+<div class="d-flex justify-content-between w-100">
+    <div>
+    &copy; 2026 LAAB Developers.
+    </div>
+    <div>
+        <a href="{{ url_for('laab_report.acknowledgements') }}" class="btn btn-sm btn-link text-white link-light">Acknowledgements</a>
+    </div>
+</div>
+{% endblock footer %}
+
+{% block end_scripts %}
+{% endblock %}

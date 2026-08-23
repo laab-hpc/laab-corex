@@ -1,0 +1,150 @@
+{# 
+  Tvastar base template
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+
+<!-- 
+Example data:
+    See get_dfg_data from tvastar/actions/example.py
+-->
+{% import 'tvst-macros/bs-modals.html' as modal_macros %}
+{% import 'tvst-macros/bs-cards.html' as card_macros %}
+{% import 'tvst-macros/pr-boxplots.html' as bp_macros %}
+{% import 'tvst-macros/datatables.html' as dt_macros %}
+{% import 'tvst-macros/dataframes.html' as df_macros %}
+
+{% macro render_interactive_dfg(dfg_id, dfg_svg) %}
+    <div id="{{ dfg_id }}">
+        {{ dfg_svg | safe }}
+    </div>
+
+    <script>
+    {% set safe_id = dfg_id | replace('-', '_') %}
+    document.addEventListener("DOMContentLoaded", () => {
+        const dfgContainer = document.getElementById("{{ dfg_id }}");
+        const nodes = dfgContainer.querySelectorAll("g.node");
+
+        nodes.forEach(node => {
+            const polygon = node.querySelector("polygon");
+            const titleEl = node.querySelector("title");
+
+            // Hover highlight
+            node.addEventListener("mouseover", () => {
+                if (polygon) polygon.style.stroke = "red";
+            });
+
+            node.addEventListener("mouseout", () => {
+                if (polygon) polygon.style.stroke = "black";
+            });
+
+            // Click handler
+            node.addEventListener("click", () => {
+                const title = titleEl ? titleEl.textContent : null;
+                if (!title || title === "__START__" || title === "__END__") return;
+
+                handleNodeInfo_{{ safe_id }}(title);
+            });
+        });
+    });
+    </script>
+{% endmacro %}
+
+{% macro render_interactive_dfg_for_pi(dfg_id, dfg_svg, node_info) %}
+    <div id="{{ dfg_id }}">
+        {{ dfg_svg | safe }}
+    </div>
+
+    {% set safe_id = dfg_id | replace('-', '_') %}
+    {% for node in node_info.nodes %}
+        {% set safe_node_id = node | replace(' ', '_') | replace('+', '_plus_') | replace('/', '_') %}
+
+        {% call(section) modal_macros.render_modal(
+            modal_id=dfg_id~"-"~safe_node_id,
+            title=node, 
+            dialoag_class='modal-xl modal-dialog-centered modal-dialog-scrollable'
+        ) %}
+            {% if section == 'body' %}
+                <div class="container-fluid py-4">
+                    {% call card_macros.render_card_basic(
+                        title=node_info.bp_title,
+                        header_class='tvst-card h5'
+                    ) %}
+                    {{ bp_macros.render_bp(
+                        bp_id="bp"~"_"~safe_id~"_"~safe_node_id,
+                        bp_data=node_info.bp_data[node],
+                        x_label=node_info.bp_x_label,
+                        boxHeight=60, 
+                        width=600, 
+                        yTickSize=12, 
+                        showOutliers=true,
+                        ranks=node_info.ranks[node]
+                    ) }}    
+                    {% endcall %}
+                </div>
+                
+                <div class="container-fluid py-4">
+                    {% call card_macros.render_card_basic(
+                        title='Statistics',
+                        header_class='tvst-card h5'
+                    ) %}
+                        {% call dt_macros.render_dt(
+                            table_id='stats'~"_"~safe_id~"_"~safe_node_id,
+                            table_class='tvst-table display w-100',
+                            page_length=5
+                        ) %}
+                            {{ df_macros.render_df_with_filters(node_info.col_schema, node_info.node_records[node]) }}
+                        {% endcall %}
+                    {% endcall %}
+                </div>
+
+            {% elif section == 'footer' %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {% endif %}
+        {% endcall %}
+    {% endfor %}
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const dfgContainer = document.getElementById("{{ dfg_id }}");
+        const nodes = dfgContainer.querySelectorAll("g.node");
+
+        nodes.forEach(node => {
+            const polygon = node.querySelector("polygon");
+            const titleEl = node.querySelector("title");
+
+            // Hover highlight
+            node.addEventListener("mouseover", () => {
+                if (polygon) polygon.style.stroke = "red";
+            });
+
+            node.addEventListener("mouseout", () => {
+                if (polygon) polygon.style.stroke = "black";
+            });
+
+            // Click handler
+            node.addEventListener("click", () => {
+                const title = titleEl ? titleEl.textContent : null;
+                if (!title || title === "__START__" || title === "__END__") return;
+
+                _handleNodeInfo_{{safe_id}}(title);
+            });
+        });
+
+        
+
+        function _handleNodeInfo_{{safe_id}}(node_name){
+            const node_id = node_name.replace(/ /g, '_').replace(/\+/g, '_plus_').replace(/\//g, '_');
+            const modalId = `{{ dfg_id }}-${node_id}`;
+            const modalElement = document.getElementById(modalId);
+            if (modalElement) {
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            } 
+        }
+    });
+    </script>
+{% endmacro %}
+

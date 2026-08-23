@@ -29,17 +29,9 @@ ldd "$LAAB_BUILD_DIR/#EXE#" > ldd.txt
 
 mkdir -p "$LAAB_TRACE_DIR"
 
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M3000x3000-float64-gen.dense" -B "$INPUTS_DIR/dense/M3000x3000-float64-gen.dense" --reps "$REPS" --tag "fp64"
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M3000x3000-float32-gen.dense" -B "$INPUTS_DIR/dense/M3000x3000-float32-gen.dense" --reps "$REPS" --tag "fp32"
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M3000x3000-complex128-gen.dense" -B "$INPUTS_DIR/dense/M3000x3000-complex128-gen.dense" --reps "$REPS" --tag "cmplx128"
-
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float64-gen.dense" -B "$INPUTS_DIR/dense/M100x100-float64-gen.dense" --reps "$REPS" --tag "fp64-thin"
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float32-gen.dense" -B "$INPUTS_DIR/dense/M100x100-float32-gen.dense" --reps "$REPS" --tag "fp32-thin"
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-complex128-gen.dense" -B "$INPUTS_DIR/dense/M100x100-complex128-gen.dense" --reps "$REPS" --tag "cmplx128-thin"
-
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float64-gen.dense" -B "$INPUTS_DIR/dense/M100x6000-float64-gen.dense" --reps "$REPS" --tag "fp64-cov"
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-float32-gen.dense" -B "$INPUTS_DIR/dense/M100x6000-float32-gen.dense" --reps "$REPS" --tag "fp32-cov"
-srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M6000x100-complex128-gen.dense" -B "$INPUTS_DIR/dense/M100x6000-complex128-gen.dense" --reps "$REPS" --tag "cmplx128-cov"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M15000x15000-float64-gen.dense" -B "$INPUTS_DIR/dense/M15000x15000-float64-gen.dense" --reps "$REPS" --tag "fp64"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M15000x15000-float32-gen.dense" -B "$INPUTS_DIR/dense/M15000x15000-float32-gen.dense" --reps "$REPS" --tag "fp32"
+srun "$LAAB_BUILD_DIR/#EXE#" -A "$INPUTS_DIR/dense/M15000x15000-complex128-gen.dense" -B "$INPUTS_DIR/dense/M15000x15000-complex128-gen.dense" --reps "$REPS" --tag "cmplx128"
 
 rm -rf "$LAAB_BUILD_DIR"
 

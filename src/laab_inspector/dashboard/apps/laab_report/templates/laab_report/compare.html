@@ -1,0 +1,158 @@
+{% extends 'laab_report/base.html' %}
+{% import 'tvst-macros/bs-cards.html' as card_macros %}
+{% import 'tvst-macros/datatables.html' as dt_macros %}
+{% import 'tvst-macros/pr-boxplots.html' as bp_macros %}
+{% import 'laab_report/macros/scaling_plot.html' as sp_macro %}
+
+{% set scaling_ns = namespace(show=false) %}
+{% for _, x_values in scaling_data.items() %}
+    {% if x_values | length > 1 %}
+        {% set scaling_ns.show = true %}
+    {% endif %}
+{% endfor %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+                title="Specifications",
+                card_class='',
+                header_class='tvst-card h5'
+    ) %}
+
+        <div class="row">
+            <div class="col-md-5">
+                <table class="table table-borderless table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td><strong><u>Commons</u></strong></td>
+                            <td></td>
+                        </tr>
+                        {% for k, v in specs.items() %}
+                        <tr>
+                            <td><strong>{{ k }}</strong></td>
+                            <td>{{ v }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <table class="table table-borderless table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td><strong><u>Variants</u></strong></td>
+                            <td></td>
+                        </tr>
+                        {% for k, v in variants.items() %}
+                        <tr>
+                            <td>{{ k }}</td>
+                            <td><a class="btn btn-link btn-sm" href="{{ url_for('laab_report.laab_report', profile_path=v) }}">view report</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endcall %} 
+</div>
+
+<div class="container-fluid py-4">
+{% call(section) card_macros.render_card_with_custom_header(
+    header_class='tvst-card'
+) %}
+
+    {% if section == 'header' %}
+        <div class="fst-italic">Runs</div>
+        <div>
+            {% if scaling_ns.show %}
+            <a href="#scaling-plots-section" class="btn btn-sm btn-light">Scaling plot</a>
+            {% endif %}
+        </div>
+    {% elif section == 'body' %}
+
+        {% call dt_macros.render_dt(
+            table_id='runs_table',
+            table_class='tvst-table display',
+            page_length=10,
+        ) %}
+
+        <thead>
+            <tr>
+                <th>Variant</th>
+                <th>NPE</th>
+                <th>Work distribution</th>
+                <th>Median exec time (s)</th>
+                <th>Median Perf (GFLOPS/s)</th>
+                <th>Partial rank (M1-M2-M3)</th>
+                <th>Num CBs</th>
+            </tr>
+            <tr>         
+                <th><input type="text" data-col="0" placeholder="filter"></th>
+                <th><input type="text" data-col="1" placeholder="filter"></th>
+                <th><input type="text" data-col="2" placeholder="filter"></th>
+                <th><input type="text" data-col="3" placeholder="filter"></th>
+                <th><input type="text" data-col="4" placeholder="filter"></th>
+                <th><input type="text" data-col="5" placeholder="filter"></th>
+                <th><input type="text" data-col="6" placeholder="filter"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in variant_records %}
+            <tr>
+                <td>{{ row['variant'] }}</td>
+                <td>{{ row['npe'] }}</td>
+                <td>{{ row['wd'] }}</td>
+                <td>{{ row['median_exec_time'] | round(5) }}</td>
+                <td>{{ row['median_compute_perf'] | round(5) }}</td>
+                <td>{{ variant_ranks[row['key']]['ranks_m1'][row['variant']] }}-{{ variant_ranks[row['key']]['ranks_m2'][row['variant']] }}-{{ variant_ranks[row['key']]['ranks_m3'][row['variant']] }}</td>
+                <td>{{ row['ncb'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% endcall %}
+    {% endif %}
+{% endcall %}
+</div>
+
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+        title='Boxplots',
+        header_class='tvst-card fst-italic'
+    ) %}
+
+    {% for object, ranking_data in compute_perfs.items() %}
+        <p class="fst-italic py-4"> NPE/Work distribution: <strong>{{ object }}</strong></p>
+        {% set safe_object = object | replace('/', '_') | replace('=', '_') | replace('-', '_') | replace(' ', '_')%}
+        {{ bp_macros.render_bp(
+            bp_id='pr_' + safe_object,
+            bp_data=ranking_data,
+            x_label='GFLOPs/s',
+            boxHeight=50, 
+            width=800, 
+            yTickSize=12, 
+            showOutliers=true,
+            ranks=variant_ranks[object]['ranks_m2']
+        ) }}    
+    {% endfor %}
+ 
+    {% endcall %}
+</div>
+
+{% if scaling_ns.show %}
+<div id="scaling-plots-section" class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+        title='Scaling plots',
+        header_class='tvst-card fst-italic'
+    ) %}
+
+    {{ sp_macro.render_scaling_plots(
+        scaling_data=scaling_data,
+        id_prefix='scaling'
+    ) }}
+ 
+    {% endcall %}
+</div>
+{% endif %}
+
+{% endblock content %}

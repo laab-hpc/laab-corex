@@ -1,0 +1,41 @@
+{# 
+  Tvastar
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+
+{% macro render_card_basic(
+    title,
+    card_class='', 
+    header_class='bg-primary text-white' 
+) %}
+<div class="card shadow-sm border-0 w-100 {{ card_class }}">
+    <div class="card-header d-flex justify-content-between align-items-center {{ header_class }}">
+        <div class="mb-0">{{ title }}</div>
+    </div>
+    
+    <div class="card-body overflow-auto tvst-horizontal-scroll">
+        {{ caller() }}
+    </div>
+</div>
+
+<script>
+
+</script>
+{% endmacro %}
+
+{% macro render_card_with_custom_header(
+    card_class='', 
+    header_class='bg-primary text-white' 
+) %}
+<div class="card shadow-sm border-0 {{ card_class }}">
+    <div class="card-header d-flex justify-content-between align-items-center {{ header_class }}">
+        {{ caller('header')}}
+    </div>
+    
+    <div class="card-body overflow-auto tvst-horizontal-scroll">
+        {{ caller('body') }}
+    </div>
+</div>
+{% endmacro %}

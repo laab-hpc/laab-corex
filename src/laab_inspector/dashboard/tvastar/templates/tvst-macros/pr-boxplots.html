@@ -1,0 +1,59 @@
+{# 
+  Tvastar base template
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+<!-- 
+Required dep:
+indluce_bp_deps from 'tvst-macros/dependencies.html' 
+
+Example data
+    bp_data = {
+        "Model_A": [0.75, 0.80, 0.78, 0.82, 0.77],
+        "Model_B": [0.65, 0.70, 0.68, 0.72, 0.66],
+        "Model_C": [0.85, 0.88, 0.87, 0.90, 0.86],
+    }
+    
+    # Ranks for the models
+    ranks = {
+        "Model_A": 1,
+        "Model_B": 2,
+        "Model_C": 0,
+    }
+-->
+{% macro render_bp(
+    bp_id, 
+    x_label, 
+    bp_data, 
+    ranks={}, 
+    boxHeight=60, 
+    width=1000, 
+    yTickSize=14, 
+    showOutliers=true ) %}
+    <div style="width: 100%;">
+        <div id="{{ bp_id }}">
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const bp_data = {{ bp_data | tojson }};
+
+        {% if ranks %}
+            let ranks = {{ ranks | tojson }};
+        {% else %}
+            let ranks = null;
+        {% endif %}
+
+        renderPRBoxplotChartJS(bp_data, {
+            container:"#{{ bp_id }}",
+            showOutliers: {{ showOutliers | tojson }}, 
+            xlabel: ' {{ x_label }}',
+            rowHeight: {{ boxHeight }},
+            width:{{ width }},
+            yTickSize: {{ yTickSize }},
+            rank: ranks,});
+    });
+    </script>
+{% endmacro %}

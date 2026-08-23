@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jube>
+  <benchmark name="prepare_venv" outpath="logs/">
+    <comment>Prepare virtual environment</comment>
+
+    <!-- Configuration -->
+    <parameterset name="venv_params">
+      <parameter name="venv_tag" >laab-kebnekaise</parameter>
+      <parameter name="modules">
+module purge
+module load GCC/14.3.0
+module load SciPy-bundle     
+      </parameter>
+      <parameter name="requirements">
+pip
+      </parameter>
+    </parameterset>
+
+    <!-- Operation -->
+    <step name="exec_step" work_dir="../">
+      <use>venv_params</use>
+      <do>rm -rf ${venv_tag}</do>
+      <do>cp -r template ${venv_tag}</do>
+      <do>printf '%s\n' "${modules}" &gt; ${venv_tag}/modules.sh</do>
+      <do>printf '%s\n' "${requirements}" &gt; ${venv_tag}/requirements.txt</do>
+      <do>cd ${venv_tag} &amp;&amp; ./setup.sh </do>
+    </step>
+  </benchmark>
+</jube>

@@ -1,0 +1,103 @@
+{% extends 'laab_report/base.html' %}
+{% import 'tvst-macros/datatables.html' as dt_macros %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <p class="h4">LAAB-Core Performance Reports</p>
+    <p class="fw-light">Compare upto 30 selections.</p>
+    <!-- <p><span class="h4">Select profiles for comparison</span> <span class="lead"> (up to 30 profiles)</span></p> -->
+        {% call dt_macros.render_dt_with_selections(
+            table_id='profiles_index',
+            table_class='tvst-table display',
+            page_length=25,
+        ) %}
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Step name</th>
+                    <th>System</th>
+                    <th>Library</th>
+                    <th>Version</th>
+                    <th>Toolchain</th>
+                    <th>Precision</th>
+                    <th>Problem size</th>
+                    <th>Interface</th>
+                    <th>Pinning</th>
+                    <th>Options</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th><input type="checkbox" class="tvst-select-all"></th>
+                    <th><input type="text" data-col="1" placeholder="filter"></th>
+                    <th><input type="text" data-col="2" placeholder="filter"></th>
+                    <th><input type="text" data-col="3" placeholder="filter"></th>
+                    <th><input type="text" data-col="4" placeholder="filter"></th>
+                    <th><input type="text" data-col="5" placeholder="filter"></th>
+                    <th><input type="text" data-col="6" placeholder="filter"></th>
+                    <th><input type="text" data-col="7" placeholder="filter"></th>
+                    <th><input type="text" data-col="8" placeholder="filter"></th>
+                    <th><input type="text" data-col="9" placeholder="filter"></th>
+                    <th><input type="text" data-col="10" placeholder="filter"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in profiles %}
+                <tr>
+                    <td><input type="checkbox" class="tvst-select" value="{{ row['profile_path'] }}"></td>
+                    <td class="name">{{ row['name'] }}</td>
+                    <td class="system">{{ row['system'] }}</td>
+                    <td class="lib">{{  row['lib'] }}</td>
+                    <td class="version">{{ row['version'] }}</td>
+                    <td class="toolchain">{{ row['toolchain'] }}</td>
+                    <td class="prec">{{ row['prec'] }}</td>
+                    <td class="prob_size">{{ row['prob_size'] }}</td>
+                    <td class="interface">{{ row['interface'] }}</td>
+                    <td class="pinning">{{ row['pinning'] }}</td>
+                    <td class="options">{{ row['options'] }}</td>
+                    <td>
+                        <a href="{{ url_for('laab_report.laab_report', profile_path=row['profile_path']) }}"
+                        class="btn btn-secondary btn-sm">
+                            view
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        {% endcall %}
+</div>
+<div class="container-fluid py-2">
+    <form id="send-selections-form" method="POST" action="{{ url_for('laab_report.compare') }}">
+        <input type="hidden" id="send-selections-profiles" name="profiles">
+
+        <div class="d-flex flex-column align-items-center mb-5 gap-3">
+            <button id="send-selections-btn" type="button" class="btn btn-secondary">
+                Compare
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('send-selections-btn').addEventListener('click', function() {
+        const selectionsInput = document.getElementById('profiles_index-selections');
+        const selectedIds = selectionsInput.value;
+
+        if (!selectedIds) {
+            alert('No profiles selected.');
+            return;
+        }
+
+        if (selectedIds.split(',').length > 30) {
+            alert('Cannot compare more than 30 profiles');
+            return;
+        } else if (selectedIds.split(',').length < 2) {
+            alert('Select at least two profiles');
+            return;
+        }
+
+        document.getElementById('send-selections-profiles').value = selectedIds;
+        document.getElementById('send-selections-form').submit();
+    });
+</script>
+{% endblock content %}

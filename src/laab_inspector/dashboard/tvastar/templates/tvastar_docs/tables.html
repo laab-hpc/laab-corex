@@ -1,0 +1,49 @@
+{% extends 'tvastar_docs/base.html' %}
+{% import 'tvst-macros/bs-cards.html' as card_macros %}
+{% import 'tvst-macros/datatables.html' as dt_macros %}
+{% import 'tvst-macros/dataframes.html' as df_macros %}
+
+{% block content %}
+    <div class="container-fluid py-4">
+        <h5>Table with tvst filters</h5>
+        {% call dt_macros.render_dt(
+            table_id='table1',
+            table_class='tvst-table display',
+            page_length=5,
+        ) %}
+            {{ df_macros.render_df_with_filters(col_schema, records, round=2) }}
+        {% endcall %}
+    </div>
+
+    <div class="container-fluid py-4">
+        {% call card_macros.render_card_basic(
+            title='Tvastar Table with default data table filters within a card',
+            header_class='tvst-card h5'
+        ) %}
+            {% call dt_macros.render_dt(
+                table_id='table2',
+                table_class='tvst-table display',
+                page_length=5,
+                default_filter=true
+            ) %}
+                {{ df_macros.render_df(col_schema, records, round=2) }}
+            {% endcall %}
+        {% endcall %}
+    </div>
+
+    <div class="container-fluid py-4">
+        {% call card_macros.render_card_basic(
+            title='Tvastar table with selections',
+            header_class='tvst-card h5'
+        ) %}
+            {% call dt_macros.render_dt_with_selections(
+                table_id='table3',
+                table_class='tvst-table display',
+                page_length=3,
+            ) %}
+                {{ df_macros.render_df_with_selections(col_schema, records, pk, round=2) }}
+            {% endcall %}
+        {% endcall %}
+    </div>
+
+{% endblock content %}

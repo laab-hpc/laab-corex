@@ -1,0 +1,35 @@
+{% extends 'tvastar_docs/base.html' %}
+{% import 'tvst-macros/bs-cards.html' as card_macros %}
+{% import 'tvst-macros/pr-boxplots.html' as bp_macros %}
+
+{% block content %}
+
+<h5>BP with ranks and default sizes</h5>
+<div class="m-4">
+{{ bp_macros.render_bp(
+    bp_id='pr_bp1',
+    bp_data=bp_data,
+    x_label='Scores',
+    ranks=ranks
+) }}
+</div>
+
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+        title='BP without ranks and custom sizes',
+        header_class='tvst-card h5'
+    ) %}
+    {{ bp_macros.render_bp(
+        bp_id='pr_bp2',
+        bp_data=bp_data,
+        x_label='Scores',
+        boxHeight=40, 
+        width=800, 
+        yTickSize=12, 
+        showOutliers=true
+    ) }}    
+    {% endcall %}
+</div>
+            
+
+{% endblock content %}

@@ -63,6 +63,12 @@ core
 core.*
 profile.*
 
+# Python
+__pycache__/
+*.pyc
+*.egg
+*.egg-info/
+
 # Editors/OS
 .vscode/
 .idea/

@@ -1,0 +1,39 @@
+{% extends 'tvastar_docs/base.html' %}
+{% import 'tvst-macros/bs-modals.html' as modal_macros %}
+
+
+{% block content %}
+
+    <h5>Modals</h5>
+
+    <div class="container-fluid py-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+        </button>
+
+        {% call(section) modal_macros.render_modal(modal_id='exampleModal', title='Example Modal Title', dialoag_class='modal-xl modal-dialog-centered') %}
+            {% if section == 'body' %}
+                <p>This is the body of the modal. You can put any content here, including text, images, or forms.</p>
+            {% elif section == 'footer' %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {% endif %}
+        {% endcall %}
+    </div>
+
+    <div class="container-fluid py-4">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#alter">
+        Alert
+        </button>
+
+        {% call(section) modal_macros.render_modal(modal_id='alter', title='Alert Modal') %}
+            {% if section == 'body' %}
+                <p>This is an alert modal.</p>
+            {% elif section == 'footer' %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {% endif %}
+        {% endcall %}
+    </div>
+
+  
+
+{% endblock content %}

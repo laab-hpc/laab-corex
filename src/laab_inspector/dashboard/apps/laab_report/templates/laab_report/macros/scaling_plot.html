@@ -1,0 +1,589 @@
+{# templates/macros/scaling_plots.html #}
+
+{% macro render_scaling_plots(scaling_data, id_prefix="scaling") %}
+
+<style>
+    .scaling-plots-wrapper {
+        width: 100%;
+    }
+
+    .scaling-chart-card {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+    }
+
+    .scaling-chart-controls {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .scaling-chart-layout {
+        display: flex;
+        width: 100%;
+        min-width: 0;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .scaling-chart-container {
+        position: relative;
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 400px;
+    }
+
+    .scaling-chart-legend {
+        flex: 0 0 230px;
+        width: 230px;
+        min-width: 0;
+        max-height: 400px;
+        padding-top: 3rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .scaling-chart-legend ul {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .scaling-chart-legend li {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        min-width: 0;
+        gap: 0.5rem;
+        margin-bottom: 0.65rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
+    .scaling-legend-line {
+        flex: 0 0 25px;
+        width: 25px;
+        height: 4px;
+        margin-top: 0.5rem;
+    }
+
+    .scaling-legend-label {
+        flex: 1;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    @media (max-width: 900px) {
+        .scaling-chart-layout {
+            flex-direction: column;
+        }
+
+        .scaling-chart-container {
+            width: 100%;
+            height: 350px;
+        }
+
+        .scaling-chart-legend {
+            width: 100%;
+            max-height: 180px;
+            flex-basis: auto;
+            padding-top: 0;
+        }
+    }
+</style>
+
+
+<div class="scaling-plots-wrapper">
+
+    {# Compute performance #}
+    <div class="card scaling-chart-card">
+        <div class="card-body">
+
+            <div class="scaling-chart-controls">
+                <button
+                    id="{{ id_prefix }}-compute-perf-reset"
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary">
+                    Reset zoom
+                </button>
+
+                <button
+                    id="{{ id_prefix }}-compute-perf-download"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary">
+                    Download
+                </button>
+            </div>
+
+            <div class="scaling-chart-layout">
+                <div class="scaling-chart-container">
+                    <canvas id="{{ id_prefix }}-compute-perf"></canvas>
+                </div>
+
+                <div
+                    id="{{ id_prefix }}-compute-perf-legend"
+                    class="scaling-chart-legend">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {# Execution time #}
+    <div class="card scaling-chart-card">
+        <div class="card-body">
+
+            <div class="scaling-chart-controls">
+                <button
+                    id="{{ id_prefix }}-exec-time-reset"
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary">
+                    Reset zoom
+                </button>
+
+                <button
+                    id="{{ id_prefix }}-exec-time-download"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary">
+                    Download
+                </button>
+            </div>
+
+            <div class="scaling-chart-layout">
+                <div class="scaling-chart-container">
+                    <canvas id="{{ id_prefix }}-exec-time"></canvas>
+                </div>
+
+                <div
+                    id="{{ id_prefix }}-exec-time-legend"
+                    class="scaling-chart-legend">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {# Scaling efficiency #}
+    <div class="card scaling-chart-card">
+        <div class="card-body">
+
+            <div class="scaling-chart-controls">
+                <button
+                    id="{{ id_prefix }}-efficiency-reset"
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary">
+                    Reset zoom
+                </button>
+
+                <button
+                    id="{{ id_prefix }}-efficiency-download"
+                    type="button"
+                    class="btn btn-sm btn-outline-primary">
+                    Download
+                </button>
+            </div>
+
+            <div class="scaling-chart-layout">
+                <div class="scaling-chart-container">
+                    <canvas id="{{ id_prefix }}-efficiency"></canvas>
+                </div>
+
+                <div
+                    id="{{ id_prefix }}-efficiency-legend"
+                    class="scaling-chart-legend">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+(() => {
+    const scalingData = {{ scaling_data | tojson }};
+    const idPrefix = {{ id_prefix | tojson }};
+
+    function prepareDatasets(field) {
+        return Object.entries(scalingData)
+            .map(([variant, xValues]) => {
+                const data = Object.entries(xValues)
+                    .map(([tasks, values]) => ({
+                        x: Number(tasks),
+                        y: Number(values[field]),
+                        tag: values.tag
+                    }))
+                    .filter(point =>
+                        Number.isFinite(point.x) &&
+                        Number.isFinite(point.y)
+                    )
+                    .sort((a, b) => a.x - b.x);
+
+                return {
+                    label: variant,
+                    data,
+                    parsing: false,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+                    tension: 0,
+                    fill: false
+                };
+            })
+            .filter(dataset => dataset.data.length > 0);
+    }
+
+
+    const externalLegendPlugin = {
+        id: "externalLegend",
+
+        afterUpdate(chart, args, options) {
+            const container = document.getElementById(
+                options.containerId
+            );
+
+            if (!container) {
+                return;
+            }
+
+            let list = container.querySelector("ul");
+
+            if (!list) {
+                list = document.createElement("ul");
+                container.appendChild(list);
+            }
+
+            list.replaceChildren();
+
+            const items = chart.options.plugins.legend.labels
+                .generateLabels(chart);
+
+            items.forEach(item => {
+                const listItem = document.createElement("li");
+
+                const line = document.createElement("span");
+                line.classList.add("scaling-legend-line");
+                line.style.backgroundColor =
+                    item.strokeStyle || item.fillStyle;
+
+                const label = document.createElement("span");
+                label.classList.add("scaling-legend-label");
+                label.textContent = item.text;
+                label.title = item.text;
+
+                if (item.hidden) {
+                    line.style.opacity = "0.4";
+                    label.style.opacity = "0.5";
+                    label.style.textDecoration = "line-through";
+                }
+
+                listItem.addEventListener("click", () => {
+                    const datasetIndex = item.datasetIndex;
+
+                    chart.setDatasetVisibility(
+                        datasetIndex,
+                        !chart.isDatasetVisible(datasetIndex)
+                    );
+
+                    chart.update();
+                });
+
+                listItem.appendChild(line);
+                listItem.appendChild(label);
+                list.appendChild(listItem);
+            });
+        }
+    };
+
+
+    function downloadChart(chart, filename) {
+        const sourceCanvas = chart.canvas;
+        const pixelRatio = chart.currentDevicePixelRatio || 1;
+
+        const legendItems = chart.options.plugins.legend.labels
+            .generateLabels(chart)
+            .filter(item => !item.hidden);
+
+        const gap = 25 * pixelRatio;
+        const legendWidth = 300 * pixelRatio;
+        const legendLineHeight = 30 * pixelRatio;
+        const legendTop = 55 * pixelRatio;
+
+        const requiredLegendHeight =
+            legendTop +
+            legendItems.length * legendLineHeight +
+            20 * pixelRatio;
+
+        const exportCanvas = document.createElement("canvas");
+
+        exportCanvas.width =
+            sourceCanvas.width + gap + legendWidth;
+
+        exportCanvas.height =
+            Math.max(sourceCanvas.height, requiredLegendHeight);
+
+        const context = exportCanvas.getContext("2d");
+
+        context.fillStyle = "#ffffff";
+        context.fillRect(
+            0,
+            0,
+            exportCanvas.width,
+            exportCanvas.height
+        );
+
+        context.drawImage(sourceCanvas, 0, 0);
+
+        const legendX = sourceCanvas.width + gap;
+
+        context.fillStyle = "#111111";
+        context.font =
+            `bold ${14 * pixelRatio}px sans-serif`;
+
+        context.fillText(
+            "Variants",
+            legendX,
+            28 * pixelRatio
+        );
+
+        context.font =
+            `${12 * pixelRatio}px sans-serif`;
+
+        legendItems.forEach((item, index) => {
+            const y =
+                legendTop + index * legendLineHeight;
+
+            context.strokeStyle =
+                item.strokeStyle ||
+                item.fillStyle ||
+                "#666666";
+
+            context.lineWidth = 3 * pixelRatio;
+            context.beginPath();
+            context.moveTo(legendX, y);
+            context.lineTo(
+                legendX + 25 * pixelRatio,
+                y
+            );
+            context.stroke();
+
+            context.fillStyle = "#111111";
+
+            context.fillText(
+                item.text,
+                legendX + 35 * pixelRatio,
+                y + 4 * pixelRatio,
+                legendWidth - 40 * pixelRatio
+            );
+        });
+
+        const link = document.createElement("a");
+
+        link.download = filename;
+        link.href = exportCanvas.toDataURL("image/png");
+        link.click();
+    }
+
+
+    function createScalingPlot({
+        suffix,
+        field,
+        title,
+        yAxisTitle,
+        unit,
+        filename
+    }) {
+        const canvasId = `${idPrefix}-${suffix}`;
+        const canvas = document.getElementById(canvasId);
+
+        if (!canvas) {
+            return;
+        }
+
+        const chart = new Chart(canvas, {
+            type: "line",
+
+            data: {
+                datasets: prepareDatasets(field)
+            },
+
+            plugins: [
+                externalLegendPlugin
+            ],
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: "nearest",
+                    intersect: true
+                },
+
+                scales: {
+                    x: {
+                        type: "linear",
+
+                        title: {
+                            display: true,
+                            text: "NPE",
+                            font: {
+                                size: 13,
+                                weight: "bold"
+                            }
+                        },
+
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+
+                        title: {
+                            display: true,
+                            text: yAxisTitle,
+                            font: {
+                                size: 13,
+                                weight: "bold"
+                            }
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+
+                    externalLegend: {
+                        containerId: `${canvasId}-legend`
+                    },
+
+                    title: {
+                        display: true,
+                        text: title,
+                        font: {
+                            size: 17,
+                            weight: "bold"
+                        },
+                        padding: {
+                            bottom: 15
+                        }
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            title(items) {
+                                return (
+                                    `NPE: ` +
+                                    `${items[0].raw.x}`
+                                );
+                            },
+
+                            label(context) {
+                                const value = Number(
+                                    context.raw.y
+                                ).toFixed(3);
+
+                                return (
+                                    `${context.dataset.label}: ` +
+                                    `${value} ${unit}`
+                                );
+                            },
+
+                            afterLabel(context) {
+                                if (!context.raw.tag) {
+                                    return "";
+                                }
+
+                                return (
+                                    `Configuration: ` +
+                                    `${context.raw.tag}`
+                                );
+                            }
+                        }
+                    },
+
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: "xy",
+                            modifierKey: "ctrl"
+                        },
+
+                        zoom: {
+                            mode: "xy",
+
+                            wheel: {
+                                enabled: true
+                            },
+
+                            pinch: {
+                                enabled: true
+                            },
+
+                            drag: {
+                                enabled: true,
+                                modifierKey: "shift"
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        document
+            .getElementById(`${canvasId}-reset`)
+            ?.addEventListener("click", () => {
+                chart.resetZoom();
+            });
+
+        document
+            .getElementById(`${canvasId}-download`)
+            ?.addEventListener("click", () => {
+                downloadChart(chart, filename);
+            });
+    }
+
+
+    const plotConfigurations = [
+        {
+            suffix: "compute-perf",
+            field: "perf",
+            title: "Scaling of compute performance",
+            yAxisTitle: "Compute performance (GFLOP/s)",
+            unit: "GFLOP/s",
+            filename: "compute-performance.png"
+        },
+        {
+            suffix: "exec-time",
+            field: "exec_time",
+            title: "Scaling of execution time",
+            yAxisTitle: "Execution time (s)",
+            unit: "s",
+            filename: "execution-time.png"
+        },
+        {
+            suffix: "efficiency",
+            field: "efficiency",
+            title: "Scaling efficiency",
+            yAxisTitle: "Efficiency (%)",
+            unit: "%",
+            filename: "scaling-efficiency.png"
+        }
+    ];
+
+    plotConfigurations.forEach(createScalingPlot);
+})();
+</script>
+
+{% endmacro %}

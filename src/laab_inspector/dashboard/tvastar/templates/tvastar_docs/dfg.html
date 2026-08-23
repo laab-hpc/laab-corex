@@ -1,0 +1,53 @@
+{% extends 'tvastar_docs/base.html' %}
+{% import 'tvst-macros/bs-cards.html' as card_macros %}
+{% import 'tvst-macros/dfgs.html' as dfg_macros %}
+{% import 'tvst-macros/bs-modals.html' as modal_macros %}
+
+    
+{% block content %}
+
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+        title='DFG',
+        header_class='tvst-card h5'
+    ) %}
+        {{ dfg_svg | safe }}
+    {% endcall %}
+</div>
+
+
+
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+        title='Interactive DFG for Process Inspector',
+        header_class='tvst-card h5'
+    ) %}
+        {{ dfg_macros.render_interactive_dfg_for_pi(
+            dfg_id='example_dfg2',
+            dfg_svg=dfg_svg,
+            node_info=node_info
+        ) }}
+    {% endcall %}
+</div>
+
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+        title='Interactive DFG with custom handler',
+        header_class='tvst-card h5'
+    ) %}
+        {{ dfg_macros.render_interactive_dfg(
+            dfg_id='example_dfg',
+            dfg_svg=dfg_svg
+        ) }}
+    {% endcall %}
+</div>
+
+{% endblock content %}
+
+{% block end_scripts %}
+<script>
+    function handleNodeInfo_example_dfg(node_name){
+        alert("Node Info: " + node_name);
+    }
+</script>
+{% endblock %}

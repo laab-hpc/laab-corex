@@ -1,0 +1,37 @@
+{% extends 'tvastar_docs/base.html' %}
+{% import 'tvst-macros/bs-cards.html' as cards_macros %}
+
+    
+{% block content %}
+    <div class="container-fluid py-4">
+        {% call cards_macros.render_card_basic(
+            title='Card S1',
+            header_class='tvst-card h5'
+        ) %}
+            <p>This is an example of a card rendered using the Card Macro S1.</p>
+            <p>The title is passed as a parameter to the macro, and the body is provided via caller block.</p>
+        {% endcall %}
+    </div>
+
+    <div class="container-fluid py-4">
+        {% call(section) cards_macros.render_card_with_custom_header(
+            header_class='tvst-card'
+        ) %}
+            {% if section == 'header' %}
+                <div class="mb-0 h5">Card S2</div>
+                <div>
+                    <a href="#" class="btn btn-sm btn-light">inspect</a>
+                    <a href="#" class="btn btn-sm btn-light">info</a>
+                </div>
+            {% elif section == 'body' %}
+                <p>This is an example of a card rendered using the Card Macro S2.</p>
+                <p>The header and body content are provided via caller blocks.</p>
+            {% endif %}
+        {% endcall %}
+    </div>
+{% endblock content %}
+
+
+
+    
+    

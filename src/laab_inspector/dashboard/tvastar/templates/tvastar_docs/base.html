@@ -1,0 +1,72 @@
+{% extends 'tvst-bases/nav-top.html' %}
+{% import 'tvst-macros/dependencies.html' as deps %}
+
+
+{% block copyright %}
+<!--
+Copyright (c) 2026 Aravind Sankaran
+Developed in Aachen, Germany
+
+This software is licensed under the BSD 3-Clause "New" or "Revised" License.
+A copy of the license should have been distributed with this software in the
+LICENSE file. If not, see <https://opensource.org/licenses/BSD-3-Clause>.
+--> 
+{% endblock copyright %}
+    
+
+{% block title %}
+    Tvastar Documentation
+{% endblock title %}
+
+{% block navbar_txt_color %}white{% endblock navbar_txt_color %}
+
+{% block navbar_bg_color %}#1080a8{% endblock navbar_bg_color %}
+
+{% block body_padding_top %}60px{% endblock body_padding_top %}
+
+{% block body_padding_bottom %}70px{% endblock body_padding_bottom %}
+
+{% block head %}
+{{ deps.include_dt_deps() }}
+{{ deps.include_bp_deps() }}
+{% endblock head %}
+
+{% block brand_url %}
+{{ url_for('tvastar_docs.index') }}
+{% endblock brand_url %}
+
+{% block brand_name %}
+    Tvastar
+{% endblock brand_name %}
+
+{% block navbar_left %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('tvastar_docs.index') }}">About</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Macros
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('tvastar_docs.cards') }}">Cards</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('tvastar_docs.tables') }}">Tables</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('tvastar_docs.modals') }}">Modals</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('tvastar_docs.pr_boxplots') }}">PR Boxplots</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('tvastar_docs.dfg') }}">DFG</a></li>
+        </ul>
+    </li>
+{% endblock navbar_left %}
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}
+    &copy; 2026 Tvastar Application
+{% endblock footer %}
+
+{% block end_scripts %}
+{% endblock %}
+
+
+    
+    

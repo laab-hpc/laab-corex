@@ -1,0 +1,105 @@
+{# 
+  Tvastar base template
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+
+<!-- 
+Required dep:
+indluce_dt_deps from 'tvst-macros/dependencies.html' 
+-->
+{% macro render_dt(table_id, table_class, page_length, default_filter=false) %}
+    <table id="{{ table_id }}" class="{{ table_class }}">
+        {{ caller() }}
+    </table>
+
+    <script>
+        $(document).ready( function () {
+            var table_exp = $('#{{ table_id }}').DataTable({
+                "orderCellsTop": true, 
+                "pageLength": {{ page_length }},
+            });
+            
+            
+
+            $.fn.dataTable.ext.search.push(makeDtFilter('#{{ table_id }}'));
+
+            {% if not default_filter %}
+
+                $('#{{ table_id }}_wrapper').find('.dt-search').hide(); // hide the global search box
+                $('#{{ table_id }}_wrapper').find('.dt-length').hide(); // hide the global search box
+            {% endif %}
+                
+            $('#{{ table_id }}').find('thead input').on('keyup change', function () {
+                table_exp.draw();
+            
+            });
+        } );
+    </script>
+{% endmacro %}
+
+{% macro render_dt_with_selections(table_id, table_class, page_length, default_filter=false) %}
+    <table id="{{ table_id }}" class="{{ table_class }}">
+        {{ caller() }}
+    </table>
+
+    <input type="hidden" name="tvst-selections" id="{{ table_id }}-selections">
+
+    <script>
+        $(document).ready( function () {
+            var table_exp = $('#{{ table_id }}').DataTable({
+                "orderCellsTop": true, 
+                "pageLength": {{ page_length }},
+            });
+            
+            $.fn.dataTable.ext.search.push(makeDtFilter('#{{ table_id }}'));
+            
+            {% if not default_filter %}
+                $('#{{ table_id }}_wrapper').find('.dt-search').hide(); // hide the global search box
+                $('#{{ table_id }}_wrapper').find('.dt-length').hide(); // hide the global search box
+            {% endif %}
+
+            $('#{{ table_id }}').find('thead input').on('keyup change', function () {
+                table_exp.draw();
+            });
+
+            var tvst_selections = [];
+            // Handle tvst-select-all checkbox click
+            $('#{{ table_id }} .tvst-select-all').on('click', function () {
+                const checked = this.checked;
+                tvst_selections = []; // Reset selections
+
+                // Only affect visible rows (respect filtering + paging)
+                $('#{{ table_id }}').DataTable().rows({ search: 'applied' }).every(function () {
+                    $(this.node()).find('.tvst-select').prop('checked', checked);
+                    if (checked) {
+                        const val = $(this.node()).find('.tvst-select').val();
+                        tvst_selections.push(val);
+                    }
+                });
+                $('#{{ table_id }}-selections').val(tvst_selections.join(','));
+                // console.log('Current selections:', $('#{{ table_id }}-selections').val());
+            });
+
+            //Handle tvst-select prop checked change, add to hidden input tvst-selections (input value) if checked.. otherwise remove from it
+            $('#{{ table_id }}').on('change', '.tvst-select', function () {
+                const val = this.value;
+
+                if (this.checked) {
+                    if (!tvst_selections.includes(val)) {
+                        tvst_selections.push(val);
+                    }
+                } else {
+                    tvst_selections = tvst_selections.filter(function(item) {
+                        return item !== val;
+                    });
+                }
+
+                $('#{{ table_id }}-selections').val(tvst_selections.join(','));
+                // console.log('Current selections:', $('#{{ table_id }}-selections').val());
+            });
+           
+        } );
+    </script>
+{% endmacro %}

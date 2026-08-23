@@ -9,7 +9,7 @@
       <parameter name="toolchain">cuda12.8.0</parameter>
       <parameter name="modules">
 module purge
-module load CUDA/12.8.0
+module load GCC/13.3.0 CUDA/12.8.0
       </parameter>
       <parameter name="compile_opts"></parameter>
     </parameterset>

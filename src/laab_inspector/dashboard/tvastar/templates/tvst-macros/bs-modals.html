@@ -1,0 +1,25 @@
+{# 
+  Tvastar base template
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+
+{% macro render_modal(modal_id, title, dialoag_class='modal-dialog-scrollable') %}
+    <div class="modal fade" id="{{ modal_id }}" tabindex="-1">
+        <div class="modal-dialog {{ dialoag_class }}">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ title }}</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+            </div>
+            <div class="modal-body">
+                {{ caller('body') }}
+            </div>
+            <div class="modal-footer">
+                {{ caller('footer') }}
+            </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,145 @@
+{% extends 'laab_report/base.html' %}
+{% import 'tvst-macros/bs-cards.html' as card_macros %}
+{% import 'tvst-macros/datatables.html' as dt_macros %}
+{% import 'tvst-macros/pr-boxplots.html' as bp_macros %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    {% call card_macros.render_card_basic(
+                title='Step / run details',
+                card_class='',
+                header_class='tvst-card h5'
+    ) %}
+
+        <div class="row">
+            <div class="col-lg-4">
+                <table class="table table-borderless table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td><strong>Step name</strong></td>
+                            <td>{{ name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>System</strong></td>
+                            <td>{{ system }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Library</strong></td>
+                            <td>{{ lib }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Version</strong></td>
+                            <td>{{ version }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Toolchain</strong></td>
+                            <td>{{ toolchain }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interface</strong></td>
+                            <td>{{ interface }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <table class="table table-borderless table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td><strong>Problem Size</strong></td>
+                            <td>{{ prob_size }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Precision</strong></td>
+                            <td>{{ prec }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pinning</strong></td>
+                            <td>{{ pinning }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Options</strong></td>
+                            <td>{{ options }}</td>
+                        </tr>
+
+                        {% for k, v in step_features.items() %}
+                        <tr>
+                            <td><strong>{{ k }}</strong></td>
+                            <td>{{ v }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <table class="table table-borderless table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td><strong>NPE/Work distribution</strong></td>
+                            <td>{{ exp_key.split('/')[0] }}/ {{ exp_key.split('/')[1] }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CB ID</strong></td>
+                            <td>{{ exp_key.split('/')[2] }}</td>
+                        </tr>
+                        {%  for k,v in run_specs.items() %}
+                        <tr>
+                            <td><strong>{{ k }}</strong></td>
+                            <td>{{ v }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><strong>Median exec time (s)</strong></td>
+                            <td>{{ median_exec_time | round(5) }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Median Perf (GFLOPS/s)</strong></td>
+                            <td>{{ median_compute_perf | round(5) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endcall %} 
+</div>
+
+<div class="container-fluid py-4">
+{% call card_macros.render_card_basic(
+    title='Host Info',
+    header_class='tvst-card fst-italic'
+) %}
+
+    {% call dt_macros.render_dt(
+        table_id='host_info_table',
+        table_class='tvst-table display',
+        page_length=10,
+    ) %}
+
+    <thead>
+        <tr>
+            {% set first_host_specs = host_specs | first %}
+            {% for k, v in first_host_specs.items() %}
+                <th>{{ k }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for k, v in first_host_specs.items() %}
+                <th><input type="text" data-col="{{ loop.index0 }}" placeholder="filter"></th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in host_specs %}
+        <tr>
+            {% for v in row.values() %}
+                <td>{{ v }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% endcall %}
+{% endcall %}
+</div>
+
+
+{% endblock content %}

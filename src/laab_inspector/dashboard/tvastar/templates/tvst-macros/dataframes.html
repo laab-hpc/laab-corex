@@ -1,0 +1,108 @@
+{# 
+  Tvastar base template
+
+  SPDX-FileCopyrightText: 2026 Aravind Sankaran
+  SPDX-License-Identifier: BSD-3-Clause
+#}
+
+<!-- 
+ Example data
+     col_schema = [
+        {"id": "name", "label": "Name", "type": "string"},
+        {"id": "age", "label": "Age", "type": "integer"},
+        {"id": "city", "label": "City", "type": "string"},
+        {"id": "score", "label": "Score", "type": "decimal"},
+    ]
+
+    # DataFrame uses IDs, not labels
+    records = [
+        {"name": "Alice",   "age": 30, "city": "New York",    "score": 85.0243834},
+        {"name": "Bob",     "age": 25, "city": "Los Angeles", "score": 90.08234},
+        {"name": "Charlie", "age": 35, "city": "Chicago",     "score": 78.762342},
+        {"name": "Diana",   "age": 28, "city": "Miami",       "score": 92.927324},
+        {"name": "Ethan",   "age": 32, "city": "Seattle",     "score": 88.27364},
+    ]
+    
+    pk = "name"
+-->
+{% macro render_df(col_schema, records, round=4) %}
+            <thead>
+                <tr>
+                    {% for col in col_schema %}
+                    <th>{{ col.label }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in records %}
+                <tr>
+                    {% for col in col_schema %}
+                        {% if col.type == 'decimal' %}
+                            <td>{{ row[col.id] | round(round) }}</td>
+                        {% else %}
+                            <td>{{ row[col.id] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+{% endmacro %}
+
+{% macro render_df_with_filters(col_schema, records, round=4) %}
+            <thead>
+                <tr>
+                    {% for col in col_schema %}
+                    <th>{{ col.label }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for col in col_schema %}
+                    <th><input type="text" data-col="{{ loop.index0 }}" placeholder="filter"></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in records %}
+                <tr>
+                    {% for col in col_schema %}
+                        {% if col.type == 'decimal' %}
+                            <td>{{ row[col.id] | round(round) }}</td>
+                        {% else %}
+                            <td>{{ row[col.id] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+{% endmacro %}
+
+{% macro render_df_with_selections(col_schema, records, pk, round=4) %}
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for col in col_schema %}
+                    <th>{{ col.label }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th><input type="checkbox" class="tvst-select-all"></th>
+                    {% for col in col_schema %}
+                    <th><input type="text" data-col="{{ loop.index }}" placeholder="filter"></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in records %}
+                <tr>
+                    <td><input type="checkbox" class="tvst-select" value="{{ row[pk] }}"></td>
+                    {% for col in col_schema %}
+                        {% if col.type == 'decimal' %}
+                            <td>{{ row[col.id] | round(round) }}</td>
+                        {% else %}
+                            <td>{{ row[col.id] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+{% endmacro %}

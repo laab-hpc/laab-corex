@@ -1,0 +1,10 @@
+{% extends 'laab_report/base.html' %}
+
+{% block content %}
+    <div class="container-fluid py-4">
+        <h4>Error: {{ code }}</h4>
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    </div>
+{% endblock content %}

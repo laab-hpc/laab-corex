@@ -1,0 +1,37 @@
+/* Style the filter input fields */
+.tvst-table thead input {
+    width: 80%;
+    padding: 6px;
+    margin: 2px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.tvst-table thead tr{
+    background-color: var(--navbar_bg_color);
+}
+
+.tvst-table thead th {
+  position: sticky !important;
+  top: 0px;
+  font-weight: bold;
+  color: var(--navbar_txt_color);
+  border-color: var(--navbar_bg_color) !important;
+  text-align: left !important;
+}
+
+input.tvst-select-all {
+    width: 13px !important;
+    height: 13px !important;
+}
+
+input.tvst-select {
+    width: 13px !important;
+    height: 13px !important;
+}
+
+.tvst-card {
+    color: var(--navbar_txt_color);
+    background-color: var(--navbar_bg_color);
+}
