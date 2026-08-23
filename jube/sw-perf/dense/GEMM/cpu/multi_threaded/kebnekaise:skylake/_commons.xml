@@ -2,8 +2,9 @@
 <jube>
     <parameterset name="param_set">
         <parameter name="system">kebnekaise:skylake</parameter>
-        <parameter name="src">/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-core/src/benchmark_codes/dense/GEMM/cpu/multi_threaded/cblas/src</parameter>
-        <parameter name="inputs_dir">/pfs/proj/nobackup/fs/projnb10/aravind/LAAB/benchmarks/laab-core/inputs</parameter>
+        <parameter name="root">/proj/nobackup/aravind/LAAB-HPC/benchmarks/laab-corex</parameter>
+        <parameter name="src">${root}/src/benchmark_codes/dense/GEMM/cpu/multi_threaded/cblas/src</parameter>
+        <parameter name="inputs_dir">${root}/inputs</parameter>
         <parameter name="nthreads" type="int">1,4,14</parameter>
         <parameter name="reps">10</parameter>
         <parameter name="account_config">
@@ -12,9 +13,7 @@
         </parameter>
         <parameter name="pinning">--cpu_bind=cores --distribution=block:block</parameter>
       <parameter name="laab_postprocess_deps">
-module purge
-module load GCC/14.3.0 Python/3.13.5
-source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activate
+source ${root}/venvs/laab-kebnekaise/activate.sh
        </parameter>
     </parameterset>
 
@@ -25,7 +24,7 @@ source /proj/nobackup/aravind/LAAB/inspectors/laab_inspector/venv-prod/bin/activ
         <copy>../laab_process.in</copy>
         <copy target_dir="../../">${src}</copy>
         <copy target_dir="../../example">${src}/../test/*.sh</copy>
-        <copy target_dir="../../inputs">${src}/../inputs/generate_input_matrices.sh</copy>
+        <copy target_dir="../../inputs">${inputs_dir}/generate_dense_matrices_3K.sh</copy>
         </fileset>
     </files>
 

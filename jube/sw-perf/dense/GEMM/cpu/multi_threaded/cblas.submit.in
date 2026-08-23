@@ -34,14 +34,6 @@ srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M3000x3000
 srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M3000x3000-float32-gen.dense -B $INPUTS_DIR/dense/M3000x3000-float32-gen.dense --reps "$REPS" --tag "fp32"
 srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M3000x3000-complex128-gen.dense -B $INPUTS_DIR/dense/M3000x3000-complex128-gen.dense --reps "$REPS" --tag "cmplx128"
 
-srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M6000x100-float64-gen.dense -B $INPUTS_DIR/dense/M100x100-float64-gen.dense --reps "$REPS" --tag "fp64-thin"
-srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M6000x100-float32-gen.dense -B $INPUTS_DIR/dense/M100x100-float32-gen.dense --reps "$REPS" --tag "fp32-thin"
-srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M6000x100-complex128-gen.dense -B $INPUTS_DIR/dense/M100x100-complex128-gen.dense --reps "$REPS" --tag "cmplx128-thin"
-
-srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M6000x100-float64-gen.dense -B $INPUTS_DIR/dense/M100x6000-float64-gen.dense --reps "$REPS" --tag "fp64-cov"
-srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M6000x100-float32-gen.dense -B $INPUTS_DIR/dense/M100x6000-float32-gen.dense --reps "$REPS" --tag "fp32-cov"
-srun -c $NT #PINNING# "$LAAB_BUILD_DIR/gemm.exe" -A $INPUTS_DIR/dense/M6000x100-complex128-gen.dense -B $INPUTS_DIR/dense/M100x6000-complex128-gen.dense --reps "$REPS" --tag "cmplx128-cov"
-
 rm -rf $LAAB_BUILD_DIR
 
 bash laab_process.sh
