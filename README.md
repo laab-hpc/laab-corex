@@ -13,4 +13,4 @@ This is open-source software distributed under GNU AGPL-3.0 License. For more in
 
 ## Acknowledgement
 
-This work was developed as a component of the LAAB-HPC framework which was supported by the Juelich Supercomputing Center at Forschungszentrum Jeulich, Germany through the BMBF project 01-1H1-6013 AP6-NRW Anwenderunterst ̈utzung SiVeGCS, the eSSENCE Programme under the Swedish Government’s Strategic Research Initiative, and RWTH Aachen University, Germany through the DFG project IRTG-2379. 
+This work was developed as a component of the LAAB-HPC framework which was supported by the Juelich Supercomputing Center at Forschungszentrum Juelich, Germany through the BMBF project 01-1H1-6013 AP6-NRW Anwenderunterst ̈utzung SiVeGCS, the eSSENCE Programme under the Swedish Government’s Strategic Research Initiative, and RWTH Aachen University, Germany through the DFG project IRTG-2379. 
