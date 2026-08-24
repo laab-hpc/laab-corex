@@ -61,7 +61,6 @@ Makefile.in
 *.err
 core
 core.*
-profile.*
 
 # Python
 __pycache__/
